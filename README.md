@@ -1,6 +1,6 @@
 # Senior Capstone Project
 
-Aidan Henbest, Lisa Hunt, and Angelo Amato\
+Aidan Henbest, Lisa Hunt, and Girolamo (Angelo) Amato\
 Dr. Bixler\
 Senior Capstone-CS\
 06 June 2023
