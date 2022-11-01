@@ -1,1 +1,2 @@
-# senior-capstone
+# Senior Capstone
+# Clean Ocean Action App
