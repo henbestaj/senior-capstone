@@ -21,7 +21,7 @@
   </ol>
 </details>
 
-### About The Project
+### About
 > Our plan is to create a website for Project Terrapin that regularly updates with the statistics on the growth of the hatchlings cared for both at MATES and other affiliated schools. We will use the measurement data for the growing terrapins and, using Python and JavaScript, create different graphs to display the data. This website will be public and linked to the main [Project Terrapin website](https://www.projectterrapin.org/). The site will update automatically when new data is added from recent measurements.
 > Our project will help to raise awareness of the dangers that face the Northern Diamondback Terrapin species. They are a keystone species in the Barnegat Bay, meaning they are essential to the survival of the ecosystem. Our website will hopefully inspire others to get involved in the protection of terrapins, and potentially let them track the growth of hatchlings they may have found, giving them a more personal connection to the turtle(s) they helped to save.
 
@@ -50,33 +50,27 @@
 
 ### Usage
 > txt
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Roadmap
 > txt
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Contributing
 >  txt
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### License
 > txt
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Contact
 >  Aidan Henbest - henbestaj@gmail.com\
 >  Lisa Hunt - lhiusnat@gmail.com\
 >  Angelo Amato - gangeloamato@gmail.com
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Acknowledgments
 > txt
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- MARKDOWN LINKS & IMAGES -->
