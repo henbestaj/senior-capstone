@@ -1,0 +1,47 @@
+/* Add a black background color to the top navigation */
+body{
+    background-color: rgb(202,224,228);
+}
+.topnav {
+    background-color: rgb(226,136,23);
+    overflow: hidden;
+    grid-area: 'nav';
+  }
+
+.grid-container{
+  display:grid;
+  grid-template-areas:"title signIn" "nav nav";
+}
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: rgb(243,167,67);
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color:rgb(26,82,94);
+    color: white;
+  }
+
+  #signIn{
+    background-color: rgb(26,82,94);
+    border-radius: 10px;
+    height: 30px;
+    width:70px;
+    grid-area:'signIn';
+  }
+  .heading{
+    display:inline;
+    grid-area: 'title';
+  }
