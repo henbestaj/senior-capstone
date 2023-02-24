@@ -1,16 +1,32 @@
-/* Add a black background color to the top navigation */
+/* Add a light blue background color to the top navigation */
 body{
     background-color: rgb(202,224,228);
 }
-.topnav {
-    background-color: rgb(226,136,23);
-    overflow: hidden;
-    grid-area: 'nav';
-  }
 
+/*creates layout grid*/
 .grid-container{
   display:grid;
-  grid-template-areas:"title signIn" "nav nav";
+  width:100%;
+  height: 10px;
+  grid-template-areas:"logo title signIn" "nav nav nav";
+  grid-template-rows: 100px 47px ;
+  grid-template-columns: 120px 70% 30%;
+}
+
+/*makes buttons orangee*/
+.topnav {
+  background-color: rgb(226,136,23);
+  overflow: hidden;
+  grid-area:nav;
+  }
+/*Formats the logo in the top left-hand corner*/ 
+#logo{
+  display:inline;
+  grid-area:logo;
+  height : 100px;
+  width:100px;
+  vertical-align:middle;
+
 }
   /* Style the links inside the navigation bar */
   .topnav a {
@@ -20,6 +36,7 @@ body{
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    display:inline;
   }
   
   /* Change the color of links on hover */
@@ -37,11 +54,20 @@ body{
   #signIn{
     background-color: rgb(26,82,94);
     border-radius: 10px;
-    height: 30px;
-    width:70px;
-    grid-area:'signIn';
+    height: 50px;
+    width: 120px;
+    grid-area:signIn;
+    align-content: center;
+    vertical-align:middle;
+    border-color: rgb(26,82,94);
+    color:white;
+
   }
+
   .heading{
-    display:inline;
-    grid-area: 'title';
+    grid-area: title;
+    color: rgb(26,82,94);
+    font-size:50px;
+    vertical-align:middle;
   }
+
