@@ -66,17 +66,16 @@ body{
     font-size: 17px;
     margin-top:auto;
     margin:auto;
-    box-shadow: 0px 4px;
+    
   }
   #signIn:hover {
     cursor:pointer;
     text-decoration: underline;
-
   }
   #signIn:active {
-    box-shadow: 0px 0px;
-    background-color:rgb(111, 207, 229);
+    background-color:rgb(65, 145, 163);
     color: black;
+    text-decoration: none;
   }
 /*styles headings*/
   .heading{
