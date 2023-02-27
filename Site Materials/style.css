@@ -16,18 +16,19 @@ body{
 /*makes buttons orangee*/
 .topnav {
   background-color: rgb(226,136,23);
-  overflow: hidden;
+  overflow: auto;
   grid-area:nav;
+  width:100%;
   }
+
 /*Formats the logo in the top left-hand corner*/ 
 #logo{
   display:inline;
   grid-area:logo;
   height : 100px;
   width:100px;
-  vertical-align:middle;
-
 }
+
   /* Style the links inside the navigation bar */
   .topnav a {
     float: left;
@@ -37,6 +38,8 @@ body{
     text-decoration: none;
     font-size: 17px;
     display:inline;
+    align-items: center;
+    width:14%;
   }
   
   /* Change the color of links on hover */
@@ -58,16 +61,16 @@ body{
     width: 120px;
     grid-area:signIn;
     align-content: center;
-    vertical-align:middle;
     border-color: rgb(26,82,94);
     color:white;
-
+    font-size: 17px;
+    margin-top:auto;
+    margin:auto;
   }
 
   .heading{
     grid-area: title;
     color: rgb(26,82,94);
-    font-size:50px;
-    vertical-align:middle;
+    font-size: 30pt;
   }
 
