@@ -53,7 +53,7 @@ body{
     background-color:rgb(26,82,94);
     color: white;
   }
-
+/*sign in button style*/
   #signIn{
     background-color: rgb(26,82,94);
     border-radius: 10px;
@@ -67,7 +67,7 @@ body{
     margin-top:auto;
     margin:auto;
   }
-
+/*styles headings*/
   .heading{
     grid-area: title;
     color: rgb(26,82,94);
