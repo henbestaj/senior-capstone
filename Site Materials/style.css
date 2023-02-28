@@ -8,15 +8,15 @@ body{
   display:grid;
   width: 100%;
   height: 10px;
-  grid-template-areas:"logo title search signIn" "nav nav nav nav";
+  grid-template-areas:"logo title signin" "nav nav nav";
   grid-template-rows: 100px 50px;
-  grid-template-columns: 120px 67% 3% 30%;
+  grid-template-columns: 120px 70% 30%;
 }
 
 /*makes buttons orange*/
 .topnav {
   background-color: rgb(226,136,23);
-  overflow: hidden;
+  overflow:auto;
   grid-area:nav;
   width:90%;
   }
@@ -38,12 +38,14 @@ body{
   border: none;
   height: 25px;
   width: 25px;
-  grid-area:search;
-  align-content: right;
-  justify-content: right;
-  justify-self: right;
+  grid-area:signin;
+  justify-content:center;
+  justify-self: center;
+  justify-items: center;
   margin-top: auto;
-  margin: auto;
+  margin-bottom: auto;
+  margin-right: 175px;
+  
 
 }
 /* search hover style*/
@@ -84,12 +86,12 @@ body{
 
   
 /*sign in button style*/
-  #signIn{
+  #signin{
     background-color: rgb(26,82,94);
     border-radius: 10px;
     height: 50px;
     width: 120px;
-    grid-area:signIn;
+    grid-area:signin;
     align-content: center;
     border-color: rgb(26,82,94);
     color:white;
@@ -100,12 +102,13 @@ body{
   }
 
 /*sign in hover and active style*/
-  #signIn:hover {
+  #signin:hover {
     cursor:pointer;
     background-color:rgb(45, 125, 143);
+    text-decoration: underline;
 
   }
-  #signIn:active {
+  #signin:active {
     background-color:rgb(65, 145, 163);
     color: black;
     text-decoration: none;
