@@ -1,5 +1,6 @@
 from django.db import models
-import datetime
+from django.utils import timezone
+from django.utils import timezone
 
 # Create your models here.
 class Turtle(models.Model):
@@ -9,7 +10,7 @@ class Turtle(models.Model):
     return self.r_num + '-' + self.hatchling_num
 
 class Measurement(models.Model):
-  date = models.DateField(default = datetime.date.today())
+  date = models.DateField(default = timezone.now)
   carapace_length = models.FloatField()
   carapace_width = models.FloatField()
   plastron_length = models.FloatField()
@@ -17,4 +18,4 @@ class Measurement(models.Model):
   mass = models.FloatField()
   turtle = models.ForeignKey(Turtle, on_delete = models.CASCADE)
   def __str__(self):
-    return self.turtle.r_num + '-' + self.turtle.hatchling_num + ': ' + self.date
+    return self.turtle.r_num + "-" + self.turtle.hatchling_num + ": " + self.date
