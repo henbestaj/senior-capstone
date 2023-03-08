@@ -1,31 +1,37 @@
-<!DOCTYPE html>
-{% load static %}
+<html>
+    {% load static %}
 
-<head>
-    <title>TerrapinTracker</title>
-    {% block head %}
-    {% endblock %}
-</head>
+    <head>
+        <link rel="stylesheet" href="{% static 'turtles/style.css' %}">
+        {% block head %}
+        {% endblock %}
+    </head>
 
-<body>
-    <div class = grid-container> 
-        <img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'>
-        <h1 class = 'heading'>TerrapinTracker</h1>
-        <div class="search-container">
-            <form action="/search" method="get">
-                <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
-                <label class="searchbutton" for="searchright" title="Search"><span class="mglass">&#9906;</span></label>
-            </form>
+    <body>
+        <div class = grid-container> 
+            <img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'>
+            <h1 class = 'heading'>TerrapinTracker</h1>
+            <button id = 'signIn' onclick = "signIn()">Sign in</button>
+            <script>
+                function signIn() {
+                    window.location.href="{% url 'signin' %}";
+                }
+            </script>
+            <div class="search-container">
+                <form action="/search" method="get">
+                    <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
+                    <label class="searchbutton" for="searchright" title="Search"><span class="mglass">&#9906;</span></label>
+                </form>
+            </div>
+            <div class="topnav">
+                <a class="" href="{% url 'home' %}">Home</a>
+                <a class="" href="{% url 'about' %}">About</a>
+                <a class="" href="{% url 'current' %}">Current Turtles</a>
+                <a class="" href="{% url 'released' %}">Released Turtles</a>
+                <a class="" href="{% url 'contact' %}">Contact</a>
+            </div>
         </div>
-        <div class="topnav">
-            <a class="active" href="">Home</a>
-            <a href="#">About</a>
-            <a href="#">Active Turtles</a>
-            <a href="#">Released Turtles</a>
-            <a href="#">Archive</a>
-            <a href="#">Contact</a>
-        </div>
-    </div>
-    {% block content %}
-    {% endblock %}
-</body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
