@@ -1,8 +1,9 @@
-<html>
-    {% load static %}
+{% load static %}
 
+<html>
     <head>
         <link rel="stylesheet" href="{% static 'turtles/style.css' %}">
+        <link rel="icon" href="{% static 'turtles/logo.png' %}">
         {% block head %}
         {% endblock %}
     </head>
@@ -24,11 +25,11 @@
                 </form>
             </div>
             <div class="topnav">
-                <a class="" href="{% url 'home' %}">Home</a>
-                <a class="" href="{% url 'about' %}">About</a>
-                <a class="" href="{% url 'current' %}">Current Turtles</a>
-                <a class="" href="{% url 'released' %}">Released Turtles</a>
-                <a class="" href="{% url 'contact' %}">Contact</a>
+                <a class="{{ home_act }}" href="{% url 'home' %}">Home</a>
+                <a class="{{ about_act }}" href="{% url 'about' %}">About</a>
+                <a class="{{ current_act }}" href="{% url 'current' %}">Current Turtles</a>
+                <a class="{{ released_act }}" href="{% url 'released' %}">Released Turtles</a>
+                <a class="{{ contact_act }}" href="{% url 'contact' %}">Contact</a>
             </div>
         </div>
         {% block content %}
