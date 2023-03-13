@@ -1,11 +1,30 @@
 {% extends 'turtles/base.html' %}
+{% load static %}
 
 {% block head %}
 <title>Current Turtles</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="current">
+    <div class="current-title">
+        <head>Turtles by R Number</head>
+    </div>
+    <div class="current-grid">
+        <a class="turtle-grid">
+            <a class="r3" href="">R3</a>
+            <a class="r6" href="">R6</a>
+            <a class="r7" href="">R7</a>
+            <a class="r8" href="">R8</a>
+            <a class="r9" href="">R9</a>
+            <a class="r10" href="">R10</a>
+            <a class="r11" href="">R11</a>
+            <a class="r12" href="">R12</a>
+            <a class="r13" href="">R13</a>
+            <a class="r14" href="">R14</a>
+        </a>
+    </div>
     <div>
         <table class="turtles-table">
             <caption>List of Turtles</caption>
