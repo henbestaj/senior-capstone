@@ -50,7 +50,7 @@ def current(request):
     'about_act': '',
     'current_act': 'active',
     'Turtle': Turtle.objects.all(),
-    'Measurment': Measurement.objects.all(),
+    'Measurment' : Measurement.objects.all(),
   }
   return render(request, 'turtles/current.html', context)
 
