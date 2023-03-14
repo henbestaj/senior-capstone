@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="about-section">
+<div class = "about">
+  <div class="about-section">
     <h1>About Us Page</h1>
     <p>Some text about who we are and what we do.</p>
     <p>Resize the browser window to see that this page is responsive by the way.</p>
@@ -15,7 +16,7 @@
   
   <h2 style="text-align:center">Our Team</h2>
   <div class="row">
-    <div class="column">
+    <div class="column" id = "Angelo">
       <div class="card">
         <img src="{% static 'turtles/Angelo.png' %}" alt="Girolamo (Angelo) Amato" style="width:100%">
         <div class="container">
@@ -29,7 +30,7 @@
     </div>
   
     <div class="column">
-      <div class="card">
+      <div class="card" id = "Aidan">
         <img src="{% static 'turtles/Angelo.png' %}" alt="Aidan Henbest" style="width:100%">
         <div class="container">
           <h2>Aidan Henbest</h2>
@@ -42,7 +43,7 @@
     </div>
   
     <div class="column">
-      <div class="card">
+      <div class="card" id = "Lisa">
         <img src= "{% static 'turtles/Angelo.png' %}" alt="Lisa Hunt" style="width:100%">
         <div class="container">
           <h2>Lisa Hunt</h2>
@@ -54,4 +55,5 @@
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
