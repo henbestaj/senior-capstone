@@ -1,19 +1,7 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-  }
-  
-  html {
-    box-sizing: border-box;
-  }
-  
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-  
+
   .column {
     float: left;
-    width: 33.3%;
+    width: 32%;
     margin-bottom: 16px;
     padding: 0 8px;
   }
@@ -49,14 +37,14 @@ body {
     display: inline-block;
     padding: 8px;
     color: white;
-    background-color: #000;
+    background-color: black;
     text-align: center;
     cursor: pointer;
     width: 100%;
   }
   
   .contact_button:hover {
-    background-color: #555;
+    background-color: grey;
   }
   
   @media screen and (max-width: 650px) {
