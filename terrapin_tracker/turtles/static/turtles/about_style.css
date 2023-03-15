@@ -13,7 +13,7 @@
   
   .about-section {
     text-align: center;
-    background-color: #474e5d;
+    background-color: rgb(26,82,94);
     color: white;
   }
   
@@ -28,7 +28,7 @@
   }
   
   .title {
-    color: grey;
+    color: black;
   }
   
   .contact_button {
@@ -37,14 +37,14 @@
     display: inline-block;
     padding: 8px;
     color: white;
-    background-color: black;
+    background-color: rgb(26,82,94);
     text-align: center;
     cursor: pointer;
     width: 100%;
   }
   
   .contact_button:hover {
-    background-color: grey;
+    background-color: rgb(45, 125, 143);
   }
   
   @media screen and (max-width: 650px) {
@@ -53,3 +53,5 @@
       display: block;
     }
   }
+
+  
