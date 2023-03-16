@@ -9,20 +9,21 @@
 {% block content %}
 <div class = "about">
   <div class="about-section">
-    <h1>About Us Page</h1>
-    <p>Some text about who we are and what we do.</p>
-    <p>Resize the browser window to see that this page is responsive by the way.</p>
+    <h1>About Us</h1>
+    <p class = description>This website is used by Project Terrapin to avoid tracking the growth of hatchlings through spreadsheets; the data is directly input into the website by members.</p>
+    <p class = description>Our project aims to help raise awareness of the dangers that face the Northern Diamondback Terrapin species. They are a keystone species in the Barnegat Bay, meaning they are essential to the survival of the ecosystem. Our website will hopefully inspire others to get involved in the protection of terrapins, and potentially let them track the growth of hatchlings they may have found, giving them a more personal connection to the turtle(s) they helped to save.</p>
   </div>
   
   <h2 style="text-align:center">Our Team</h2>
   <div class="row">
     <div class="column" id = "Angelo">
       <div class="card">
-        <img src="{% static 'turtles/Angelo.png' %}" alt="Girolamo (Angelo) Amato" style="width:100%">
+        <img src="{% static 'turtles/Angelo.png' %}" alt="Girolamo (Angelo) Amato" class = "profile_picture" style="width:100%">
         <div class="container">
           <h2> Angelo Amato</h2>
           <p class="title">MATES Class of 2023</p>
-          <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+          <p>Silly Goose University Class of 2027</p>
+          <p>Computer Science Major</p>
           <p>gangeloamato@gmail.com</p>
           <p><button class="contact_button">Contact</button></p>
         </div>
@@ -31,12 +32,13 @@
   
     <div class="column">
       <div class="card" id = "Aidan">
-        <img src="{% static 'turtles/Angelo.png' %}" alt="Aidan Henbest" style="width:100%">
+        <img src="{% static 'turtles/Aidan.png' %}" alt="Aidan Henbest" class = "profile_picture" style="width:100%">
         <div class="container">
           <h2>Aidan Henbest</h2>
           <p class="title">MATES Class of 2023</p>
-          <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-          <p>mike@example.com</p>
+          <p>Clown College International Class of 2027 </p>
+          <p>Computer Science Major</p>
+          <p>henbestaj@gmail.com</p>
           <p><button class="contact_button">Contact</button></p>
         </div>
       </div>
@@ -44,11 +46,12 @@
   
     <div class="column">
       <div class="card" id = "Lisa">
-        <img src= "{% static 'turtles/Angelo.png' %}" alt="Lisa Hunt" style="width:100%">
+        <img src= "{% static 'turtles/Lisa.png' %}" alt="Lisa Hunt" class = "profile_picture" style="width:100%">
         <div class="container">
           <h2>Lisa Hunt</h2>
           <p class="title">MATES Class of 2023</p>
-          <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+          <p>Brown University Class of 2027</p>
+          <p>Mathmatics Major</p>
           <p>lhiusnat@gmail.com</p>
           <p><button class="contact_button">Contact</button></p>
         </div>
