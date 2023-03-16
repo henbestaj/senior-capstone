@@ -15,6 +15,13 @@
     text-align: center;
     background-color: rgb(26,82,94);
     color: white;
+    margin:auto;
+    width:80%;
+    padding:0px 10px 10px 10px;
+  }
+  p.description{
+    text-align: justify;
+    margin:5px 10px;
   }
   
   .container {
@@ -55,5 +62,6 @@
   }
 
   .profile_picture{
-    height:80% ;
+    height:90%;
+    width:auto;
   }
