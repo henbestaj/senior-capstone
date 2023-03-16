@@ -1,14 +1,16 @@
 from django.db import models
 from django.utils import timezone
-from django.utils import timezone
+from datetime import datetime
 
 # Create your models here.
 class Turtle(models.Model):
   r_num = models.IntegerField(verbose_name = "R Number")
   hatchling_num = models.IntegerField(verbose_name = "Hatchling Number")
   editor = models.TextField(default = "Administrator", verbose_name = "Editor")
+  archived = models.BooleanField(default = False)
   valid_from = models.DateTimeField(default = timezone.now, verbose_name = "Valid From")
-  valid_to = models.DateTimeField(default = None, verbose_name = "Valid To")
+  valid_to = models.DateTimeField(default = datetime.min, verbose_name = "Valid To")
+  previous_turtle = models.ForeignKey('self', null = True, blank = True, default = None, on_delete = models.CASCADE, verbose_name = "Previous Turtle")
   def get_absolute_url(self):
     return "/current/"
   def __str__(self):
@@ -21,10 +23,11 @@ class Measurement(models.Model):
   plastron_length = models.FloatField(verbose_name = "Plastron Length")
   carapace_height = models.FloatField(verbose_name = "Carapace Height")
   mass = models.FloatField(verbose_name = "Mass")
-  turtle = models.ForeignKey(Turtle, on_delete = models.CASCADE, verbose_name = "Turtle")
+  turtle = models.ForeignKey(Turtle, null = True, blank = True, on_delete = models.CASCADE, verbose_name = "Turtle")
   editor = models.TextField(default = "Administrator", verbose_name = "Editor")
   valid_from = models.DateTimeField(default = timezone.now, verbose_name = "Valid From")
-  valid_to = models.DateTimeField(default = None, verbose_name = "Valid To")
+  valid_to = models.DateTimeField(default = datetime.min, verbose_name = "Valid To")
+  previous_measurment = models.ForeignKey('self', null = True, blank = True, default = None, on_delete = models.CASCADE, verbose_name = "Previous Measurment")
   def get_absolute_url(self):
     return "/current/"
   def __str__(self):
