@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Turtle, Measurement
+from django.views.generic.edit import CreateView
+from .forms import *
 
 # Create your views here.
 def home(request):
@@ -56,3 +58,13 @@ def current(request):
 
 def signin(request):
   return render(request, 'turtles/signin.html')
+
+class TurtleCreate(CreateView):
+  model = Turtle
+  form_class = NewTurtleCreateForm
+  template_name = 'turtles/newturtlecreateform.html'
+
+class MeasurementCreate(CreateView):
+  model = Measurement
+  form_class = NewMeasurementCreateForm
+  template_name = 'turtles/newmeasurementcreateform.html'

@@ -13,7 +13,7 @@ class Turtle(models.Model):
   def get_absolute_url(self):
     return "/current/"
   def __str__(self):
-    return self.r_num + "-" + self.hatchling_num
+    return str(self.r_num) + "-" + str(self.hatchling_num)
 
 class Measurement(models.Model):
   date = models.DateField(default = timezone.now, verbose_name = "Date")
@@ -30,4 +30,4 @@ class Measurement(models.Model):
   def get_absolute_url(self):
     return "/current/"
   def __str__(self):
-    return self.turtle.r_num + "-" + self.turtle.hatchling_num + ": " + self.date
+    return str(self.turtle.r_num) + "-" + str(self.turtle.hatchling_num) + ": " + str(self.date)

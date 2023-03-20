@@ -8,10 +8,13 @@
 
 {% block content %}
 <div class="current">
+    <br>
+    <a href="{% url 'TurtleCreate' %}">New Turtle</a>
+    <br>
+    <a href="{% url 'MeasurementCreate' %}">New Measurement</a>
     <div class="current-title">
         <head>Turtles by R Number</head>
     </div>
-    <!-- <img src = "{% static 'turtles/logo.png' %}" id = 'logo'> -->
     <table class="current-table">
         <tr> 
             <td><a class="r3" href="">R3</a></td>
