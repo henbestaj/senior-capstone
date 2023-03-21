@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Turtle, Measurement
+from .models import Turtle, Measurement, Contact
 from django.views.generic.edit import CreateView
 from .forms import *
 
@@ -68,3 +68,8 @@ class MeasurementCreate(CreateView):
   model = Measurement
   form_class = NewMeasurementCreateForm
   template_name = 'turtles/newmeasurementcreateform.html'
+
+class ContactCreate(CreateView):
+  model = Contact
+  form_class = NewContactCreateForm
+  template_name = 'turtles/newcontactcreateform.html'

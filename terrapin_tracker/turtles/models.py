@@ -31,3 +31,8 @@ class Measurement(models.Model):
     return "/current/"
   def __str__(self):
     return str(self.turtle.r_num) + "-" + str(self.turtle.hatchling_num) + ": " + str(self.date)
+
+class Contact(models.Model):
+  subject = models.TextField(default = "", verbose_name = "Subject")
+  email = models.TextField(default = "", verbose_name = "Email")
+  body = models.TextField(default = "", verbose_name = "Body")
