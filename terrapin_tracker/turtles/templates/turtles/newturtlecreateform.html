@@ -1,0 +1,14 @@
+{% extends 'turtles/base.html' %}
+
+{% block head %}
+<title>New Measurement</title>
+{% endblock %}
+
+{% block content %}
+<h1>New Turtle</h1>
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit"/>
+</form>
+{% endblock %}

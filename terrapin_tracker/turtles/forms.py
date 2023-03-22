@@ -11,12 +11,17 @@ class EditTurtleCreateForm(forms.ModelForm):
     model = Turtle
     fields = '__all__'
 
-class NewMeasurmentCreateForm(forms.ModelForm):
+class NewMeasurementCreateForm(forms.ModelForm):
   class Meta:
     model = Measurement
     fields = '__all__'
 
-class EditMeasurmentCreateForm(forms.ModelForm):
+class EditMeasurementCreateForm(forms.ModelForm):
   class Meta:
     model = Measurement
     fields = '__all__'
+
+class NewContactForm(forms.Form):
+  subject = forms.CharField()
+  email = forms.EmailField()
+  body = forms.CharField()

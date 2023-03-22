@@ -9,4 +9,6 @@ urlpatterns = [
   path("about/", about, name="about"),
   path("current/", current, name="current"),
   path("signin/", signin, name="signin"),
+  path("current/TurtleCreate/", TurtleCreate.as_view(), name="TurtleCreate"),
+  path("current/MeasurementCreate/", MeasurementCreate.as_view(), name="MeasurementCreate"),
 ]

@@ -30,4 +30,10 @@
         <button type=submit class="send">Send</button>
     </form>
   </div>
+<form action="/contact/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+ 
 {% endblock %}

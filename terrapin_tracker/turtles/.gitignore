@@ -1,1 +1,3 @@
 __pycache__/
+oauth2_creds.json
+private_settings.py
