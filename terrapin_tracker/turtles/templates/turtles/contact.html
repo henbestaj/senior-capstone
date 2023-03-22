@@ -7,9 +7,9 @@
 
 {% block content %}
 <div class="container">
-    <p style="text-align: center; font-size: 30px; font-weight: bold; padding-top: 30px;">Contact Us</p>
+    <h3 style="text-align: center; font-size: 30px; font-weight: bold; padding-top: 30px;">Contact Us</h3>
   
-    <form method="POST">
+    <!-- <form method="POST">
         {% csrf_token %}
   
         <div class="form-group">
@@ -28,12 +28,13 @@
         </div>
   
         <button type=submit class="send">Send</button>
+    </form> -->
+    <form action="/contact/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" class=submit>
     </form>
   </div>
-<form action="/contact/" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
+
  
 {% endblock %}

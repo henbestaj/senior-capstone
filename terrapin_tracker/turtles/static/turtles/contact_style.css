@@ -4,14 +4,14 @@
     display:block;
     margin:auto auto 10px;
 }
-.form-group{
+p{
     text-indent: 80px;
     color:black;
 }
 textarea{
     resize: none;
 }
-.send {
+.submit {
     background-color: rgb(26,82,94);
     color: white;
     padding: 12px 20px;
@@ -22,6 +22,18 @@ textarea{
     display: block;
   }
   
-.send:hover {
+.submit:hover {
     background-color:rgb(45, 125, 143);  
+}
+
+input{
+    color:black;
+    width:90%;
+    align-items: center;
+    display:block;
+    margin:auto auto 10px;
+}
+
+.subject{
+    color:pink;
 }
