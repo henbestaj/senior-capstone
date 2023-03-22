@@ -1,0 +1,27 @@
+.form-control{
+    width:90%;
+    align-items: center;
+    display:block;
+    margin:auto auto 10px;
+}
+.form-group{
+    text-indent: 80px;
+    color:black;
+}
+textarea{
+    resize: none;
+}
+.send {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:auto;
+    display: block;
+  }
+  
+.send:hover {
+    background-color:rgb(45, 125, 143);  
+}

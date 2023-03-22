@@ -1,8 +1,33 @@
 {% extends 'turtles/base.html' %}
-
+{% load static %}
 {% block head %}
 <title>Contact</title>
+<link rel="stylesheet" href="{% static 'turtles/contact_style.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="container">
+    <p style="text-align: center; font-size: 30px; font-weight: bold; padding-top: 30px;">Contact Us</p>
+  
+    <form method="POST">
+        {% csrf_token %}
+  
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Name</label>
+            <input name="name" type="text" class="form-control" id="name" placeholder="Your name...">
+        </div>
+  
+        <div class="form-group">
+          <label for="exampleFormControlInput1">E-mail</label>
+          <input name="email" type="email" class="form-control" id="email_adress" placeholder="Your email address...">
+        </div>
+  
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Message</label>
+          <textarea rows = 15 name="message" class="form-control" id="message" placeholder="What's on your mind..."></textarea>
+        </div>
+  
+        <button type=submit class="send">Send</button>
+    </form>
+  </div>
 {% endblock %}
