@@ -1,5 +1,5 @@
 from django import forms
-from .models import Turtle, Measurement, Contact
+from .models import Turtle, Measurement
 
 class NewTurtleCreateForm(forms.ModelForm):
   class Meta:
@@ -21,7 +21,7 @@ class EditMeasurementCreateForm(forms.ModelForm):
     model = Measurement
     fields = '__all__'
 
-class NewContactCreateForm(forms.ModelForm):
-  class Meta:
-    model = Contact
-    fields = '__all__'
+class NewContactForm(forms.Form):
+  subject = forms.CharField()
+  email = forms.EmailField()
+  body = forms.CharField()

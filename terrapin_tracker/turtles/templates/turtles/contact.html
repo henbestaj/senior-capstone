@@ -5,5 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'ContactCreate' %}">New Contact</a>
+<form action="/contact/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
 {% endblock %}
