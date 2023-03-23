@@ -8,31 +8,10 @@
 {% block content %}
 <div class="container">
     <h3 style="text-align: center; font-size: 30px; font-weight: bold; padding-top: 30px;">Contact Us</h3>
-  
-    <!-- <form method="POST">
-        {% csrf_token %}
-  
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Name</label>
-            <input name="name" type="text" class="form-control" id="name" placeholder="Your name...">
-        </div>
-  
-        <div class="form-group">
-          <label for="exampleFormControlInput1">E-mail</label>
-          <input name="email" type="email" class="form-control" id="email_adress" placeholder="Your email address...">
-        </div>
-  
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Message</label>
-          <textarea rows = 15 name="message" class="form-control" id="message" placeholder="What's on your mind..."></textarea>
-        </div>
-  
-        <button type=submit class="send">Send</button>
-    </form> -->
     <form action="/contact/" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit" class=submit>
+        <input type="submit" value="Submit" id=submit>
     </form>
   </div>
 
