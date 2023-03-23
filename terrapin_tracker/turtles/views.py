@@ -5,6 +5,18 @@ from .forms import *
 import yagmail
 
 # Create your views here.
+def custom_page_not_found_view(request, exception):
+    return render(request, "turtles/404.html", {})
+
+def custom_error_view(request, exception=None):
+    return render(request, "turtles/500.html", {})
+
+def custom_permission_denied_view(request, exception=None):
+    return render(request, "turtles/403.html", {})
+
+def custom_bad_request_view(request, exception=None):
+    return render(request, "turtles/400.html", {})
+
 def home(request):
   context = {
     'home_act': 'active',
