@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Turtle, Measurement
 from django.views.generic.edit import CreateView
 from .forms import *
@@ -22,6 +22,8 @@ def contact(request):
     if form.is_valid():
       yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "~/oauth2_creds.json")
       yag.send(to = ['henbestaj@gmail.com', 'lhiusnat@gmail.com', 'gangeloamato@gmail.com'], subject = str(form.cleaned_data["subject"]), contents = 'From:\n' + str(form.cleaned_data["email"]) + '\n\nMessage:\n' + str(form.cleaned_data["body"]))
+
+      return redirect('/contactsent/')
   
   else:
     form = NewContactForm()
@@ -36,6 +38,16 @@ def contact(request):
   }
 
   return render(request, 'turtles/contact.html', context)
+
+def contactsent(request):
+  context = {
+    'home_act': '',
+    'contact_act': 'active',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+  }
+  return render(request, 'turtles/contactsent.html', context)
 
 def released(request):
   context = {
