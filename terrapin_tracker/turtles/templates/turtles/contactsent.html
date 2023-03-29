@@ -1,0 +1,17 @@
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>Contact</title>
+<link rel="stylesheet" href="{% static 'turtles/contact_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<br>
+Your message has been sent!
+<br>
+Thank you for contacting us!
+<br>
+<br>
+<a href="{% url 'contact' %}">Go back</a>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>Contact</title>
+<link rel="stylesheet" href="{% static 'turtles/contact_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 style="text-align: center; font-size: 30px; font-weight: bold; padding-top: 30px;">Contact Us</h3>
+    <form action="/contact/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" id=submit>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,85 @@
+.current-table  {
+    display: block; 
+    width: 100%;
+    height: 200px; 
+    margin: auto; 
+    padding: none; 
+    background-color: lightblue;
+    text-align: center;
+    border-spacing: 15px 15px; 
+  }
+  .current-table td {
+
+    border-radius: 10px;
+    height: 160px;
+    width: 120px;
+    align-content: baseline;
+    border: 1px solid black;
+
+  }
+  .current-table tr {
+    height: 100px;
+  }
+  .current-title {
+    font-size: 20pt;
+    display: block;
+    margin: 30px 0px 10px 0px;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  h2 {
+    font-size: 15pt;
+    font-family: sans-serif;
+    text-align: left;
+    margin-right: 50px;
+    text-decoration: none;
+  }
+  
+  
+
+
+  .turtles-table {
+    margin: 500px 0px 30px 30px;
+    width: 90%;
+    font-family: sans-serif;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    align-self: center;
+    display:flex;
+  }
+  
+  .turtles-table thead {
+    display: flex;
+    flex-shrink: 0; 
+    min-width: max-content;
+  }
+  .turtles-table tbody {
+      display: flex;
+  }
+  .turtles-table tr {
+    display: flex;
+    flex-direction: column; 
+    min-width: max-content;
+    flex-shrink: 0;
+  }
+  .turtles-table td, .turtles-table th {
+    display: block;
+  }
+  .turtles-table td {
+    min-width: max-content;
+  }
+  .turtles-table caption {
+    display: block;
+  }
+  
+  /* .turtles-table { border-collapse: collapse; } */
+  .turtles-table td {
+    border: 0.1px solid black; 
+  }
+  .turtles-table th {
+    border: 0.1px solid black;
+    background-color: red;
+    color: white;
+  }
