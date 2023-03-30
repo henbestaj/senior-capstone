@@ -68,7 +68,7 @@ textarea{
     flex-direction: column;
 }
 
-p {
+.sent {
     color: white;
 }
 
