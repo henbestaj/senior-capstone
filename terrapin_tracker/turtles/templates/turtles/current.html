@@ -17,118 +17,20 @@
     </div>
     <div class="r">
         <br>
-        <h2>R Group 3</h2>
-        <table class="current-table" id="r-three">
-                    <tr>
-                        {% for turtle in Turtle %}
-                            {% if turtle.r_num == 3 %}
-                        <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-        </table>
-        <br>
-        <h2>R Group 6</h2>
-        <table class="current-table six">
+        {% for r_num in r_nums %}
+        <h2>R Group {{ r_num.r_num }}</h2>
+        <table class="current-table" id="r">
             <tr>
                 {% for turtle in Turtle %}
-                    {% if turtle.r_num == 6 %}
+                    {% if turtle.r_num == r_num.r_num %}
                 <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
                     {% endif %}
                 {% endfor %}
             </tr>
         </table>
         <br>
-        <h2>R Group 7</h2>
-        <table class="current-table seven">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 7 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-        <h2>R Group 8</h2>
-        <table class="current-table eight">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 8 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-        <h2>R Group 9</h2>
-        <table class="current-table nine">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 9 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-        <h2>R Group 10</h2>
-        <table class="current-table ten">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 10 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-        <h2>R Group 11</h2>
-        <table class="current-table eleven">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 11 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-        <h2>R Group 12</h2>
-        <table class="current-table twelve">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 12 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-        <h2>R Group 13</h2>
-        <table class="current-table thirteen">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 13 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-        <h2>R Group 14</h2>
-        <table class="current-table fourteen">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == 14 %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </table>
-        <br>
-    </div>
-    
+        {% endfor %}
+        <br>    
     
     <div>
         <table class="turtles-table">
