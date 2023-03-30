@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block content %}
+<div class="message">
 <br>
-Your message has been sent!
+<p>Your message has been sent!</p>
+<p>Thank you for contacting us!</p>
 <br>
-Thank you for contacting us!
-<br>
-<br>
-<a href="{% url 'contact' %}">Go back</a>
+</div>
+<a href="{% url 'contact' %}" id="goback">Go back</a>
 
 {% endblock %}
