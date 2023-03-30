@@ -1,0 +1,42 @@
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Current Turtles</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="current">
+    <div>
+        <table class="measurment-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Turtle</th>
+                    <th>Carapace Length</th>
+                    <th>Carapace Width</th>
+                    <th>Plastron Length</th>
+                    <th>Carapace Height</th>
+                    <th>Mass</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for measurment in Measurment %}
+                {% if measurment.turtle.r_num == r and measurment.turtle.hatchling_num == hatchling %}
+                    <tr>
+                        <td>{{ measurment.date }}</td>
+                        <td>{{ measurment.display_turtle }}</td>
+                        <td>{{ measurment.carapace_length }}</td>
+                        <td>{{ measurment.carapace_width }}</td>
+                        <td>{{ measurment.plastron_length }}</td>
+                        <td>{{ measurment.carapace_height }}</td>
+                        <td>{{ measurment.mass }}</td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

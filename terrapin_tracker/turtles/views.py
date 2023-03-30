@@ -95,6 +95,21 @@ def current(request):
 
   return render(request, 'turtles/current.html', context)
 
+def current_turtle(request, r_num, hatchling_num):
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': 'active',
+    'Turtle': Turtle.objects.all(),
+    'Measurment' : Measurement.objects.all(),
+    'r' : int(r_num),
+    'hatchling' : int(hatchling_num),
+  }
+
+  return render(request, 'turtles/current_turtle.html', context)
+
 def signin(request):
   return render(request, 'turtles/signin.html')
 
