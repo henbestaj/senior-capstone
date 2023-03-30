@@ -23,7 +23,7 @@
             <tr>
                 {% for turtle in Turtle %}
                     {% if turtle.r_num == r_num.r_num %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
+                <td><a href="{% url 'current_turtle' r_num.r_num turtle.hatchling_num  %}">{{ r_num.r_num }}-{{ turtle.hatchling_num }}</a></td>
                     {% endif %}
                 {% endfor %}
             </tr>
