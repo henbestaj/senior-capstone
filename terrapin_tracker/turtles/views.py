@@ -32,7 +32,7 @@ def contact(request):
     form = NewContactForm(request.POST)
     
     if form.is_valid():
-      yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "~/oauth2_creds.json")
+      yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "./oauth2_creds.json")
       yag.send(to = ['henbestaj@gmail.com', 'lhiusnat@gmail.com', 'gangeloamato@gmail.com'], subject = str(form.cleaned_data["subject"]), contents = 'From:\n' + str(form.cleaned_data["email"]) + '\n\nMessage:\n' + str(form.cleaned_data["body"]))
 
       return redirect('/contactsent/')
