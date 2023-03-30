@@ -90,6 +90,7 @@ def current(request):
     'current_act': 'active',
     'Turtle': Turtle.objects.all(),
     'Measurment' : Measurement.objects.all(),
+    'r_nums' : Turtle.objects.values('r_num').distinct(),
   }
 
   return render(request, 'turtles/current.html', context)
