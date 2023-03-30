@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "terrapin_tracker.wsgi.application"
+# WSGI_APPLICATION = "terrapin_tracker.wsgi.application"
 
 
 # Database
