@@ -9,9 +9,9 @@
 {% block content %}
 <div class="current">
     <br>
-    <a href="{% url 'TurtleCreate' %}">New Turtle</a>
+    <a href="{% url 'TurtleCreate' %}" class="turtle-button">New Turtle</a>
     <br>
-    <a href="{% url 'MeasurementCreate' %}">New Measurement</a>
+    <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
     <div class="current-title">
         <head>Hatchling Numbers</head>
     </div>
@@ -23,7 +23,7 @@
             <tr>
                 {% for turtle in Turtle %}
                     {% if turtle.r_num == r_num.r_num %}
-                <td>{{ turtle.r_num }}-{{ turtle.hatchling_num }}</td>
+                <td><a href="" class="rnum">{{ turtle.r_num }}-{{ turtle.hatchling_num }}</a></td>
                     {% endif %}
                 {% endfor %}
             </tr>

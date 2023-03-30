@@ -1,7 +1,9 @@
 {% extends 'turtles/base.html' %}
+{% load static %}
 
 {% block head %}
 <title>New Turtle</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
 {% endblock %}
 
 {% block content %}
