@@ -32,7 +32,7 @@ def contact(request):
     form = NewContactForm(request.POST)
     
     if form.is_valid():
-      yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "~/oauth2_creds.json")
+      yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "./oauth2_creds.json")
       yag.send(to = ['henbestaj@gmail.com', 'lhiusnat@gmail.com', 'gangeloamato@gmail.com'], subject = str(form.cleaned_data["subject"]), contents = 'From:\n' + str(form.cleaned_data["email"]) + '\n\nMessage:\n' + str(form.cleaned_data["body"]))
 
       return redirect('/contactsent/')
@@ -90,9 +90,25 @@ def current(request):
     'current_act': 'active',
     'Turtle': Turtle.objects.all(),
     'Measurment' : Measurement.objects.all(),
+    'r_nums' : Turtle.objects.values('r_num').distinct(),
   }
 
   return render(request, 'turtles/current.html', context)
+
+def current_turtle(request, r_num, hatchling_num):
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': 'active',
+    'Turtle': Turtle.objects.all(),
+    'Measurment' : Measurement.objects.all(),
+    'r' : int(r_num),
+    'hatchling' : int(hatchling_num),
+  }
+
+  return render(request, 'turtles/current_turtle.html', context)
 
 def signin(request):
   return render(request, 'turtles/signin.html')
