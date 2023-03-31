@@ -2,8 +2,12 @@
 {% load static %}
 
 {% block head %}
-<title>Current Turtles</title>
-<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+<head>
+  <title>Current Turtles</title>
+  <link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
 {% endblock %}
 
 {% block content %}
@@ -31,7 +35,9 @@
         <br>
         {% endfor %}
         <br>    
-    
+        <body id="viz">
+            <h1>Graph Test:</h1>
+            </body>
     <div>
         <table class="turtles-table">
             <caption>List of Turtles</caption>
@@ -52,6 +58,7 @@
         </table>
     </div>
     <div>
+        
         <table class="measurment-table">
             <thead>
                 <tr>

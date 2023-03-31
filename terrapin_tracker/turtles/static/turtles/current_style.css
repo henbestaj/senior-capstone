@@ -50,6 +50,7 @@
     cursor: pointer;
     background-color: rgb(117, 195, 213);
     text-decoration: underline;
+    color: black;
   }
 
   .rnum {
@@ -64,6 +65,9 @@
 
   .current-table tr {
     height: 100px;
+  }
+  .current-table tr:hover {
+    color: black;
   }
   .current-title {
     font-size: 20pt;
@@ -128,3 +132,15 @@
     background-color: red;
     color: white;
   }
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
+
+.bar {
+ padding-left: 10px;
+ color: #295e61;
+ background: #59eab7;
+ border: 4px solid #ee97ef;
+ font-size: .8em;
+}
