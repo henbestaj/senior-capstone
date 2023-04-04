@@ -3,6 +3,7 @@ from .models import Turtle, Measurement
 from django.views.generic.edit import CreateView
 from .forms import *
 import yagmail
+import matplotlib.pyplot as plt
 
 # Create your views here.
 def custom_page_not_found_view(request, exception):
@@ -82,6 +83,9 @@ def about(request):
   return render(request, 'turtles/about.html', context)
 
 def current(request):
+  plt.plot(list(Measurement.objects.all().values_list('carapace_width', flat = True)), list(Measurement.objects.all().values_list('mass', flat = True)))
+  plt.savefig('./turtles/static/turtles/plot1.png')
+  
   context = {
     'home_act': '',
     'contact_act': '',

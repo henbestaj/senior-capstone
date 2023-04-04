@@ -10,7 +10,7 @@ class Turtle(models.Model):
   valid_from = models.DateTimeField(default = timezone.now, verbose_name = "Valid From")
   valid_to = models.DateTimeField(null = True, blank = True, verbose_name = "Valid To")
   previous_turtle = models.ForeignKey('self', null = True, blank = True, default = None, on_delete = models.CASCADE, verbose_name = "Previous Turtle")
-  
+
   def get_absolute_url(self):
     return "/current/"
   
