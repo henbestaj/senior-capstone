@@ -38,53 +38,5 @@
         <h2>Graph Example:</h2>
         <img src="{% static 'turtles/plot1.png' %}" alt="PLot 1" class = "graph" style="width:50%">
     </div>
-    <div>
-        <table class="turtles-table">
-            <caption>List of Turtles</caption>
-            <thead>
-                <tr>
-                    <th>R Number</th>
-                    <th>Hatchling Number</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for turtle in Turtle %}
-                <tr>
-                    <td>{{ turtle.r_num }}</td>
-                    <td>{{ turtle.hatchling_num }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div>
-        
-        <table class="measurment-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Turtle</th>
-                    <th>Carapace Length</th>
-                    <th>Carapace Width</th>
-                    <th>Plastron Length</th>
-                    <th>Carapace Height</th>
-                    <th>Mass</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for measurment in Measurment %}
-                <tr>
-                    <td>{{ measurment.date }}</td>
-                    <td>{{ measurment.display_turtle }}</td>
-                    <td>{{ measurment.carapace_length }}</td>
-                    <td>{{ measurment.carapace_width }}</td>
-                    <td>{{ measurment.plastron_length }}</td>
-                    <td>{{ measurment.carapace_height }}</td>
-                    <td>{{ measurment.mass }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 </div>
 {% endblock %}

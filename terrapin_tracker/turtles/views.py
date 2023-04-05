@@ -85,6 +85,7 @@ def about(request):
 def current(request):
   plt.plot(list(Measurement.objects.all().values_list('carapace_width', flat = True)), list(Measurement.objects.all().values_list('mass', flat = True)))
   plt.savefig('./turtles/static/turtles/plot1.png')
+  plt.close()
   
   context = {
     'home_act': '',
