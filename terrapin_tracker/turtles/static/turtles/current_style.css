@@ -57,12 +57,12 @@
 
   .rnum {
     text-decoration: none;
-    color: white;
+    color: black;
   }
 
   .rnum:hover {
-    text-decoration: none;
-    color:black;
+    text-decoration: underline;
+    color:rgb(26,82,94);
   }
 
   .current-table tr {
