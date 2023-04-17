@@ -22,7 +22,7 @@
     <div class="r">
         <br>
         {% for r_num in r_nums %}
-        <h2>R Group {{ r_num.r_num }}</h2>
+        <h2><a href="{% url 'current_r' r_num.r_num  %}" class = "rnum">R Group {{ r_num.r_num }}</a></h2>
         <table class="current-table" id="r">
             <tr>
                 {% for turtle in Turtle %}
@@ -36,7 +36,7 @@
         {% endfor %}
         <br>
         <h2>Graph Example:</h2>
-        <img src="{% static 'turtles/plot1.png' %}" alt="PLot 1" class = "graph" style="width:50%">
+        <img src="{% static 'turtles/plot1.png' %}" alt="Plot 1" class = "graph" style="width:50%">
     </div>
 </div>
 {% endblock %}

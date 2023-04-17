@@ -3,6 +3,8 @@ from .models import Turtle, Measurement
 from django.views.generic.edit import CreateView
 from .forms import *
 import yagmail
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 # Create your views here.
@@ -94,7 +96,7 @@ def current(request):
     'about_act': '',
     'current_act': 'active',
     'Turtle': Turtle.objects.all(),
-    'Measurment' : Measurement.objects.all(),
+    'Measurement' : Measurement.objects.all(),
     'r_nums' : Turtle.objects.values('r_num').distinct(),
   }
 
@@ -108,12 +110,38 @@ def current_turtle(request, r_num, hatchling_num):
     'about_act': '',
     'current_act': 'active',
     'Turtle': Turtle.objects.all(),
-    'Measurment' : Measurement.objects.all(),
+    'Measurement' : Measurement.objects.all(),
     'r' : int(r_num),
     'hatchling' : int(hatchling_num),
   }
 
   return render(request, 'turtles/current_turtle.html', context)
+
+def current_r(request, r_num):
+  carapace_width = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == int(r_num):
+      carapace_width.append(measurement.carapace_width)
+  mass = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == int(r_num):
+      mass.append(measurement.mass)
+  plt.plot(carapace_width, mass)
+  plt.savefig('./turtles/static/turtles/plot_r.png')
+  plt.close()
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': 'active',
+    'Turtle': Turtle.objects.all(),
+    'Measurement' : Measurement.objects.all(),
+    'r' : int(r_num),
+  }
+
+  return render(request, 'turtles/current_r.html', context)
 
 def signin(request):
   return render(request, 'turtles/signin.html')

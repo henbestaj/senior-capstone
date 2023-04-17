@@ -17,6 +17,8 @@
     cursor:pointer;
     background-color:rgb(45, 125, 143);
     text-decoration: underline;
+    color: black;
+    
   
   }
 .turtle-button:active {
