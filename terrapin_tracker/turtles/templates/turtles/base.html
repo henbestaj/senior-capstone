@@ -12,7 +12,7 @@
         <div class = grid-container> 
             <a href = "{% url 'home' %}"><img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
             <h1 class = 'heading'>TerrapinTracker</h1>
-            <button id = 'signIn' onclick = "signIn()">Sign in</button>
+            <button id = 'signIn' onclick = "signIn()">Log in</button>
             <script>
                 function signIn() {
                     window.location.href="{% url 'signin' %}";
