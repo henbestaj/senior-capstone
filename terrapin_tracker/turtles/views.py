@@ -127,9 +127,12 @@ def current_r(request, r_num):
     if measurement.turtle.r_num == int(r_num):
       mass.append(measurement.mass)
   plt.plot(carapace_width, mass)
-  plt.savefig('./turtles/static/turtles/plot_r.png')
+  file_path = './turtles/static/turtles/plot_r' + r_num + '.png'
+  plt.savefig(file_path)
   plt.close()
   
+  path = 'turtles/plot_r' + r_num + '.png'
+
   context = {
     'home_act': '',
     'contact_act': '',
@@ -139,6 +142,7 @@ def current_r(request, r_num):
     'Turtle': Turtle.objects.all(),
     'Measurement' : Measurement.objects.all(),
     'r' : int(r_num),
+    'path' : path,
   }
 
   return render(request, 'turtles/current_r.html', context)
