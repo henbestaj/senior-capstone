@@ -118,20 +118,42 @@ def current_turtle(request, r_num, hatchling_num):
   return render(request, 'turtles/current_turtle.html', context)
 
 def current_r(request, r_num):
+  date = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == int(r_num):
+      date.append(measurement.date)
+  carapace_length = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == int(r_num):
+      carapace_length.append(measurement.carapace_length)
   carapace_width = []
   for measurement in Measurement.objects.all():
     if measurement.turtle.r_num == int(r_num):
       carapace_width.append(measurement.carapace_width)
+  plastron_length = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == int(r_num):
+      plastron_length.append(measurement.plastron_length)
+  carapace_height = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == int(r_num):
+      carapace_height.append(measurement.carapace_height)
   mass = []
   for measurement in Measurement.objects.all():
     if measurement.turtle.r_num == int(r_num):
       mass.append(measurement.mass)
-  plt.plot(carapace_width, mass)
-  file_path = './turtles/static/turtles/plot_r' + r_num + '.png'
+  
+  plt.plot(carapace_length, carapace_width, 'go')
+  file_path = './turtles/static/turtles/plot_r' + r_num + 'lengthvswidth.png'
   plt.savefig(file_path)
   plt.close()
-  
-  path = 'turtles/plot_r' + r_num + '.png'
+  path1 = 'turtles/plot_r' + r_num + 'lengthvswidth.png'
+
+  plt.plot(date, carapace_height)
+  file_path = './turtles/static/turtles/plot_r' + r_num + 'datevsheight.png'
+  plt.savefig(file_path)
+  plt.close()
+  path2 = 'turtles/plot_r' + r_num + 'datevsheight.png'
 
   context = {
     'home_act': '',
@@ -142,7 +164,8 @@ def current_r(request, r_num):
     'Turtle': Turtle.objects.all(),
     'Measurement' : Measurement.objects.all(),
     'r' : int(r_num),
-    'path' : path,
+    'path1' : path1,
+    'path2' : path2,
   }
 
   return render(request, 'turtles/current_r.html', context)
