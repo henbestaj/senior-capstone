@@ -151,7 +151,7 @@ def current_r(request, r_num):
   plt.close()
   path1 = 'turtles/plot_r' + r_num + 'lengthvswidth.png'
 
-  plt.plot(date, carapace_height)
+  plt.plot(mass, carapace_height, 'ro')
   file_path = './turtles/static/turtles/plot_r' + r_num + 'datevsheight.png'
   plt.savefig(file_path)
   plt.close()

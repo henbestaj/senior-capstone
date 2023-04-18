@@ -24,7 +24,7 @@ h2{
   text-align: center;
   background-color: rgb(26,82,94);
   color: white;
-  margin: auto auto 20px ;
+  margin: 20px auto 20px auto;
   padding-bottom:20px;
   display: flex;
   justify-content: center;

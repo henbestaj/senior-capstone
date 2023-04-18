@@ -9,7 +9,8 @@
 {% block content %}
 <div class="test">
     {% if user.is_authenticated %}
-    Hello {{ user.username }}!
+    <br>
+    <h1>Hello {{ user.username }}!</h1>
     {% endif %}
 </div>
 {% endblock %}
