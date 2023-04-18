@@ -6,6 +6,8 @@ import yagmail
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
 
 # Create your views here.
 def custom_page_not_found_view(request, exception):
@@ -143,17 +145,21 @@ def current_r(request, r_num):
 
   return render(request, 'turtles/current_r.html', context)
 
-def signin(request):
-  return render(request, 'turtles/signin.html')
+def login(request):
+  return render(request, 'registration/login.html')
 
-class TurtleCreate(CreateView):
+class TurtleCreate(LoginRequiredMixin, CreateView):
   model = Turtle
   form_class = NewTurtleCreateForm
   template_name = 'turtles/newturtlecreateform.html'
   success_url = '/current/'
 
-class MeasurementCreate(CreateView):
+class MeasurementCreate(LoginRequiredMixin, CreateView):
   model = Measurement
   form_class = NewMeasurementCreateForm
   template_name = 'turtles/newmeasurementcreateform.html'
   success_url = '/current/'
+
+def logout_request(request):
+  logout(request)
+  return redirect("home")

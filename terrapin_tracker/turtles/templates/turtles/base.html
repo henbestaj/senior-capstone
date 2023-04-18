@@ -12,12 +12,21 @@
         <div class = grid-container> 
             <a href = "{% url 'home' %}"><img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
             <h1 class = 'heading'>TerrapinTracker</h1>
+            {% if user.is_authenticated %}
+            <button id = 'signIn' onclick = "signOut()">Log out</button>
+            <script>
+                function signOut() {
+                    window.location.href="{% url 'logout' %}";
+                }
+            </script>
+            {% else %}
             <button id = 'signIn' onclick = "signIn()">Log in</button>
             <script>
                 function signIn() {
-                    window.location.href="{% url 'signin' %}";
+                    window.location.href="{% url 'login' %}";
                 }
             </script>
+            {% endif %}
             <div class="search-container">
                 <form action="/search" method="get">
                     <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
