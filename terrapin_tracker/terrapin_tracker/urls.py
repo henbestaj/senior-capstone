@@ -24,4 +24,5 @@ handler400 = 'turtles.views.custom_bad_request_view'
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("turtles.urls")),
+
 ]
