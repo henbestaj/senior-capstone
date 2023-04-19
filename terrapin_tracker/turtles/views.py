@@ -105,6 +105,8 @@ def current(request):
   return render(request, 'turtles/current.html', context)
 
 def current_turtle(request, r_num, hatchling_num):
+  r_num = int(r_num)
+  hatchling_num = int(hatchling_num)
   context = {
     'home_act': '',
     'contact_act': '',
@@ -113,49 +115,52 @@ def current_turtle(request, r_num, hatchling_num):
     'current_act': 'active',
     'Turtle': Turtle.objects.all(),
     'Measurement' : Measurement.objects.all(),
-    'r' : int(r_num),
-    'hatchling' : int(hatchling_num),
+    'r' : r_num,
+    'hatchling' : hatchling_num,
   }
 
   return render(request, 'turtles/current_turtle.html', context)
 
 def current_r(request, r_num):
-  date = []
-  for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == int(r_num):
-      date.append(measurement.date)
-  carapace_length = []
-  for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == int(r_num):
-      carapace_length.append(measurement.carapace_length)
-  carapace_width = []
-  for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == int(r_num):
-      carapace_width.append(measurement.carapace_width)
-  plastron_length = []
-  for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == int(r_num):
-      plastron_length.append(measurement.plastron_length)
-  carapace_height = []
-  for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == int(r_num):
-      carapace_height.append(measurement.carapace_height)
-  mass = []
-  for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == int(r_num):
-      mass.append(measurement.mass)
-  
-  plt.plot(carapace_length, carapace_width, 'go')
-  file_path = './turtles/static/turtles/plot_r' + r_num + 'lengthvswidth.png'
-  plt.savefig(file_path)
-  plt.close()
-  path1 = 'turtles/plot_r' + r_num + 'lengthvswidth.png'
+  if r_num != 'script.js':
+    r_num = int(r_num)
+    date = []
+    for measurement in Measurement.objects.all():
+      if measurement.turtle.r_num == r_num:
+        date.append(measurement.date)
+    carapace_length = []
+    for measurement in Measurement.objects.all():
+      if measurement.turtle.r_num == r_num:
+        carapace_length.append(measurement.carapace_length)
+    carapace_width = []
+    for measurement in Measurement.objects.all():
+      if measurement.turtle.r_num == r_num:
+        carapace_width.append(measurement.carapace_width)
+    plastron_length = []
+    for measurement in Measurement.objects.all():
+      if measurement.turtle.r_num == r_num:
+        plastron_length.append(measurement.plastron_length)
+    carapace_height = []
+    for measurement in Measurement.objects.all():
+      if measurement.turtle.r_num == r_num:
+        carapace_height.append(measurement.carapace_height)
+    mass = []
+    for measurement in Measurement.objects.all():
+      if measurement.turtle.r_num == r_num:
+        mass.append(measurement.mass)
+    
+    plt.plot(carapace_length, carapace_width, 'go')
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvswidth.png'
+    plt.savefig(file_path)
+    plt.close()
 
-  plt.plot(mass, carapace_height, 'ro')
-  file_path = './turtles/static/turtles/plot_r' + r_num + 'datevsheight.png'
-  plt.savefig(file_path)
-  plt.close()
-  path2 = 'turtles/plot_r' + r_num + 'datevsheight.png'
+    plt.plot(mass, carapace_height, 'ro')
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevsheight.png'
+    plt.savefig(file_path)
+    plt.close()
+  
+  path1 = 'turtles/plot_r' + str(r_num) + 'lengthvswidth.png'
+  path2 = 'turtles/plot_r' + str(r_num) + 'datevsheight.png'
 
   context = {
     'home_act': '',
@@ -165,7 +170,7 @@ def current_r(request, r_num):
     'current_act': 'active',
     'Turtle': Turtle.objects.all(),
     'Measurement' : Measurement.objects.all(),
-    'r' : int(r_num),
+    'r' : r_num,
     'path1' : path1,
     'path2' : path2,
   }
