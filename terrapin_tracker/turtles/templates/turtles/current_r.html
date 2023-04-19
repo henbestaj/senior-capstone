@@ -8,8 +8,8 @@
 
 {% block content %}
 <div class="current">
-    <div>
-        <table class="measurment-table">
+    <div class="table-box">
+        <table class="measurement-table">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -37,11 +37,13 @@
                 {% endfor %}
             </tbody>
         </table>
+        </div>
+    <div class = 'graphs'>
         <br>
         <h2>Graph:</h2>
-        <img src="{% static path1 %}" alt="Plot R" class = "graph" style="width:50%">
+        <img src="{% static path1 %}" alt="Plot R" class = "graph" style="width:49%"> <img src="{% static path2 %}" alt="Plot R" class = "graph" style="width:49%">
+
         <br><br><br>
-        <img src="{% static path2 %}" alt="Plot R" class = "graph" style="width:50%">
     </div>
 </div>
 {% endblock %}
