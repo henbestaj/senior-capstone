@@ -155,12 +155,12 @@ def current_r(request, r_num):
     plt.close()
 
     plt.plot(mass, carapace_height, 'ro')
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevsheight.png'
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'massvsheight.png'
     plt.savefig(file_path)
     plt.close()
   
   path1 = 'turtles/plot_r' + str(r_num) + 'lengthvswidth.png'
-  path2 = 'turtles/plot_r' + str(r_num) + 'datevsheight.png'
+  path2 = 'turtles/plot_r' + str(r_num) + 'massvsheight.png'
 
   context = {
     'home_act': '',
