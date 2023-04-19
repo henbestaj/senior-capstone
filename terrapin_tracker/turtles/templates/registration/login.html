@@ -3,13 +3,16 @@
 
 {% block head %}
 <title>Log In</title>
+<link rel="stylesheet" href="{% static 'turtles/login_style.css' %}">
 {% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+<div id = "center-box">
+  <h1 id= heading>Log In</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+  </form>
+</div>
 {% endblock %}

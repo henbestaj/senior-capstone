@@ -1,11 +1,21 @@
+.container{
+    width:90%;
+    height: 70%;
+    margin:10px auto;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
 .form-control{
     width:70%;
     align-items: center;
     display:block;
-    margin:auto auto 10px;
+    margin:10px auto 10px;
 }
 p{
-    text-indent: 80px;
+    text-indent: 5%;
     color:black;
 }
 textarea{
@@ -21,6 +31,7 @@ textarea{
     cursor: pointer;
     margin:auto;
     display: block;
+    width:50%;
   }
   
 #submit:hover {
