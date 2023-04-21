@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from .models import Turtle, Measurement
 from django.views.generic.edit import CreateView
@@ -6,6 +7,9 @@ import yagmail
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+matplotlib.style.use('ggplot')
+import seaborn as sns
+sns.set()
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 
@@ -159,8 +163,16 @@ def current_r(request, r_num):
     plt.savefig(file_path)
     plt.close()
   
+    sns_plot = sns.boxplot(x=date, y=carapace_height)
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevsmass.png'
+    fig = sns_plot.get_figure()
+    fig.savefig(file_path)
+    plt.clf()
+  
   path1 = 'turtles/plot_r' + str(r_num) + 'lengthvswidth.png'
   path2 = 'turtles/plot_r' + str(r_num) + 'massvsheight.png'
+  path3 = 'turtles/plot_r' + str(r_num) + 'datevsmass.png'
+
 
   context = {
     'home_act': '',
@@ -173,6 +185,7 @@ def current_r(request, r_num):
     'r' : r_num,
     'path1' : path1,
     'path2' : path2,
+    'path3' : path3,
   }
 
   return render(request, 'turtles/current_r.html', context)
