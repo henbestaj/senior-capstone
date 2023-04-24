@@ -10,7 +10,7 @@
 <div class="test">
     {% if user.is_authenticated %}
     <br>
-    <h1>Hello {{ user.username }}!</h1>
+    <h1>Hello {{ user.first_name }}!</h1>
     {% endif %}
 </div>
 {% endblock %}
