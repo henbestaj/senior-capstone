@@ -132,6 +132,10 @@ def current_r(request, r_num):
     for measurement in Measurement.objects.all():
       if measurement.turtle.r_num == r_num:
         date.append(measurement.date)
+    turtle = []
+    for measurement in Measurement.objects.all():
+      if measurement.turtle.r_num == r_num:
+        turtle.append(measurement.display_turtle)
     carapace_length = []
     for measurement in Measurement.objects.all():
       if measurement.turtle.r_num == r_num:
@@ -153,25 +157,59 @@ def current_r(request, r_num):
       if measurement.turtle.r_num == r_num:
         mass.append(measurement.mass)
     
-    plt.plot(carapace_length, carapace_width, 'go')
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvswidth.png'
-    plt.savefig(file_path)
-    plt.close()
 
-    plt.plot(mass, carapace_height, 'ro')
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'massvsheight.png'
-    plt.savefig(file_path)
-    plt.close()
-  
-    sns_plot = sns.boxplot(x=date, y=carapace_height)
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevsmass.png'
+    sns_plot = sns.scatterplot(x=carapace_length, y=carapace_width, hue=date)
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvswidthscatter.png'
+    fig = sns_plot.get_figure()
+    fig.savefig(file_path)
+    plt.clf()
+
+    sns_plot = sns.scatterplot(x=plastron_length, y=carapace_height, hue=date)
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvsheightscatter.png'
     fig = sns_plot.get_figure()
     fig.savefig(file_path)
     plt.clf()
   
-  path1 = 'turtles/plot_r' + str(r_num) + 'lengthvswidth.png'
-  path2 = 'turtles/plot_r' + str(r_num) + 'massvsheight.png'
-  path3 = 'turtles/plot_r' + str(r_num) + 'datevsmass.png'
+    sns_plot = sns.boxplot(x=date, y=carapace_height)
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevsheightbox.png'
+    fig = sns_plot.get_figure()
+    fig.savefig(file_path)
+    plt.clf()
+
+    sns_plot = sns.barplot(x=date, y=carapace_length)
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevslengthbar.png'
+    fig = sns_plot.get_figure()
+    fig.savefig(file_path)
+    plt.clf()
+
+    sns_plot = sns.kdeplot(x=carapace_length, y=carapace_width)
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvswidthkde.png'
+    fig = sns_plot.get_figure()
+    fig.savefig(file_path)
+    plt.clf()
+
+    sns_plot = sns.histplot(x=mass, bins='auto')
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'masshist.png'
+    fig = sns_plot.get_figure()
+    fig.savefig(file_path)
+    plt.clf()
+
+    sns_plot = sns.boxplot(x=turtle, y=mass)
+    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'turtlevsheightbox.png'
+    fig = sns_plot.get_figure()
+    fig.savefig(file_path)
+    plt.clf()
+  
+  path1 = 'turtles/plot_r' + str(r_num) + 'lengthvswidthscatter.png'
+  path2 = 'turtles/plot_r' + str(r_num) + 'lengthvsheightscatter.png'
+  path3 = 'turtles/plot_r' + str(r_num) + 'datevsheightbox.png'
+  path4 = 'turtles/plot_r' + str(r_num) + 'datevslengthbar.png'
+  path5 = 'turtles/plot_r' + str(r_num) + 'lengthvswidthkde.png'
+  path6 = 'turtles/plot_r' + str(r_num) + 'masshist.png'
+  path7 = 'turtles/plot_r' + str(r_num) + 'turtlevsheightbox.png'
+
+
+
 
 
   context = {
@@ -186,6 +224,10 @@ def current_r(request, r_num):
     'path1' : path1,
     'path2' : path2,
     'path3' : path3,
+    'path4' : path4,
+    'path5' : path5,
+    'path6' : path6,
+    'path7' : path7,
   }
 
   return render(request, 'turtles/current_r.html', context)

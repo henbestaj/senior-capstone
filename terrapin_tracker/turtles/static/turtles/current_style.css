@@ -14,10 +14,20 @@
 }
 
 .table-box {
-  margin-top: 30px;
+  margin-top: 40px;
   margin-left: 350px;
   text-align: center;
-  
+  background-color: none;
+}
+.measurement-table {
+  border-spacing: 10px 1px;
+}
+.measurement-table td {
+  margin: 1px 10px 1px 10px;
+  align-items: center;
+  align-content: center;
+  border-bottom: 1px black solid;
+  text-align: center;
 }
 .turtle-button:hover {
     cursor:pointer;
@@ -46,6 +56,7 @@
     border-radius: 10px;
     height: 160px;
     width: 120px;
+
     align-content: baseline;
     border: 1px solid black;
     background-color: rgb(65, 145, 163);
@@ -91,53 +102,10 @@
     text-decoration: none;
   }
   
-  
+  .graphs {
+    margin-left: 50px;
+  }
 
-
-  .turtles-table {
-    margin: 500px 0px 30px 30px;
-    width: 90%;
-    font-family: sans-serif;
-    justify-content: center;
-    justify-self: center;
-    align-items: center;
-    align-self: center;
-    display:flex;
-  }
-  
-  .turtles-table thead {
-    display: flex;
-    flex-shrink: 0; 
-    min-width: max-content;
-  }
-  .turtles-table tbody {
-      display: flex;
-  }
-  .turtles-table tr {
-    display: flex;
-    flex-direction: column; 
-    min-width: max-content;
-    flex-shrink: 0;
-  }
-  .turtles-table td, .turtles-table th {
-    display: block;
-  }
-  .turtles-table td {
-    min-width: max-content;
-  }
-  .turtles-table caption {
-    display: block;
-  }
-  
-  /* .turtles-table { border-collapse: collapse; } */
-  .turtles-table td {
-    border: 0.1px solid black; 
-  }
-  .turtles-table th {
-    border: 0.1px solid black;
-    background-color: red;
-    color: white;
-  }
 
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
@@ -150,3 +118,33 @@
  border: 4px solid #ee97ef;
  font-size: .8em;
 }
+
+#goback {
+  background-color: rgb(26,82,94);
+  border-radius: 10px;
+  height: 15px;
+  width: 60px;
+  display: block;
+  text-align: center;
+  text-justify: center;
+  border-color: rgb(26,82,94);
+  color:white;
+  font-size: 15px;
+  margin-top:10px;
+  /* margin-left: auto;
+  margin-right: auto; */
+  padding: 10px;
+  text-decoration: none;
+}
+
+#goback:hover {
+    cursor:pointer;
+    background-color:rgb(45, 125, 143);
+    text-decoration: underline;
+  
+  }
+#goback:active {
+    background-color:rgb(65, 145, 163);
+    color: black;
+    text-decoration: none;
+  }

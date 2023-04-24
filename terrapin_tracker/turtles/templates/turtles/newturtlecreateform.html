@@ -1,7 +1,9 @@
 {% extends 'turtles/base.html' %}
+{% load static %}
 
 {% block head %}
 <title>New Measurement</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -11,4 +13,5 @@
   {{ form.as_p }}
   <input type="submit" value="Submit"/>
 </form>
+<a href="{% url 'current' %}" id="goback">Go back</a>
 {% endblock %}
