@@ -1,8 +1,8 @@
 #center-box{
     width: 60%;
     height: 45%;
-    margin: 80px auto;
-    padding: 10px;
+    margin: 80px auto 40px;
+    padding: 50px;
     border: 1px solid #ccc;
     background: #eee;
     border-radius: 10px;
@@ -14,7 +14,6 @@
     font-weight: bold;
     color: #333;
 }   
-
 
 p{
     text-indent: 15%;
@@ -49,11 +48,19 @@ button {
     display: block;
     width:70%;
   }
-  ::marker{
+::marker{
     list-style: none;
     padding:0px;
   }
-  li{
+
+li{
     color:red;
     font-weight: bold;
+    text-align: center;
   }
+
+/*hides bullets in the list*/
+ul{
+    list-style: none;
+    padding:0px;
+}

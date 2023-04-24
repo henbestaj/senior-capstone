@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="container">
-    <h3 style="text-align: center; font-size: 30px; font-weight: bold; padding-top: 30px;">Contact Us</h3>
+    <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Contact Us</h3>
     <form action="/contact/" method="post">
         {% csrf_token %}
         {{ form.as_p }}
