@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone, dateformat
 from django.shortcuts import render, redirect
 from .models import Turtle, Measurement
 from django.views.generic.edit import CreateView
@@ -15,16 +15,16 @@ from django.contrib.auth import logout
 
 # Create your views here.
 def custom_page_not_found_view(request, exception):
-    return render(request, "turtles/404.html", {})
+  return render(request, "turtles/404.html", {})
 
 def custom_error_view(request, exception=None):
-    return render(request, "turtles/500.html", {})
+  return render(request, "turtles/500.html", {})
 
 def custom_permission_denied_view(request, exception=None):
-    return render(request, "turtles/403.html", {})
+  return render(request, "turtles/403.html", {})
 
 def custom_bad_request_view(request, exception=None):
-    return render(request, "turtles/400.html", {})
+  return render(request, "turtles/400.html", {})
 
 def home(request):
   context = {
@@ -34,6 +34,7 @@ def home(request):
     'about_act': '',
     'current_act': '',
   }
+
   return render(request, 'turtles/home.html', context)
 
 def contact(request):
@@ -68,6 +69,7 @@ def contactsent(request):
     'about_act': '',
     'current_act': '',
   }
+
   return render(request, 'turtles/contactsent.html', context)
 
 def released(request):
@@ -78,6 +80,7 @@ def released(request):
     'about_act': '',
     'current_act': '',
   }
+
   return render(request, 'turtles/released.html', context)
 
 def about(request):
@@ -88,13 +91,16 @@ def about(request):
     'about_act': 'active',
     'current_act': '',
   }
+
   return render(request, 'turtles/about.html', context)
 
 def current(request):
   plt.plot(list(Measurement.objects.all().values_list('carapace_width', flat = True)), list(Measurement.objects.all().values_list('mass', flat = True)))
   plt.savefig('./turtles/static/turtles/plot1.png')
   plt.close()
-  
+
+  Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
+
   context = {
     'home_act': '',
     'contact_act': '',
@@ -207,10 +213,6 @@ def current_r(request, r_num):
   path5 = 'turtles/plot_r' + str(r_num) + 'lengthvswidthkde.png'
   path6 = 'turtles/plot_r' + str(r_num) + 'masshist.png'
   path7 = 'turtles/plot_r' + str(r_num) + 'turtlevsheightbox.png'
-
-
-
-
 
   context = {
     'home_act': '',
