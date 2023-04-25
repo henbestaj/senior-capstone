@@ -105,6 +105,9 @@
   .graphs {
     margin-left: 50px;
   }
+  .massgraphs {
+    margin-left: 200px;
+  }
 
 
 @import url('https://fonts.googleapis.com/css?family=Raleway');
