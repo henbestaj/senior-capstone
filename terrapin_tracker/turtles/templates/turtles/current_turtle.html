@@ -7,6 +7,11 @@
 {% endblock %}
 
 {% block content %}
+{% if no_turtles %}
+<div class="current-title">
+    <head>No Measurements Are Available for This Turtle, Sorry!</head>
+</div>
+{% else %}
 <div class="current">
     <div>
         <table class="measurment-table">
@@ -23,7 +28,7 @@
             </thead>
             <tbody>
                 {% for measurement in Measurement %}
-                {% if measurement.turtle.r_num == r and measurement.turtle.hatchling_num == hatchling %}
+                {% if measurement.turtle.r_num == r and measurement.turtle.hatchling_num == hatchling and measurement.turtle.year_archived == year_archived %}
                     <tr>
                         <td>{{ measurement.date }}</td>
                         <td>{{ measurement.display_turtle }}</td>
@@ -39,4 +44,5 @@
         </table>
     </div>
 </div>
+{% endif %}
 {% endblock %}

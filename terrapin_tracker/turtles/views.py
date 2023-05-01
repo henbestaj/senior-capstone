@@ -145,150 +145,198 @@ def current(request):
     'Turtle': Turtle.objects.filter(archived = False),
     'Measurement' : measurements,
     'r_nums' : r_nums,
+    'year_archived' : 0,
   }
 
   return render(request, 'turtles/current.html', context)
 
-def current_turtle(request, r_num, hatchling_num):
+def current_turtle(request, year_archived, r_num, hatchling_num):
+  year_archived = int(year_archived)
   r_num = int(r_num)
   hatchling_num = int(hatchling_num)
+  
+  no_turtles = True
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      no_turtles = False
+  
+  current_act = ''
+  released_act = ''
+  if year_archived == 0:
+    current_act = 'active'
+  else:
+    released_act = 'active'
+  
   context = {
+    'no_turtles' : no_turtles,
     'home_act': '',
     'contact_act': '',
-    'released_act': '',
+    'released_act': released_act,
     'about_act': '',
-    'current_act': 'active',
-    'Turtle': Turtle.objects.all(),
+    'current_act': current_act,
     'Measurement' : Measurement.objects.all(),
     'r' : r_num,
     'hatchling' : hatchling_num,
+    'year_archived' : year_archived,
   }
 
   return render(request, 'turtles/current_turtle.html', context)
 
-def current_r(request, r_num):
-  if r_num != 'script.js':
-    r_num = int(r_num)
-    date = []
-    for measurement in Measurement.objects.all():
-      if measurement.turtle.r_num == r_num:
-        date.append(measurement.date)
-    turtle = []
-    for measurement in Measurement.objects.all():
-      if measurement.turtle.r_num == r_num and r_num<=9:
-        turtle.append(measurement.display_turtle[2:])
-      elif measurement.turtle.r_num == r_num and r_num>9:
-        turtle.append(measurement.display_turtle[3:])
-    carapace_length = []
-    for measurement in Measurement.objects.all():
-      if measurement.turtle.r_num == r_num:
-        carapace_length.append(measurement.carapace_length)
-    carapace_width = []
-    for measurement in Measurement.objects.all():
-      if measurement.turtle.r_num == r_num:
-        carapace_width.append(measurement.carapace_width)
-    plastron_length = []
-    for measurement in Measurement.objects.all():
-      if measurement.turtle.r_num == r_num:
-        plastron_length.append(measurement.plastron_length)
-    carapace_height = []
-    for measurement in Measurement.objects.all():
-      if measurement.turtle.r_num == r_num:
-        carapace_height.append(measurement.carapace_height)
-    mass = []
-    for measurement in Measurement.objects.all():
-      if measurement.turtle.r_num == r_num:
-        mass.append(measurement.mass)
-    
-    fig, ax = plt.subplots()
-    sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=date).set_title('Carapace Length vs Carapace Width')
-    ax.set_xlabel( "Carapace Length" , size = 12 )
-    ax.set_ylabel( "Carapace Width" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvswidthscatter.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
+def current_r(request, year_archived, r_num):
+  r_num = int(r_num)
+  year_archived = int(year_archived)
 
-    fig, ax = plt.subplots()
-    sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
-    ax.set_xlabel( "Carapace Length" , size = 12 )
-    ax.set_ylabel( "Carapace Width" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvswidthkde.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
-
-    fig, ax = plt.subplots()
-    sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues').set_title('Carapace Length over Time')
-    ax.set_xlabel( "Measurement Date" , size = 12 )
-    ax.set_ylabel( "Carapace Length" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevslengthbar.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
-
-    fig, ax = plt.subplots()
-    sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=date).set_title('Plastron Length vs Carapace Height')
-    ax.set_xlabel( "Plastron Length" , size = 12 )
-    ax.set_ylabel( "Carapace Height" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvsheightscatter.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
-
-    fig, ax = plt.subplots()
-    sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
-    ax.set_xlabel( "Plastron Length" , size = 12 )
-    ax.set_ylabel( "Carapace Height" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'lengthvsheightkde.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
+  no_turtles = True
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      no_turtles = False
   
-    fig, ax = plt.subplots()
-    sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues').set_title('Carapace Height over Time')
-    ax.set_xlabel( "Measurement Date" , size = 12 )
-    ax.set_ylabel( "Carapace Height" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'datevsheightbox.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
+  current_act = ''
+  released_act = ''
+  if year_archived == 0:
+    current_act = 'active'
+  else:
+    released_act = 'active'
 
-    fig, ax = plt.subplots()
-    sns_plot = sns.histplot(ax=ax, x=mass, bins='auto', palette='Oranges').set_title('Turtle Mass Distribution')
-    ax.set_xlabel( "Mass" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'masshist.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
+  if no_turtles:
+    context = {
+      'no_turtles' : no_turtles,
+      'home_act': '',
+      'contact_act': '',
+      'released_act': released_act,
+      'about_act': '',
+      'current_act': current_act,
+      'Turtle': Turtle.objects.all(),
+      'Measurement' : Measurement.objects.all(),
+      'r' : r_num,
+    }
 
-    fig, ax = plt.subplots()
-    sns_plot = sns.barplot(ax=ax, x=turtle, y=mass, palette='light:orange').set_title('Mass of Turtle by Hatchling Number')
-    ax.set_xlabel( "Turtle Number" , size = 12 )
-    ax.set_ylabel( "Mass" , size = 12 )
-    file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'turtlevsheightbox.png'
-    fig = sns_plot.get_figure()
-    fig.savefig(file_path)
-    plt.clf()
+    return render(request, 'turtles/current_r.html', context)
 
-
+  date = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      date.append(measurement.date)
   
-  path1 = 'turtles/plot_r' + str(r_num) + 'lengthvswidthscatter.png'
-  path2 = 'turtles/plot_r' + str(r_num) + 'lengthvswidthkde.png'
-  path3 = 'turtles/plot_r' + str(r_num) + 'datevslengthbar.png'
-  path4 = 'turtles/plot_r' + str(r_num) + 'lengthvsheightscatter.png'
-  path5 = 'turtles/plot_r' + str(r_num) + 'lengthvsheightkde.png'
-  path6 = 'turtles/plot_r' + str(r_num) + 'datevsheightbox.png'
-  path7 = 'turtles/plot_r' + str(r_num) + 'masshist.png'
-  path8 = 'turtles/plot_r' + str(r_num) + 'turtlevsheightbox.png'
+  turtle = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and r_num<=9 and measurement.turtle.year_archived == year_archived:
+      turtle.append(measurement.display_turtle[2:])
+    elif measurement.turtle.r_num == r_num and r_num>9 and measurement.turtle.year_archived == year_archived:
+      turtle.append(measurement.display_turtle[3:])
+  
+  carapace_length = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      carapace_length.append(measurement.carapace_length)
+  
+  carapace_width = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      carapace_width.append(measurement.carapace_width)
+  
+  plastron_length = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      plastron_length.append(measurement.plastron_length)
+  
+  carapace_height = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      carapace_height.append(measurement.carapace_height)
+  
+  mass = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      mass.append(measurement.mass)
+  
+  fig, ax = plt.subplots()
+  sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=date).set_title('Carapace Length vs Carapace Width')
+  ax.set_xlabel( "Carapace Length" , size = 12 )
+  ax.set_ylabel( "Carapace Width" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
 
+  fig, ax = plt.subplots()
+  sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
+  ax.set_xlabel( "Carapace Length" , size = 12 )
+  ax.set_ylabel( "Carapace Width" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues').set_title('Carapace Length over Time')
+  ax.set_xlabel( "Measurement Date" , size = 12 )
+  ax.set_ylabel( "Carapace Length" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbar.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=date).set_title('Plastron Length vs Carapace Height')
+  ax.set_xlabel( "Plastron Length" , size = 12 )
+  ax.set_ylabel( "Carapace Height" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightscatter.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
+  ax.set_xlabel( "Plastron Length" , size = 12 )
+  ax.set_ylabel( "Carapace Height" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightkde.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues').set_title('Carapace Height over Time')
+  ax.set_xlabel( "Measurement Date" , size = 12 )
+  ax.set_ylabel( "Carapace Height" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevsheightbox.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.histplot(ax=ax, x=mass, bins='auto', palette='Oranges').set_title('Turtle Mass Distribution')
+  ax.set_xlabel( "Mass" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'masshist.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.barplot(ax=ax, x=turtle, y=mass, palette='light:orange').set_title('Mass of Turtle by Hatchling Number')
+  ax.set_xlabel( "Turtle Number" , size = 12 )
+  ax.set_ylabel( "Mass" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'turtlevsheightbox.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+  
+  path1 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
+  path2 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
+  path3 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbar.png'
+  path4 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightscatter.png'
+  path5 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightkde.png'
+  path6 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevsheightbox.png'
+  path7 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'masshist.png'
+  path8 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'turtlevsheightbox.png'
 
   context = {
+    'no_turtles' : no_turtles,
     'home_act': '',
     'contact_act': '',
-    'released_act': '',
+    'released_act': released_act,
     'about_act': '',
-    'current_act': 'active',
+    'current_act': current_act,
     'Turtle': Turtle.objects.all(),
     'Measurement' : Measurement.objects.all(),
     'r' : r_num,

@@ -16,7 +16,10 @@ class Turtle(models.Model):
     return "/current/"
   
   def __str__(self):
-    return str(self.r_num) + "-" + str(self.hatchling_num)
+    if self.archived:
+      return str(self.r_num) + "-" + str(self.hatchling_num) + " (archived " + str(self.year_archived) + ")"
+    else:
+      return str(self.r_num) + "-" + str(self.hatchling_num) + " (active)"
 
 class Measurement(models.Model):
   date = models.DateField(default = timezone.now, verbose_name = "Date")

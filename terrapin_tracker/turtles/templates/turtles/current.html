@@ -5,8 +5,6 @@
 <head>
   <title>Current Turtles</title>
   <link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="script.js" defer></script>
 </head>
 {% endblock %}
 
@@ -16,18 +14,23 @@
     <a href="{% url 'TurtleCreate' %}" class="turtle-button">New Turtle</a>
     <br>
     <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
+    {% if Measurement|length == 0 %}
+    <div class="current-title">
+        <head>There Are No Current Turtles at This Time, Sorry!</head>
+    </div>
+    {% else %}
     <div class="current-title">
         <head>Current Turtles</head>
     </div>
     <div class="r">
         <br>
         {% for r_num in r_nums %}
-        <h2><a href="{% url 'current_r' r_num  %}" class = "rnum">R Group {{ r_num }}</a></h2>
+        <h2><a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a></h2>
         <table class="current-table" id="r">
             <tr>
                 {% for turtle in Turtle %}
                     {% if turtle.r_num == r_num %}
-                <td><a href="{% url 'current_turtle' r_num turtle.hatchling_num  %}" class = "rnum">{{ r_num }}-{{ turtle.hatchling_num }}</a></td>
+                <td><a href="{% url 'current_turtle' year_archived r_num turtle.hatchling_num  %}" class = "rnum">{{ r_num }}-{{ turtle.hatchling_num }}</a></td>
                     {% endif %}
                 {% endfor %}
             </tr>
@@ -35,5 +38,6 @@
         <br>
         {% endfor %}
     </div>
+    {% endif %}
 </div>
 {% endblock %}
