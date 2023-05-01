@@ -17,26 +17,23 @@
     <br>
     <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
     <div class="current-title">
-        <head>Hatchling Numbers</head>
+        <head>Current Turtles</head>
     </div>
     <div class="r">
         <br>
         {% for r_num in r_nums %}
-        <h2><a href="{% url 'current_r' r_num.r_num  %}" class = "rnum">R Group {{ r_num.r_num }}</a></h2>
+        <h2><a href="{% url 'current_r' r_num  %}" class = "rnum">R Group {{ r_num }}</a></h2>
         <table class="current-table" id="r">
             <tr>
                 {% for turtle in Turtle %}
-                    {% if turtle.r_num == r_num.r_num %}
-                <td><a href="{% url 'current_turtle' r_num.r_num turtle.hatchling_num  %}" class = "rnum">{{ r_num.r_num }}-{{ turtle.hatchling_num }}</a></td>
+                    {% if turtle.r_num == r_num %}
+                <td><a href="{% url 'current_turtle' r_num turtle.hatchling_num  %}" class = "rnum">{{ r_num }}-{{ turtle.hatchling_num }}</a></td>
                     {% endif %}
                 {% endfor %}
             </tr>
         </table>
         <br>
         {% endfor %}
-        <br>
-        <h2>Graph Example:</h2>
-        <img src="{% static 'turtles/plot1.png' %}" alt="Plot 1" class = "graph" style="width:50%">
     </div>
 </div>
 {% endblock %}

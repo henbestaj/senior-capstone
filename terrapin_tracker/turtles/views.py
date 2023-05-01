@@ -73,12 +73,33 @@ def contactsent(request):
   return render(request, 'turtles/contactsent.html', context)
 
 def released(request):
+  Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
+
+  measurements = []
+  for i in Measurement.objects.all():
+    if i.turtle.archived == True:
+      measurements.append(i)
+  
+  r_nums = set()
+  for x in Turtle.objects.filter(archived = True):
+    r_nums.add((x.r_num, x.year_archived))
+  r_nums = list(r_nums)
+  r_nums = sorted(r_nums, key = lambda x: x[0])
+  
+  years = []
+  for i in Turtle.objects.filter(archived = True).values('year_archived').distinct():
+    years.append(i['year_archived'])
+  
   context = {
     'home_act': '',
     'contact_act': '',
     'released_act': 'active',
     'about_act': '',
     'current_act': '',
+    'Turtle': Turtle.objects.filter(archived = True),
+    'Measurement' : measurements,
+    'r_nums' : r_nums,
+    'years' : years,
   }
 
   return render(request, 'turtles/released.html', context)
@@ -101,15 +122,29 @@ def current(request):
 
   Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
 
+  measurements = []
+  for i in Measurement.objects.all():
+    if i.turtle.archived == False:
+      measurements.append(i)
+  
+  r_nums = []
+  for x in Turtle.objects.values('r_num').distinct():
+    include = False
+    for y in Turtle.objects.filter(r_num = x['r_num']):
+      if (y.archived == False):
+        include = True
+    if include:
+      r_nums.append(x['r_num'])
+
   context = {
     'home_act': '',
     'contact_act': '',
     'released_act': '',
     'about_act': '',
     'current_act': 'active',
-    'Turtle': Turtle.objects.all(),
-    'Measurement' : Measurement.objects.all(),
-    'r_nums' : Turtle.objects.values('r_num').distinct(),
+    'Turtle': Turtle.objects.filter(archived = False),
+    'Measurement' : measurements,
+    'r_nums' : r_nums,
   }
 
   return render(request, 'turtles/current.html', context)
