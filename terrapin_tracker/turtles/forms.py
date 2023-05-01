@@ -14,7 +14,7 @@ class NewTurtleCreateForm(forms.ModelForm):
 class NewMeasurementCreateForm(forms.ModelForm):
   class Meta:
     model = Measurement
-    fields = ['date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'turtle']
+    fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass']
 
 # class EditMeasurementCreateForm(forms.ModelForm):
 #   class Meta:

@@ -1,6 +1,6 @@
 #center-box{
     width: 60%;
-    height: 55%;
+    height: 50%;
     margin: 40px auto 30px;
     padding: 50px;
     border: 1px solid #ccc;
@@ -15,18 +15,16 @@
     font-weight: bold;
     color: #333;
 }   
-
 p{
     text-indent: 15%;
     color:black;
 }
-
 #id_r_num{
     color:black;
     width:70%;
     height:40px;
     align-items: center;
-    display:block;
+    display:flex;
     margin:auto auto 10px;
 }
 #id_hatchling_num{
@@ -37,22 +35,25 @@ p{
     display:block;
     margin:auto auto 10px;
 }
+/*Centers the div that contains two buttons*/
+#button-container{
+    text-align: center;
+}
 
-button {
+/*formats the two buttons with ids #goBack and #create to be next to each other*/
+#goBack, #create{
     background-color: rgb(26,82,94);
     color: white;
-    padding: 12px 20px;
+    padding: 15px 10%;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin:auto auto 10px;
-    display: block;
-    width:50%;
-  
-    
-    
+    display: inline-block;
+    width: 32.5%;
+    margin: 0px 15px
+   
 }
-
 ::marker{
     list-style: none;
     padding:0px;

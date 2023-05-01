@@ -3,15 +3,30 @@
 
 {% block head %}
 <title>New Turtle</title>
-<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+<link rel="stylesheet" href="{% static 'turtles/measurement_style.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>New Measurement</h1>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit"/>
-</form>
-<a href="{% url 'current' %}" id="goback">Go back</a>
+<div id = "center-box">
+  <h1 id = "heading">New Measurement</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button id = 'goBack' onclick = "goBack()">Go Back</button>
+    <script>
+      function goBack() {
+          window.location.href="{% url 'current' %}";
+      }
+    </script>
+    <button type="submit" value="Submit" id = "update">Update</button>
+  </form>
+  <!--script tag that adds the text "(cm)" to the text inside the label tag-->
+  <script>
+    var label = document.getElementsByTagName("label");
+    for (var i = 0; i < label.length; i++) {
+      label[i].innerText = label[i].innerText.slice(0,-1)+" (cm)" +":";
+    }
+  </script>
+  
+</div>
 {% endblock %}
