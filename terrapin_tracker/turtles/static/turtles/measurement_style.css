@@ -14,11 +14,13 @@
 
 form{
     display:grid;
-    grid-template-areas: "id_r_num date"
+    grid-template-areas: "date id_r_num"
                          "carapace_length carapace_width"
                          "carapace_height plastron_lenth"
                          "mass mass"
                          "goBack update";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(5, 1fr);
     padding: 15px
 }
 #heading{
@@ -42,7 +44,6 @@ label{
 /*centers element within grid space*/  
 #id_r_num{
     grid-area: id_r_num;
-    
 }
 #id_date{
     grid-area: date;
@@ -65,8 +66,9 @@ label{
     display: block;
 }
 #id_mass{
-    grid-area: mass;
     display: block;
+    grid-area: span 2;
+    width:40%
 }
 #goBack{
     grid-area: goBack;
@@ -84,6 +86,15 @@ p{
     margin-top:10px;
 }
 
+p:has(#id_mass){
+    grid-area:mass;
+    width:100%;
+}
+
+p:has(#id_mass) > label{
+    width: 100%;
+    text-indent: 31%;
+}
 input, select{
     width: 80%;
     height:30px;

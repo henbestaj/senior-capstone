@@ -23,8 +23,12 @@
   <!--script tag that adds the text "(cm)" to the text inside the label tag-->
   <script>
     var label = document.getElementsByTagName("label");
-    for (var i = 0; i < label.length; i++) {
-      label[i].innerText = label[i].innerText.slice(0,-1)+" (cm)" +":";
+    for (var i = 3; i < label.length; i++) {
+      if(i!=label.length-1){
+        label[i].innerText = label[i].innerText.slice(0,-1)+" (cm):";
+      }else{
+        label[i].innerText = label[i].innerText.slice(0,-1)+" (g):";
+      }
     }
   </script>
   
