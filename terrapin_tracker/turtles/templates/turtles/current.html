@@ -22,22 +22,20 @@
     <div class="current-title">
         <head>Current Turtles</head>
     </div>
+    {% endif %}
     <div class="r">
         <br>
-        {% for r_num in r_nums %}
-        <h2><a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a></h2>
-        <table class="current-table" id="r">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == r_num %}
-                <td><a href="{% url 'current_turtle' year_archived r_num turtle.hatchling_num  %}" class = "rnum">{{ r_num }}-{{ turtle.hatchling_num }}</a></td>
-                    {% endif %}
+       <table class="current-table" id="r-table">
+            
+                {% for r_num in r_nums %}
+                {% if forloop.counter|divisibleby:"6"  %}   
+                <tr></tr>
+            {% endif %}
+                <td><a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a></td>     
                 {% endfor %}
-            </tr>
         </table>
         <br>
-        {% endfor %}
-    </div>
-    {% endif %}
+        
 </div>
 {% endblock %}
+

@@ -45,7 +45,7 @@
     display: block; 
     width: 100%;
     height: 200px; 
-    margin: auto; 
+    margin-left: 360px; 
     padding: none; 
     background-color: none;
     text-align: center;
@@ -80,9 +80,6 @@
     color:rgb(26,82,94);
   }
 
-  .current-table tr {
-    height: 100px;
-  }
   .current-table tr:hover {
     color: black;
   }
