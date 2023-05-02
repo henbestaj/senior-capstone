@@ -14,6 +14,7 @@
     <a href="{% url 'TurtleCreate' %}" class="turtle-button">New Turtle</a>
     <br>
     <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
+    <br>
     {% if Measurement|length == 0 %}
     <div class="current-title">
         <head>There Are No Current Turtles at This Time, Sorry!</head>

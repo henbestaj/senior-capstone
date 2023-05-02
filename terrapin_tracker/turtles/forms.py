@@ -22,6 +22,6 @@ class NewMeasurementCreateForm(forms.ModelForm):
 #     fields = '__all__'
 
 class NewContactForm(forms.Form):
-  subject = forms.CharField()
   email = forms.EmailField()
+  subject = forms.CharField()
   body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}))

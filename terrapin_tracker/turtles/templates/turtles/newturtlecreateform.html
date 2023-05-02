@@ -13,15 +13,15 @@
     {% csrf_token %}
     {{ form.as_p }}
     <div id = "button-container">
-      <button id = 'goBack' onclick = "goBack()">Go back</button>
-      <script>
-          function goBack() {
-              window.location.href="{% url 'current' %}";
-          }
-      </script>
       <button type="submit" value="Submit" id="create">Create</button>
     </div>  
   </form>
+  <button id = 'goBack' onclick = "goBack()">Go back</button>
+  <script>
+      function goBack() {
+          window.location.href="{% url 'current' %}";
+      }
+  </script>
 
   
 </div>

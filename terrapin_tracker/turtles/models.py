@@ -28,7 +28,7 @@ class Measurement(models.Model):
   plastron_length = models.FloatField(null = True, blank = True, verbose_name = "Plastron Length")
   carapace_height = models.FloatField(null = True, blank = True, verbose_name = "Carapace Height")
   mass = models.FloatField(null = True, blank = True, verbose_name = "Mass")
-  turtle = models.ForeignKey(Turtle, null = True, blank = True, on_delete = models.CASCADE, verbose_name = "Turtle")
+  turtle = models.ForeignKey(Turtle, on_delete = models.CASCADE, verbose_name = "Turtle")
   editor = models.TextField(default = "Administrator", verbose_name = "Editor")
   valid_from = models.DateTimeField(default = timezone.now, verbose_name = "Valid From")
   valid_to = models.DateTimeField(null = True, blank = True, verbose_name = "Valid To")
@@ -36,7 +36,7 @@ class Measurement(models.Model):
 
   def get_absolute_url(self):
     return "/current/"
-  
+
   @property
   def display_turtle(self):
     return str(self.turtle.r_num) + "-" + str(self.turtle.hatchling_num)

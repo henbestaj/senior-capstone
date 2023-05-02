@@ -1,3 +1,4 @@
 env/
 __pycache__/
 oauth2_creds.json
+measurements.csv
