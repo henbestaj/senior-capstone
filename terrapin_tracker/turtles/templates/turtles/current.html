@@ -15,6 +15,8 @@
     <br>
     <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
     <br>
+    <a href="{% url 'measurements.csv' %}" download="measurements.csv" class="turtle-button">Download Data</a>
+    <br>
     {% if Measurement|length == 0 %}
     <div class="current-title">
         <head>There Are No Current Turtles at This Time, Sorry!</head>

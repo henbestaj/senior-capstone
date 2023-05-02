@@ -13,8 +13,18 @@ sns.set()
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 import csv
+from wsgiref.util import FileWrapper
+from django.http import HttpResponse
 
 # Create your views here.
+def send_file(request):
+  filename = './turtles/static/turtles/measurements.csv'
+  download_name = 'measurements.csv'
+  wrapper = FileWrapper(open(filename))
+  response = HttpResponse(wrapper,content_type='text/csv')
+  response['Content-Disposition'] = "attachment; filename=%s"%download_name
+  return response
+
 def custom_page_not_found_view(request, exception):
   return render(request, "turtles/404.html", {})
 
@@ -151,7 +161,7 @@ def released(request):
     if i.turtle.archived == True:
       measurements.append(i)
 
-  with open('./measurements.csv', 'w', newline='') as csvfile:
+  with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
     values = Measurement.objects.all().values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
@@ -220,7 +230,7 @@ def current(request):
     if i.turtle.archived == False:
       measurements.append(i)
   
-  with open('./measurements.csv', 'w', newline='') as csvfile:
+  with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
     values = Measurement.objects.all().values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
@@ -268,38 +278,6 @@ def current(request):
   }
 
   return render(request, 'turtles/current.html', context)
-
-def current_turtle(request, year_archived, r_num, hatchling_num):
-  year_archived = int(year_archived)
-  r_num = int(r_num)
-  hatchling_num = int(hatchling_num)
-  
-  no_turtles = True
-  for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
-      no_turtles = False
-  
-  current_act = ''
-  released_act = ''
-  if year_archived == 0:
-    current_act = 'active'
-  else:
-    released_act = 'active'
-  
-  context = {
-    'no_turtles' : no_turtles,
-    'home_act': '',
-    'contact_act': '',
-    'released_act': released_act,
-    'about_act': '',
-    'current_act': current_act,
-    'Measurement' : Measurement.objects.all(),
-    'r' : r_num,
-    'hatchling' : hatchling_num,
-    'year_archived' : year_archived,
-  }
-
-  return render(request, 'turtles/current_turtle.html', context)
 
 def current_r(request, year_archived, r_num):
   r_num = int(r_num)
