@@ -4,6 +4,8 @@
 <title>TerrapinTracker</title>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="{% static 'script.js' %}"></script>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -12,5 +14,8 @@
     <br>
     <h1>Hello {{ user.first_name }}!</h1>
     {% endif %}
+</div>
+<div class = graphs>
+    <img src="{% static path9 %}" alt="Length by Width Scatterplot" class = "graph" style="width:30%">
 </div>
 {% endblock %}

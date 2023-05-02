@@ -28,12 +28,82 @@ def custom_bad_request_view(request, exception=None):
   return render(request, "turtles/400.html", {})
 
 def home(request):
-  context = {
+  r_num = 3
+  year_archived = 2023
+  Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
+  
+  measurements = []
+  for i in Measurement.objects.all():
+    if i.turtle.archived == False:
+      measurements.append(i)
+  
+  r_nums = []
+  for x in Turtle.objects.values('r_num').distinct():
+    include = False
+    for y in Turtle.objects.filter(r_num = x['r_num']):
+      if (y.archived == False):
+        include = True
+    if include:
+      r_nums.append(x['r_num'])
+
+
+  date = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      date.append(measurement.date)
+  turtle = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and r_num<=9 and measurement.turtle.year_archived == year_archived:
+      turtle.append(measurement.display_turtle[2:])
+    elif measurement.turtle.r_num == r_num and r_num>9 and measurement.turtle.year_archived == year_archived:
+      turtle.append(measurement.display_turtle[3:])
+  
+  carapace_length = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      carapace_length.append(measurement.carapace_length)
+  
+  carapace_width = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      carapace_width.append(measurement.carapace_width)
+  
+  plastron_length = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      plastron_length.append(measurement.plastron_length)
+  
+  carapace_height = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      carapace_height.append(measurement.carapace_height)
+  
+  mass = []
+  for measurement in Measurement.objects.all():
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      mass.append(measurement.mass)
+  
+  fig, ax = plt.subplots()
+  sns_plot = sns.scatterplot(ax=ax, x=carapace_height, y=mass).set_title('test')
+  ax.set_xlabel( "Carapace Length" , size = 12 )
+  ax.set_ylabel( "Carapace Width" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+  path9 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
+
+  context= {
     'home_act': 'active',
     'contact_act': '',
     'released_act': '',
     'about_act': '',
     'current_act': '',
+    'Turtle': Turtle.objects.filter(archived = False),
+    'Measurement' : measurements,
+    'r_nums' : r_nums,
+    'year_archived' : 0,
+    'path9' : path9,
   }
 
   return render(request, 'turtles/home.html', context)
@@ -369,6 +439,15 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+
+  # fig, ax = plt.subplots()
+  # sns_plot = sns.barplot(ax=ax, x=r_nums, y=mass, palette='light:orange').set_title('test')
+  # ax.set_xlabel( "Turtle Number" , size = 12 )
+  # ax.set_ylabel( "Mass" , size = 12 )
+  # file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
+  # fig = sns_plot.get_figure()
+  # fig.savefig(file_path)
+  # plt.clf()
   
   path1 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
   path2 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
@@ -378,6 +457,8 @@ def current_r(request, year_archived, r_num):
   path6 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevsheightbox.png'
   path7 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'masshist.png'
   path8 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'turtlevsheightbox.png'
+  path9 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
+
 
   context = {
     'no_turtles' : no_turtles,
@@ -397,6 +478,7 @@ def current_r(request, year_archived, r_num):
     'path6' : path6,
     'path7' : path7,
     'path8' : path8,
+    'path9' : path9,
   }
 
   return render(request, 'turtles/current_r.html', context)
