@@ -36,7 +36,7 @@ class Measurement(models.Model):
 
   def get_absolute_url(self):
     return "/current/"
-  
+
   @property
   def display_turtle(self):
     return str(self.turtle.r_num) + "-" + str(self.turtle.hatchling_num)
