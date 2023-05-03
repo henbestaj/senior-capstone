@@ -22,6 +22,11 @@ class NewMeasurementCreateForm(forms.ModelForm):
 #     fields = '__all__'
 
 class NewContactForm(forms.Form):
-  email = forms.EmailField()
-  subject = forms.CharField()
-  body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}))
+  email = forms.EmailField(label = 'Email')
+  subject = forms.CharField(label = 'Subject')
+  body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}), label='Body')
+
+class NewSearchForm(forms.Form):
+  r_num = forms.IntegerField(label = 'R Number')
+  archived = forms.BooleanField(required=False, label = 'Archived?')
+  year_archived = forms.IntegerField(required=False, label = 'Year Archived')

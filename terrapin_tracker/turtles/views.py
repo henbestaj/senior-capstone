@@ -17,6 +17,33 @@ from wsgiref.util import FileWrapper
 from django.http import HttpResponse
 
 # Create your views here.
+def search(request, error):
+  error = error
+  if request.method == 'POST':
+    form = NewSearchForm(request.POST)
+    if form.is_valid():
+      if request.POST.get('archived') and request.POST.get('year_archived') == '':
+        return redirect('search', error=1)
+      elif request.POST.get('archived'):
+        return redirect('current_r', year_archived=request.POST.get('year_archived'), r_num=request.POST.get('r_num'))
+      else:
+        return redirect('current_r', year_archived=0, r_num=request.POST.get('r_num'))
+  
+  else:
+    form = NewSearchForm()
+
+  context = {
+    'home_act': 'active',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'form': form,
+    'error': error,
+  }
+
+  return render(request, 'turtles/search.html', context)
+
 def send_file(request):
   filename = './turtles/static/turtles/measurements.csv'
   download_name = 'measurements.csv'
