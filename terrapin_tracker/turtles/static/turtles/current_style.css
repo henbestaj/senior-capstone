@@ -63,6 +63,9 @@
     text-decoration: none;
   }
 
+  a{
+    display: inline;
+  }
   .current-table td:hover {
     cursor: pointer;
     background-color: rgb(117, 195, 213);

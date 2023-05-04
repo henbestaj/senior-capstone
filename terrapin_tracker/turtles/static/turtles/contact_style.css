@@ -42,8 +42,6 @@ p:has(#id_body) {
     text-indent:6%
 }
 
-
-
 textarea{
     resize: none;
     height: 100%;
@@ -68,18 +66,20 @@ textarea{
 
 #id_subject{
     color:black;
-    width:80%;
+    width:85%;
+    height: 80%;
     align-items: center;
     display:block;
-    margin:auto auto 10px;;
+    margin:auto 10% 0px 5%;
 }
 
 #id_email{
     color:black;
-    width:80%;
+    width:85%;
+    height: 80%;
     align-items: center;
     display:block;
-    margin:auto auto 10px;
+    margin:auto 5% 0px 10%;
 }
 
 #id_body{

@@ -13,19 +13,14 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" value="Submit" id = "update">Update</button>
+    <button id = 'goBack' value="button" onclick = "history.back()">Go Back</button>
   </form>
-  <button id = 'goBack' onclick = "goBack()">Go Back</button>
-  <script>
-    function goBack() {
-        window.location.href="{% url 'current' %}";
-    }
-  </script>
   <!--script tag that adds the text "(cm)" to the text inside the label tag-->
   <script>
     var label = document.getElementsByTagName("label");
     for (var i = 3; i < label.length; i++) {
       if(i!=label.length-1){
-        label[i].innerText = label[i].innerText.slice(0,-1)+" (cm):";
+        label[i].innerText = label[i].innerText.slice(0,-1)+" (mm):";
       }else{
         label[i].innerText = label[i].innerText.slice(0,-1)+" (g):";
       }
