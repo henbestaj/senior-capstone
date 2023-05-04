@@ -48,28 +48,30 @@
     text-decoration: none;
   }
 
-.current-table  {
-    display: block; 
-    width: 100%;
-    height: 200px; 
-    margin-left: 360px; 
+.current-table  { 
+    width: 50%;
+    overflow:visible;
+    margin: auto;
     padding: none; 
     background-color: none;
     text-align: center;
-    border-spacing: 15px 15px; 
+    border-spacing: 15px 15px;
+    display:grid;
+    grid-template-areas:"r r r r r";
+    grid-auto-flow: row;
+    row-gap: 20px;
   }
-  .current-table td {
+
+  .current-table a {
     border-radius: 10px;
     height: 160px;
     width: 120px;
-
-    align-content: baseline;
     border: 1px solid black;
     background-color: rgb(65, 145, 163);
     text-decoration: none;
   }
 
-  .current-table td:hover {
+  .current-table a:hover {
     cursor: pointer;
     background-color: rgb(117, 195, 213);
     text-decoration: underline;
@@ -93,9 +95,7 @@
     
   }
 
-  .current-table tr:hover {
-    color: black;
-  }
+
   .current-title {
     font-size: 20pt;
     display: block;

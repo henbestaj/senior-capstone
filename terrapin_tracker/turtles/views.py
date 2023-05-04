@@ -274,6 +274,8 @@ def current(request):
         include = True
     if include:
       r_nums.append(x['r_num'])
+  r_nums = sorted([x for x in r_nums])
+
 
   context = {
     'home_act': '',
@@ -410,7 +412,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
 
   fig, ax = plt.subplots()
-  sns_plot = sns.histplot(ax=ax, x=mass, bins='auto', palette='Oranges').set_title('Turtle Mass Distribution')
+  sns_plot = sns.histplot(ax=ax, x=mass, bins='auto').set_title('Turtle Mass Distribution')
   ax.set_xlabel( "Mass" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'masshist.png'
   fig = sns_plot.get_figure()
