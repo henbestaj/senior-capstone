@@ -28,10 +28,9 @@
             </script>
             {% endif %}
             <div class="search-container">
-                <form action="/search" method="get">
-                    <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
-                    <label class="searchbutton" for="searchright" title="Search"><span class="mglass">&#9906;</span></label>
-                </form>
+                {% with error=0 %}
+                <a class="searchbutton" title="Search" href="{% url 'search' error %}"><span class="mglass">&#9906;</span></a>
+                {% endwith %}
             </div>
             <div class="topnav">
                 <a class="{{ home_act }}" href="{% url 'home' %}">Home</a>

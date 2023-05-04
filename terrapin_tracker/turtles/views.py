@@ -17,6 +17,33 @@ from wsgiref.util import FileWrapper
 from django.http import HttpResponse
 
 # Create your views here.
+def search(request, error):
+  error = error
+  if request.method == 'POST':
+    form = NewSearchForm(request.POST)
+    if form.is_valid():
+      if request.POST.get('archived') and request.POST.get('year_archived') == '':
+        return redirect('search', error=1)
+      elif request.POST.get('archived'):
+        return redirect('current_r', year_archived=request.POST.get('year_archived'), r_num=request.POST.get('r_num'))
+      else:
+        return redirect('current_r', year_archived=0, r_num=request.POST.get('r_num'))
+  
+  else:
+    form = NewSearchForm()
+
+  context = {
+    'home_act': 'active',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'form': form,
+    'error': error,
+  }
+
+  return render(request, 'turtles/search.html', context)
+
 def send_file(request):
   filename = './turtles/static/turtles/measurements.csv'
   download_name = 'measurements.csv'
@@ -38,70 +65,55 @@ def custom_bad_request_view(request, exception=None):
   return render(request, "turtles/400.html", {})
 
 def home(request):
-  r_num = 3
-  year_archived = 2023
+
   Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
   
   measurements = []
   for i in Measurement.objects.all():
     if i.turtle.archived == False:
       measurements.append(i)
-  
-  r_nums = []
-  for x in Turtle.objects.values('r_num').distinct():
-    include = False
-    for y in Turtle.objects.filter(r_num = x['r_num']):
-      if (y.archived == False):
-        include = True
-    if include:
-      r_nums.append(x['r_num'])
 
 
   date = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       date.append(measurement.date)
-  turtle = []
+  group = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and r_num<=9 and measurement.turtle.year_archived == year_archived:
-      turtle.append(measurement.display_turtle[2:])
-    elif measurement.turtle.r_num == r_num and r_num>9 and measurement.turtle.year_archived == year_archived:
-      turtle.append(measurement.display_turtle[3:])
+      group.append((measurement.display_turtle.split('-')[0]))
   
   carapace_length = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_length.append(measurement.carapace_length)
   
   carapace_width = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_width.append(measurement.carapace_width)
   
   plastron_length = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       plastron_length.append(measurement.plastron_length)
   
   carapace_height = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_height.append(measurement.carapace_height)
   
   mass = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       mass.append(measurement.mass)
   
   fig, ax = plt.subplots()
-  sns_plot = sns.scatterplot(ax=ax, x=carapace_height, y=mass).set_title('test')
+  legend = (list(set(group)))
+  legend = sorted([int(x) for x in legend])
+  legend = ([str(x) for x in legend])
+  sns_plot = sns.scatterplot(ax=ax, x=carapace_height, y=carapace_width, hue=group, hue_order = legend).set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )
   ax.set_ylabel( "Carapace Width" , size = 12 )
-  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
+  plt.legend(title='R Group', loc='lower right')
+  file_path = './turtles/static/turtles/plot_r' + 'lengthvsheighthomescatter.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
-  path9 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
+  path9 = 'turtles/plot_r' + 'lengthvsheighthomescatter.png'
 
   context= {
     'home_act': 'active',
@@ -111,8 +123,6 @@ def home(request):
     'current_act': '',
     'Turtle': Turtle.objects.filter(archived = False),
     'Measurement' : measurements,
-    'r_nums' : r_nums,
-    'year_archived' : 0,
     'path9' : path9,
   }
 
@@ -317,10 +327,8 @@ def current_r(request, year_archived, r_num):
   
   turtle = []
   for measurement in Measurement.objects.all():
-    if measurement.turtle.r_num == r_num and r_num<=9 and measurement.turtle.year_archived == year_archived:
-      turtle.append(measurement.display_turtle[2:])
-    elif measurement.turtle.r_num == r_num and r_num>9 and measurement.turtle.year_archived == year_archived:
-      turtle.append(measurement.display_turtle[3:])
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      turtle.append(measurement.display_turtle.split('-')[1])
   
   carapace_length = []
   for measurement in Measurement.objects.all():
