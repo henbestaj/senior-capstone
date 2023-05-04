@@ -15,8 +15,62 @@ from django.contrib.auth import logout
 import csv
 from wsgiref.util import FileWrapper
 from django.http import HttpResponse
+import random
+from django.contrib.auth.models import User
 
 # Create your views here.
+def Confirm(request, username):
+  confirmation = request.session.get('confirmation')
+  if request.method == 'POST':
+    form = UserConfirmationForm(request.POST)
+    if form.is_valid():
+      if form.cleaned_data["code"] == confirmation:
+        User.objects.filter(username = username).update(is_active = True)
+        return redirect('login')
+      else:
+        return redirect('signup')
+  else:
+    form = UserConfirmationForm()
+  
+  context = {
+    'home_act': 'active',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'form': form,
+  }
+
+  return render(request, 'registration/confirm.html', context)
+
+def SignUp(request):
+  if request.method == 'POST':
+    form = UserRegisterForm(request.POST)
+    if form.is_valid():
+      user = form.save(commit=False)  
+      user.is_active = False  
+      user.save()
+      confirmation = random.randint(10000, 99999)
+      yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "./oauth2_creds.json")
+      yag.send(to = [user.email], subject = 'Terrapin Tracker Email Confirmation', contents = 'Your confirmation number is: ' + str(confirmation))
+      request.session['confirmation'] = confirmation
+      return redirect('confirm', user.username)
+    else:
+      return redirect('signup')
+  else:
+    form = UserRegisterForm()
+  
+  context = {
+    'home_act': 'active',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'form': form,
+  }
+
+  return render(request, 'registration/signup.html', context)
+
 def search(request, error):
   error = error
   if request.method == 'POST':

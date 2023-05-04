@@ -1,5 +1,17 @@
 from django import forms
 from .models import Turtle, Measurement
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+# Inherit Django's default UserCreationForm
+class UserRegisterForm(UserCreationForm):
+  first_name = forms.CharField(max_length=50)
+  last_name = forms.CharField(max_length=50)
+
+  class Meta:
+      model = User
+      fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
 class NewTurtleCreateForm(forms.ModelForm):
   class Meta:
@@ -30,3 +42,6 @@ class NewSearchForm(forms.Form):
   r_num = forms.IntegerField(label = 'R Number')
   archived = forms.BooleanField(required=False, label = 'Archived?')
   year_archived = forms.IntegerField(required=False, label = 'Year Archived')
+
+class UserConfirmationForm(forms.Form):
+  code = forms.IntegerField(validators=[MaxValueValidator(99999), MinValueValidator(10000)])
