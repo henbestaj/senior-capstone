@@ -6,12 +6,14 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Inherit Django's default UserCreationForm
 class UserRegisterForm(UserCreationForm):
-  first_name = forms.CharField(max_length=50)
-  last_name = forms.CharField(max_length=50)
-
+  def clean_email(self):
+    if "@ocvts.org" not in self.cleaned_data['email'] and "@mail.ocvts.org" not in self.cleaned_data['email']:
+      raise forms.ValidationError("Must be a ocvts.org email address.")
+    return self.cleaned_data['email']
+  
   class Meta:
-      model = User
-      fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+    model = User
+    fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
 class NewTurtleCreateForm(forms.ModelForm):
   class Meta:
@@ -38,7 +40,7 @@ class NewContactForm(forms.Form):
   subject = forms.CharField(label = 'Subject')
   body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}), label='Body')
 
-class NewSearchForm(forms.Form):
+class NewSearchForm(forms.Form):  
   r_num = forms.IntegerField(label = 'R Number')
   archived = forms.BooleanField(required=False, label = 'Archived?')
   year_archived = forms.IntegerField(required=False, label = 'Year Archived')

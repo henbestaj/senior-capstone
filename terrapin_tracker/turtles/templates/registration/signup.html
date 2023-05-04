@@ -12,6 +12,7 @@
   {% if user.is_authenticated %}
   Please log out if you would like to create a new account.
   {% else %}
+  Please use a @ocvts.org or @mail.ocvts.org email when creating your account.
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
