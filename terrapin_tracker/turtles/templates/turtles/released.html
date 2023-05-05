@@ -11,7 +11,7 @@
     <br>
     <a href="{% url 'measurements.csv' %}" download="measurements.csv" class="turtle-button">Download Data</a>
     <br>
-    {% if Measurement|length == 0 %}
+    {% if Turtle|length == 0 %}
     <div class="current-title">
         <head>No Turtles Have Been Released at This Time, Sorry!</head>
     </div>
@@ -26,15 +26,6 @@
             {% for r_num in r_nums %}
                 {% if r_num.1 == year %}
                 <h2><a href="{% url 'current_r' year r_num.0  %}" class = "rnum">R Group {{ r_num.0 }}</a></h2>
-                <table class="current-table" id="r">
-                    <tr>
-                        {% for turtle in Turtle %}
-                            {% if turtle.r_num == r_num.0 %}
-                        <td><a href="{% url 'current_turtle' year r_num.0 turtle.hatchling_num  %}" class = "rnum">{{ r_num.0 }}-{{ turtle.hatchling_num }}</a></td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                </table>
                 <br>
                 {% endif %}
             {% endfor %}
