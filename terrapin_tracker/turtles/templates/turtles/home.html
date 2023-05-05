@@ -9,13 +9,24 @@
 {% endblock %}
 
 {% block content %}
-<div class="test">
-    {% if user.is_authenticated %}
-    <br>
-    <h1>Hello {{ user.first_name }}!</h1>
-    {% endif %}
+<div class="alert">
+    <div class="alertmsg">
+        {% if user.is_authenticated %}
+        <h1>Hello {{ user.first_name }}!</h1>
+        {% endif %}
+    </div>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      </div>
+    
 </div>
+<div class = "welcome">
+      <h1>Welocome to Terrapin Tracker!</h1>
+      <p class = description> insert description </p>
+      <p class = description>    </p>
+    </div>
 <div class = graphs>
+    <br>
+    <br>
     <img src="{% static path9 %}" alt="Length by Width Scatterplot" class = "graph" style="width:30%">
 </div>
 {% endblock %}

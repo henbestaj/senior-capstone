@@ -161,3 +161,51 @@
     color: black;
     text-decoration: none;
   }
+.welcome {
+  text-align: center;
+  background-color: rgb(26,82,94);
+  color: white;
+  margin: 20px auto 20px auto;
+  padding-bottom:20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:80%;
+  flex-direction: column;
+}
+
+.alert {
+  background-color: rgb(65, 145, 163); 
+  color: white;
+  /* margin-bottom: 15px; */
+  width: 60%;
+  text-align: center;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.alertmsg {
+  /* justify-content: center;
+  align-items: center; */
+  margin-left: 340px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 320px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 50px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
