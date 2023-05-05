@@ -159,15 +159,114 @@ def home(request):
   legend = (list(set(group)))
   legend = sorted([int(x) for x in legend])
   legend = ([str(x) for x in legend])
-  sns_plot = sns.scatterplot(ax=ax, x=carapace_height, y=carapace_width, hue=group, hue_order = legend).set_title('Carapace Length vs Carapace Width')
+  sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=group, hue_order = legend).set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )
   ax.set_ylabel( "Carapace Width" , size = 12 )
+  plt.legend(title='R Group', loc='lower right')
+  file_path = './turtles/static/turtles/plot_r' + 'lengthvswidthhomescatter.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
+  ax.set_xlabel( "Carapace Length" , size = 12 )
+  ax.set_ylabel( "Carapace Width" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + 'lengthvswidthhomekde.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues', showfliers=False).set_title('Carapace Length over Time')
+  ax.set_xlabel( "Measurement Date" , size = 12 )
+  ax.set_ylabel( "Carapace Length" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + 'datevslengthhomebox.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  legend = (list(set(group)))
+  legend = sorted([int(x) for x in legend])
+  legend = ([str(x) for x in legend])
+  sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=group, hue_order=legend).set_title('Plastron Length vs Carapace Height')
+  ax.set_xlabel( "Plastron Length" , size = 12 )
+  ax.set_ylabel( "Carapace Height" , size = 12 )
   plt.legend(title='R Group', loc='lower right')
   file_path = './turtles/static/turtles/plot_r' + 'lengthvsheighthomescatter.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
-  path9 = 'turtles/plot_r' + 'lengthvsheighthomescatter.png'
+
+  fig, ax = plt.subplots()
+  sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
+  ax.set_xlabel( "Plastron Length" , size = 12 )
+  ax.set_ylabel( "Carapace Height" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + 'lengthvsheighthomekde.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+  
+  fig, ax = plt.subplots()
+  sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues', showfliers=False).set_title('Carapace Height over Time')
+  ax.set_xlabel( "Measurement Date" , size = 12 )
+  ax.set_ylabel( "Carapace Height" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + 'datevsheighthomebox.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  
+  fig, ax = plt.subplots()
+  sortgroup = sorted([int(x) for x in group])
+  sortgroup = ([str(x) for x in sortgroup])
+  sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_length, palette='light:orange').set_title('Carapace Length by R Group')
+  ax.set_xlabel( "R Group" , size = 12 )
+  ax.set_ylabel( "Carapace Length" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + 'rvslengthbar.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sortgroup = sorted([int(x) for x in group])
+  sortgroup = ([str(x) for x in sortgroup])
+  sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_width, palette='light:orange').set_title('Carapace Width by R Group')
+  ax.set_xlabel( "R Group" , size = 12 )
+  ax.set_ylabel( "Carapace Width" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + 'rvswidthbar.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+  fig, ax = plt.subplots()
+  sortgroup = sorted([int(x) for x in group])
+  sortgroup = ([str(x) for x in sortgroup])
+  sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_height, palette='light:orange').set_title('Carapace Height by R Group')
+  ax.set_xlabel( "R Group" , size = 12 )
+  ax.set_ylabel( "Carapace Height" , size = 12 )
+  file_path = './turtles/static/turtles/plot_r' + 'rvsheightbar.png'
+  fig = sns_plot.get_figure()
+  fig.savefig(file_path)
+  plt.clf()
+
+
+
+
+  path9 = 'turtles/plot_r' + 'lengthvswidthhomescatter.png'
+  path10 = 'turtles/plot_r' + 'lengthvswidthhomekde.png'
+  path11 = 'turtles/plot_r' + 'datevslengthhomebox.png'
+  path12 = 'turtles/plot_r' + 'lengthvsheighthomescatter.png'
+  path13 = 'turtles/plot_r' + 'lengthvsheighthomekde.png'
+  path14 = 'turtles/plot_r' + 'datevsheighthomebox.png'
+  path15 = 'turtles/plot_r' + 'rvslengthbar.png'
+  path16 = 'turtles/plot_r' + 'rvswidthbar.png'
+  path17 = 'turtles/plot_r' + 'rvsheightbar.png'
+
+
+
+
 
   context= {
     'home_act': 'active',
@@ -178,6 +277,14 @@ def home(request):
     'Turtle': Turtle.objects.filter(archived = False),
     'Measurement' : measurements,
     'path9' : path9,
+    'path10' : path10,
+    'path11' : path11,
+    'path12' : path12,
+    'path13' : path13,
+    'path14' : path14,
+    'path15' : path15,
+    'path16' : path16,
+    'path17' : path17,
   }
 
   return render(request, 'turtles/home.html', context)
@@ -433,7 +540,7 @@ def current_r(request, year_archived, r_num):
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues').set_title('Carapace Length over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
   ax.set_ylabel( "Carapace Length" , size = 12 )
-  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbar.png'
+  file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbox.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
@@ -482,18 +589,10 @@ def current_r(request, year_archived, r_num):
   fig.savefig(file_path)
   plt.clf()
 
-  # fig, ax = plt.subplots()
-  # sns_plot = sns.barplot(ax=ax, x=r_nums, y=mass, palette='light:orange').set_title('test')
-  # ax.set_xlabel( "Turtle Number" , size = 12 )
-  # ax.set_ylabel( "Mass" , size = 12 )
-  # file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
-  # fig = sns_plot.get_figure()
-  # fig.savefig(file_path)
-  # plt.clf()
   
   path1 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
   path2 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
-  path3 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbar.png'
+  path3 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbox.png'
   path4 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightscatter.png'
   path5 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightkde.png'
   path6 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevsheightbox.png'
