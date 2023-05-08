@@ -47,3 +47,10 @@ class NewSearchForm(forms.Form):
 
 class UserConfirmationForm(forms.Form):
   code = forms.IntegerField(validators=[MaxValueValidator(99999), MinValueValidator(10000)])
+
+class NewDeleteForm(forms.Form):
+  confirmation = forms.CharField(label = 'Type the letters above to confirm account deletion.')
+
+class LoginForm(forms.Form):
+  username = forms.CharField()
+  password = forms.CharField(widget = forms.PasswordInput)

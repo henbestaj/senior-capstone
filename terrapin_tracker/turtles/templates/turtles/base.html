@@ -32,6 +32,9 @@
                 <a class="searchbutton" title="Search" href="{% url 'search' error %}"><span class="mglass">&#9906;</span></a>
                 {% endwith %}
             </div>
+            <div class="settings-container">
+                <a class="settingsbutton" title="Settings" href = "{% url 'settings' confirmation %}"><img src = "{% static 'turtles/settings.png' %}" id = 'settings' alt= 'Settings gear'></a>
+            </div>
             <div class="topnav">
                 <a class="{{ home_act }}" href="{% url 'home' %}">Home</a>
                 <a class="{{ about_act }}" href="{% url 'about' %}">About</a>

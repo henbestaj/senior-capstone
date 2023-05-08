@@ -71,7 +71,6 @@ margin-top: auto;
 margin-bottom: auto;
 }
 
-
 /* Displays search button */
 .mglass {
 display: inline-block;
@@ -102,6 +101,43 @@ height: 100%;
 z-index: 10;
 }
 
+.settings-container {
+position: relative;
+display: inline-block;
+grid-area: signin;
+height: 30px;
+width: 1%;
+margin-right:180px;
+vertical-align: bottom;
+justify-content:center;
+justify-self: center;
+justify-items: center;
+margin-top: auto;
+margin-bottom: auto;
+}
+
+.settingsbutton {
+display: inline-block;
+grid-area: signin;
+margin: 4px 2px;
+background-color: rgb(202,224,228);
+font-size: 22px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+color: black;
+text-decoration: none;
+cursor: pointer;
+-moz-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+position: absolute;
+width: 100%;
+margin: 0;
+padding: 0;
+}
 
 /* Style the links inside the navigation bar */
 .topnav a {

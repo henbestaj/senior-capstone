@@ -17,6 +17,9 @@ from wsgiref.util import FileWrapper
 from django.http import HttpResponse
 import random
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
+import string
 
 # Create your views here.
 def Confirm(request, username):
@@ -33,12 +36,13 @@ def Confirm(request, username):
     form = UserConfirmationForm()
   
   context = {
-    'home_act': 'active',
+    'home_act': '',
     'contact_act': '',
     'released_act': '',
     'about_act': '',
     'current_act': '',
     'form': form,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'registration/confirm.html', context)
@@ -61,12 +65,13 @@ def SignUp(request):
     form = UserRegisterForm()
   
   context = {
-    'home_act': 'active',
+    'home_act': '',
     'contact_act': '',
     'released_act': '',
     'about_act': '',
     'current_act': '',
     'form': form,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'registration/signup.html', context)
@@ -87,13 +92,14 @@ def search(request, error):
     form = NewSearchForm()
 
   context = {
-    'home_act': 'active',
+    'home_act': '',
     'contact_act': '',
     'released_act': '',
     'about_act': '',
     'current_act': '',
     'form': form,
     'error': error,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/search.html', context)
@@ -107,16 +113,52 @@ def send_file(request):
   return response
 
 def custom_page_not_found_view(request, exception):
-  return render(request, "turtles/404.html", {})
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+  
+  return render(request, "turtles/404.html", context)
 
 def custom_error_view(request, exception=None):
-  return render(request, "turtles/500.html", {})
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+  
+  return render(request, "turtles/500.html", context)
 
 def custom_permission_denied_view(request, exception=None):
-  return render(request, "turtles/403.html", {})
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+  
+  return render(request, "turtles/403.html", context)
 
 def custom_bad_request_view(request, exception=None):
-  return render(request, "turtles/400.html", {})
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+  
+  return render(request, "turtles/400.html", context)
 
 def home(request):
 
@@ -178,6 +220,7 @@ def home(request):
     'Turtle': Turtle.objects.filter(archived = False),
     'Measurement' : measurements,
     'path9' : path9,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/home.html', context)
@@ -202,6 +245,7 @@ def contact(request):
     'about_act': '',
     'current_act': '',
     'form': form,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/contact.html', context)
@@ -213,6 +257,7 @@ def contactsent(request):
     'released_act': '',
     'about_act': '',
     'current_act': '',
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/contactsent.html', context)
@@ -271,6 +316,7 @@ def released(request):
     'Measurement' : measurements,
     'r_nums' : r_nums,
     'years' : years,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/released.html', context)
@@ -282,6 +328,7 @@ def about(request):
     'released_act': '',
     'about_act': 'active',
     'current_act': '',
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/about.html', context)
@@ -341,6 +388,7 @@ def current(request):
     'Measurement' : measurements,
     'r_nums' : r_nums,
     'year_archived' : 0,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/current.html', context)
@@ -372,6 +420,7 @@ def current_r(request, year_archived, r_num):
       'Turtle': Turtle.objects.all(),
       'Measurement' : Measurement.objects.all(),
       'r' : r_num,
+      'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
     }
 
     return render(request, 'turtles/current_r.html', context)
@@ -521,12 +570,38 @@ def current_r(request, year_archived, r_num):
     'path7' : path7,
     'path8' : path8,
     'path9' : path9,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
   return render(request, 'turtles/current_r.html', context)
 
-def login(request):
-  return render(request, 'registration/login.html')
+def userlogin(request):
+  if request.method == 'POST':
+      form = LoginForm(request.POST)
+      if form.is_valid():
+          user = authenticate(
+              username = form.cleaned_data['username'],
+              password = form.cleaned_data['password'],
+          )
+          if user is not None:
+              login(request, user)
+              return redirect('home')
+          else:
+              return redirect('login')
+  else:
+    form = LoginForm()
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'form' : form,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+
+  return render(request, 'registration/login.html', context)
 
 class TurtleCreate(LoginRequiredMixin, CreateView):
   model = Turtle
@@ -543,3 +618,29 @@ class MeasurementCreate(LoginRequiredMixin, CreateView):
 def logout_request(request):
   logout(request)
   return redirect("home")
+
+@login_required
+def settings(request, confirmation):
+  if request.method == 'POST':
+    form = NewDeleteForm(request.POST)
+    if form.is_valid():
+      if form.cleaned_data["confirmation"] == confirmation:
+        User.objects.filter(username = request.user.get_username()).update(is_active = False)
+        return redirect("home")
+      else:
+        return redirect("settings")
+  
+  else:
+    form = NewDeleteForm()
+
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'form': form,
+    'confirmation': confirmation,
+  }
+
+  return render(request, 'turtles/settings.html', context)

@@ -1,0 +1,23 @@
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>Settings</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Settings</h3>
+    {{ data }}
+    {% if user.is_superuser %}
+    <h4>Administrator Settings</h4>
+    <a href="{% url 'admin:index' %}">Click here to go to the administrator settings page.</a>
+    {% endif %}
+    <h4>Delete Account</h4>
+    {{ confirmation }}
+    <form action="/settings/{{ confirmation }}/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" id=submit>
+    </form>
+  </div>
+{% endblock %}
