@@ -36,7 +36,9 @@
                 <a class="settingsbutton" title="Settings" href = "{% url 'settings' confirmation %}"><img src = "{% static 'turtles/settings.png' %}" id = 'settings' alt= 'Settings gear'></a>
             </div>
             <div class="topnav">
-                <a class="{{ home_act }}" href="{% url 'home' %}">Home</a>
+                {% with alert=0 %}
+                <a class="{{ home_act }}" href="{% url 'home' alert %}">Home</a>
+                {% endwith %}
                 <a class="{{ about_act }}" href="{% url 'about' %}">About</a>
                 <a class="{{ current_act }}" href="{% url 'current' %}">Current Turtles</a>
                 <a class="{{ released_act }}" href="{% url 'released' %}">Released Turtles</a>

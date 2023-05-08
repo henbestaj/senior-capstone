@@ -160,7 +160,7 @@ def custom_bad_request_view(request, exception=None):
   
   return render(request, "turtles/400.html", context)
 
-def home(request):
+def home(request, alert = 1):
 
   Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
   
@@ -331,6 +331,7 @@ def home(request):
     'path15' : path15,
     'path16' : path16,
     'path17' : path17,
+    'alert' : alert,
   }
 
   return render(request, 'turtles/home.html', context)
