@@ -20,7 +20,9 @@
       <br>
     <div class="deleteaccount">
       <h3 style="font-size: 20px">Delete Account:</h3>
-      {{ confirmation }}
+      {% for i in confirmation %}
+      {{ i }} 
+      {% endfor %}
       <br>
       <form action="/settings/{{ confirmation }}/" method="post">
           {% csrf_token %}
