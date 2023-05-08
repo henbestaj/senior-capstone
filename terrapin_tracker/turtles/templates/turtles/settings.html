@@ -2,22 +2,31 @@
 {% load static %}
 {% block head %}
 <title>Settings</title>
+<br>
+<link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Settings</h3>
+<div class="delete-box">
+    <h1 class="settings formheading">Settings</h1>
     {{ data }}
-    {% if user.is_superuser %}
-    <h4>Administrator Settings</h4>
-    <a href="{% url 'admin:index' %}">Click here to go to the administrator settings page.</a>
-    {% endif %}
-    <h4>Delete Account</h4>
-    {{ confirmation }}
-    <form action="/settings/{{ confirmation }}/" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit" id=submit>
-    </form>
+    <div class="delete">
+      {% if user.is_superuser %}
+      <h3 style="font-size: 20px">Administrator Settings:</h3>
+      <a href="{% url 'admin:index' %}" id="admin-link">Click here to go to the administrator settings page.</a>
+      {% endif %}
+    </div>
+      <br>
+      <br>
+    <div class="deleteaccount">
+      <h3 style="font-size: 20px">Delete Account:</h3>
+      {{ confirmation }}
+      <br>
+      <form action="/settings/{{ confirmation }}/" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="Submit" id="Create">
+      </form>
+    </div>
   </div>
 {% endblock %}

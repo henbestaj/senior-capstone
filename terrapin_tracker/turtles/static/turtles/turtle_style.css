@@ -1,4 +1,4 @@
-#center-box{
+.center-box{
     width: 60%;
     height: 50%;
     margin: 40px auto 30px;
@@ -10,7 +10,7 @@
     
 }
 /*centers the heading inside of the centered box*/
-#heading{
+.formheading{
     text-align: center;
     font-weight: bold;
     color: #333;
@@ -71,4 +71,56 @@ li{
 ul{
     list-style: none;
     padding:0px;
+}
+
+.delete {
+    text-align: center;
+    align-items: center;
+}
+
+
+.deleteaccount {
+    text-align: center;
+    align-items: center;
+}
+
+.delete-box {
+    width: 60%;
+    height: 60%;
+    margin: 40px auto 30px;
+    padding: 10px 50px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
+
+#admin-link {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 5%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:auto auto 10px;
+    display: inline-block;
+    width: 45%;
+    margin: 0px 5px;
+    text-decoration: none;
+}
+
+#admin-link:hover, #goBack:hover, #create:hover {
+    cursor:pointer;
+    background-color:rgb(45, 125, 143);
+    text-decoration: underline;
+  
+  }
+  #admin-link:active, #goBack:active, #create:active {
+    background-color:rgb(65, 145, 163);
+    color: black;
+    text-decoration: none;
+  }
+
+.settings {
+    margin-bottom: 45px;
 }
