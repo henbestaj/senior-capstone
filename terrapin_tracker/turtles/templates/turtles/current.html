@@ -26,15 +26,11 @@
     {% endif %}
     <div class="r">
         <br>
-       <table class="current-table" id="r-table">
-            
+       <div class="current-table" id="r-table">
                 {% for r_num in r_nums %}
-                {% if forloop.counter|divisibleby:"6"  %}   
-                <tr></tr>
-            {% endif %}
-                <td><a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a></td>     
+                <a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a>     
                 {% endfor %}
-        </table>
+       </div>
         <br>
         
 </div>
