@@ -199,7 +199,10 @@ def home(request):
   
   fig, ax = plt.subplots()
   legend = (list(set(group)))
-  legend = sorted([int(x) for x in legend])
+  try:
+    legend = sorted([int(x) for x in legend])
+  except:
+    print(legend)
   legend = ([str(x) for x in legend])
   sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=group, hue_order = legend).set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )
