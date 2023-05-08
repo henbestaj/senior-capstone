@@ -13,7 +13,9 @@
     <a href="{% url 'admin:index' %}">Click here to go to the administrator settings page.</a>
     {% endif %}
     <h4>Delete Account</h4>
-    {{ confirmation }}
+    {% for i in confirmation %}
+    {{ i }} 
+    {% endfor %}
     <form action="/settings/{{ confirmation }}/" method="post">
         {% csrf_token %}
         {{ form.as_p }}

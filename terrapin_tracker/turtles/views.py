@@ -59,8 +59,6 @@ def SignUp(request):
       yag.send(to = [user.email], subject = 'Terrapin Tracker Email Confirmation', contents = 'Your confirmation number is: ' + str(confirmation))
       request.session['confirmation'] = confirmation
       return redirect('confirm', user.username)
-    else:
-      return redirect('signup')
   else:
     form = UserRegisterForm()
   

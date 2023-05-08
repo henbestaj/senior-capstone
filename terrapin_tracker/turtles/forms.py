@@ -6,14 +6,21 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Inherit Django's default UserCreationForm
 class UserRegisterForm(UserCreationForm):
-  def clean_email(self):
-    if "@ocvts.org" not in self.cleaned_data['email'] and "@mail.ocvts.org" not in self.cleaned_data['email']:
-      raise forms.ValidationError("Must be a ocvts.org email address.")
-    return self.cleaned_data['email']
+  # def clean_email(self):
+  #   if "@ocvts.org" not in self.cleaned_data['email'] and "@mail.ocvts.org" not in self.cleaned_data['email']:
+  #     raise forms.ValidationError("Must be a ocvts.org email address.")
+  #   return self.cleaned_data['email']
+  
+  email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
+  first_name = forms.CharField(label = 'First Name')
+  last_name = forms.CharField(label = 'Last Name')
+  username = forms.CharField(label = 'Username')
+  password1 = forms.CharField(widget = forms.PasswordInput, label = 'Password')
+  password2 = forms.CharField(widget = forms.PasswordInput, label = 'Password Confirmation', help_text='Enter the same password as before, for verification.<ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>')
   
   class Meta:
     model = User
-    fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+    fields = ['email', 'first_name', 'last_name', 'username', 'password1', 'password2']
 
 class NewTurtleCreateForm(forms.ModelForm):
   class Meta:
