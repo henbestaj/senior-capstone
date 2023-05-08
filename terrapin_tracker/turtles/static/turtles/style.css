@@ -35,7 +35,7 @@ width:100px;
 .searchbutton {
 display: inline-block;
 grid-area: signin;
-margin: 4px 2px;
+margin-top:auto;
 background-color: rgb(202,224,228);
 font-size: 22px;
 height: 30px;
@@ -43,6 +43,7 @@ line-height: 30px;
 text-align: center;
 color: black;
 text-decoration: none;
+align-content: center;
 cursor: pointer;
 -moz-user-select: none;
 -khtml-user-select: none;
@@ -51,7 +52,6 @@ cursor: pointer;
 user-select: none;
 position: absolute;
 width: 100%;
-margin: 0;
 padding: 0;
 }
 
@@ -62,15 +62,15 @@ display: inline-block;
 grid-area: signin;
 height: 30px;
 width: 30px;
-margin-right:180px;
+margin-right:220px;
 vertical-align: bottom;
+align-content: center;
 justify-content:center;
 justify-self: center;
 justify-items: center;
 margin-top: auto;
 margin-bottom: auto;
 }
-
 
 /* Displays search button */
 .mglass {
@@ -81,6 +81,7 @@ font-size: 30;
 justify-content:center;
 justify-self: center;
 justify-items: center;
+align-content: center;
 margin-top: auto;
 margin-bottom: auto;
 -webkit-transform: rotate(-45deg);
@@ -92,34 +93,58 @@ margin-bottom: auto;
 .search {
 position: absolute;
 grid-area: signin;
-left: 49px; 
+left: 55px; 
+align-content: center;
 background-color: white;
 outline: none;
 border: none;
+margin-top:auto;
 padding: 0;
 width: 0;
 height: 100%;
 z-index: 10;
-transition-duration: 0.4s;
--moz-transition-duration: 0.4s;
--webkit-transition-duration: 0.4s;
--o-transition-duration: 0.4s;
 }
 
-/* Expands search box */
-.search:focus {
-width: 200px;
-padding: 0;
+.settings-container {
+position: relative;
+display: inline-block;
+grid-area: signin;
+height: 30px;
+width: 1%;
+margin-right:180px;
+margin-top:auto;
+align-content: center;
+/* vertical-align: bottom; */
+justify-content:center;
+justify-self: center;
+justify-items: center;
+margin-top: auto;
+margin-bottom: auto;
 }
 
-
-.expandright {
-left:auto;
-right: 31px;
-}
-
-.expandright:focus {
-padding: 0 0 0 16px;
+.settingsbutton {
+display: inline-block;
+grid-area: signin;
+margin-top:auto;
+background-color: rgb(202,224,228);
+font-size: 22px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+color: black;
+text-decoration: none;
+cursor: pointer;
+justify-content:center;
+justify-self: center;
+justify-items: center;
+align-content: center;
+-moz-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+position: absolute;
+width: 100%;
 }
 
 /* Style the links inside the navigation bar */

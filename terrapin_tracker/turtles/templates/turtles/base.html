@@ -28,13 +28,17 @@
             </script>
             {% endif %}
             <div class="search-container">
-                <form action="/search" method="get">
-                    <input class="search expandright" id="searchright" type="search" name="q" placeholder="Search">
-                    <label class="searchbutton" for="searchright" title="Search"><span class="mglass">&#9906;</span></label>
-                </form>
+                {% with error=0 %}
+                <a class="searchbutton" title="Search" href="{% url 'search' error %}"><span class="mglass">&#9906;</span></a>
+                {% endwith %}
+            </div>
+            <div class="settings-container">
+                <a class="settingsbutton" title="Settings" href = "{% url 'settings' confirmation %}"><img src = "{% static 'turtles/settings.png' %}" width='23' height='23' id = 'settings' alt= 'Settings gear'></a>
             </div>
             <div class="topnav">
-                <a class="{{ home_act }}" href="{% url 'home' %}">Home</a>
+                {% with alert=0 %}
+                <a class="{{ home_act }}" href="{% url 'home' alert %}">Home</a>
+                {% endwith %}
                 <a class="{{ about_act }}" href="{% url 'about' %}">About</a>
                 <a class="{{ current_act }}" href="{% url 'current' %}">Current Turtles</a>
                 <a class="{{ released_act }}" href="{% url 'released' %}">Released Turtles</a>

@@ -7,6 +7,25 @@
     background: #eee;
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
+                         
+}
+form{
+    display:grid;
+    grid-template-areas: "email subject"
+                         "body body"
+                         "submit submit";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:1fr 2.5fr 1fr;
+}
+p:has(#id_email){
+    grid-area: email;
+}
+
+p:has(#id_subject){
+    grid-area: subject;
+}
+p:has(#id_body){
+    grid-area: body;
 }
 .form-control{
     width:70%;
@@ -14,12 +33,18 @@
     display:block;
     margin:10px auto 10px;
 }
-p{
-    text-indent: 5%;
-    color:black;
+
+p:has(#id_email), p:has(#id_subject){
+    text-indent:11%
 }
+
+p:has(#id_body) {
+    text-indent:6%
+}
+
 textarea{
     resize: none;
+    height: 100%;
 }
 
 #submit {
@@ -32,6 +57,7 @@ textarea{
     margin:auto;
     display: block;
     width:50%;
+    grid-area: submit;
   }
   
 #submit:hover {
@@ -40,24 +66,26 @@ textarea{
 
 #id_subject{
     color:black;
-    width:90%;
+    width:85%;
+    height: 80%;
     align-items: center;
     display:block;
-    margin:auto auto 10px;;
+    margin:auto 10% 0px 5%;
 }
 
 #id_email{
     color:black;
-    width:90%;
+    width:85%;
+    height: 80%;
     align-items: center;
     display:block;
-    margin:auto auto 10px;
+    margin:auto 5% 0px 10%;
 }
 
 #id_body{
     color:black;
     width:90%;
-    height: 30%;
+    height: 100%;
     align-items: center;
     display:block;    
     margin:auto auto 10px;    

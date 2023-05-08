@@ -1,8 +1,36 @@
 {% extends 'turtles/base.html' %}
+{% load static %}
 
 {% block head %}
 <title>Released Turtles</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="current">
+    <br>
+    <a href="{% url 'measurements.csv' %}" download="measurements.csv" class="turtle-button">Download Data</a>
+    <br>
+    {% if Turtle|length == 0 %}
+    <div class="current-title">
+        <head>No Turtles Have Been Released at This Time, Sorry!</head>
+    </div>
+    {% else %}
+    <div class="current-title">
+        <head>Released Turtles</head>
+    </div>
+    <div class="r">
+        <br>
+        {% for year in years %}
+        <h2>{{ year }}</h2>
+            {% for r_num in r_nums %}
+                {% if r_num.1 == year %}
+                <h2><a href="{% url 'current_r' year r_num.0  %}" class = "rnum">R Group {{ r_num.0 }}</a></h2>
+                <br>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

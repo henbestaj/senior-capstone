@@ -26,7 +26,7 @@ p{
     height:40px;
     align-items: center;
     display:block;
-    margin:auto auto 10px;;
+    margin:auto auto 10px;
 }
 #id_password{
     color:black;
@@ -34,8 +34,7 @@ p{
     height:40px;
     align-items: center;
     display:block;
-    margin:auto auto 10px;;
-
+    margin:auto auto 10px;
 }
 button {
     background-color: rgb(26,82,94);

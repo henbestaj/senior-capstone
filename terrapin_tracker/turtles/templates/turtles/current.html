@@ -5,38 +5,34 @@
 <head>
   <title>Current Turtles</title>
   <link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="script.js" defer></script>
 </head>
 {% endblock %}
 
 {% block content %}
 <div class="current">
-    <br>
-    <a href="{% url 'TurtleCreate' %}" class="turtle-button">New Turtle</a>
-    <br>
-    <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
-    <div class="current-title">
-        <head>Hatchling Numbers</head>
+    <div class = "row-buttons">    
+        <a href="{% url 'TurtleCreate' %}" class="turtle-button">New Turtle</a>
+        <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
+        <a href="{% url 'measurements.csv' %}" download="measurements.csv" class="turtle-button">Download Data</a>
     </div>
+    {% if Turtle|length == 0 %}
+    <div class="current-title">
+        <head>There Are No Current Turtles at This Time, Sorry!</head>
+    </div>
+    {% else %}
+    <div class="current-title">
+        <head>Current Turtles</head>
+    </div>
+    {% endif %}
     <div class="r">
         <br>
-        {% for r_num in r_nums %}
-        <h2><a href="{% url 'current_r' r_num.r_num  %}" class = "rnum">R Group {{ r_num.r_num }}</a></h2>
-        <table class="current-table" id="r">
-            <tr>
-                {% for turtle in Turtle %}
-                    {% if turtle.r_num == r_num.r_num %}
-                <td><a href="{% url 'current_turtle' r_num.r_num turtle.hatchling_num  %}" class = "rnum">{{ r_num.r_num }}-{{ turtle.hatchling_num }}</a></td>
-                    {% endif %}
+       <div class="current-table" id="r-table">
+                {% for r_num in r_nums %}
+                <a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a>     
                 {% endfor %}
-            </tr>
-        </table>
+       </div>
         <br>
-        {% endfor %}
-        <br>
-        <h2>Graph Example:</h2>
-        <img src="{% static 'turtles/plot1.png' %}" alt="Plot 1" class = "graph" style="width:50%">
-    </div>
+        
 </div>
 {% endblock %}
+

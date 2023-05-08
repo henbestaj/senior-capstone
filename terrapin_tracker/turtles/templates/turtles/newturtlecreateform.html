@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<title>New Measurement</title>
+<title>Create New Turtle</title>
 <link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
 {% endblock %}
 
@@ -12,14 +12,10 @@
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" value="Submit" id="create">Create</button>
+    <div id = "button-container">
+      <button id = 'goBack'  type = "button" onclick = "history.back()">Go back</button>
+      <button type="submit" value="Submit" id="create">Create</button>
+    </div> 
   </form>
-
-  <button id = 'goBack' onclick = "goBack()">Go back</button>
-  <script>
-      function goBack() {
-          window.location.href="{% url 'current' %}";
-      }
-  </script>
 </div>
 {% endblock %}

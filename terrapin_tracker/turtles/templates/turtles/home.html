@@ -4,13 +4,33 @@
 <title>TerrapinTracker</title>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="{% static 'script.js' %}"></script>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+
 {% endblock %}
 
 {% block content %}
-<div class="test">
-    {% if user.is_authenticated %}
+{% if user.is_authenticated and alert == 1 %}
+<div class="alert">
+    <div class="alertmsg">
+        <h1>Hello {{ user.first_name }}!</h1>
+    </div>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+</div>
+{% endif %}
+    
+</div>
+<div class = "welcome">
+      <h1>Welcome to Terrapin Tracker!</h1>
+      <p class = description> insert description </p>
+      <p class = description>    </p>
+    </div>
+<div class = graphs>
     <br>
-    <h1>Hello {{ user.first_name }}!</h1>
-    {% endif %}
+    <br>
+    <h2>Measurement Graphs:</h2>
+    <br>
+    <img src="{% static path9 %}" alt="Length by Width Scatterplot" class = "graph" style="width:30%"> <img src="{% static path10 %}" alt="Length by Width KDE" class = "graph" style="width:30%"> <img src="{% static path11 %}" alt="Length by Date Boxplot" class = "graph" style="width:30%">
+    <img src="{% static path12 %}" alt="Length by Height Scatterplot" class = "graph" style="width:30%"> <img src="{% static path13 %}" alt="Length by Height KDE" class = "graph" style="width:30%"> <img src="{% static path14 %}" alt="Height by Date Boxplot" class = "graph" style="width:30%">
+    <img src="{% static path15 %}" alt="Length by R Group Barplot" class = "graph" style="width:30%"> <img src="{% static path16 %}" alt="Width by R Group Barplot" class = "graph" style="width:30%"> <img src="{% static path17 %}" alt="Height by R Group Barplot" class = "graph" style="width:30%">
 </div>
 {% endblock %}
