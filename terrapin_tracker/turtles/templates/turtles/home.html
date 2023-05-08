@@ -9,14 +9,14 @@
 {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated and alert == 1 %}
 <div class="alert">
     <div class="alertmsg">
-        {% if user.is_authenticated %}
         <h1>Hello {{ user.first_name }}!</h1>
-        {% endif %}
     </div>
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      </div>
+</div>
+{% endif %}
     
 </div>
 <div class = "welcome">
