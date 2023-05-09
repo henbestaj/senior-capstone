@@ -47,17 +47,18 @@ form{
     grid-area: form;
     display: grid;
     grid-template-areas:"email password-1"
-                        "email-info password-2"
                         "first-name password-2"
                         "last-name ul"
                         "username ul"
                         "go-back submit";
+    grid-template-columns: 1fr 1fr;
+    grid-template: 1fr 1fr 1fr 1fr 1fr;
 }
 
 label{
-    margin-right: auto;
-    text-indent:20%;
-    white-space: nowrap;
+margin-right: auto;
+margin-left: 11%;
+
 }
 #email-info{
     grid-area: email-info;
@@ -94,7 +95,6 @@ p:has(#id_username){
 #go-back{
     grid-area: go-back;
     text-align: center;
-    color:#333;
 }
 ul{
     padding:0px;
@@ -140,4 +140,5 @@ button {
     margin:auto auto 10px;
     display: block;
     width:70%;
+    margin-top: 10px;
   }

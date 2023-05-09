@@ -19,6 +19,8 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" id= sign-up>Sign Up</button>
+    <button id = 'go-back' value="button" onclick = "history.back()">Go Back</button>
+
   </form>
   {% endif %}
 </div>

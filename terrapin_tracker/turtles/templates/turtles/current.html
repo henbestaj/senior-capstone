@@ -20,19 +20,19 @@
         <head>There Are No Current Turtles at This Time, Sorry!</head>
     </div>
     {% else %}
-    <div class="current-title">
-        <head>Current Turtles</head>
-    </div>
-    {% endif %}
-    <div class="r">
-        <br>
-       <div class="current-table" id="r-table">
+    <div class="center-box">
+        <div class="current-title">
+            <head>Current Turtles</head>
+        </div>
+        <div class="r">
+        <div class="current-table" id="r-table">
                 {% for r_num in r_nums %}
                 <a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a>     
                 {% endfor %}
-       </div>
-        <br>
-        
-</div>
+        </div>
+        </div>
+    </div>
+    {% endif %}
+    
 {% endblock %}
 
