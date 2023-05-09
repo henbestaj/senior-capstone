@@ -2,19 +2,20 @@
 {% load static %}
 {% block head %}
 <title>Search</title>
+<link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="search-box">
     <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Search</h3>
     {% if error == 1 %}
     Please include a year archived for archived R groups.
     {% endif %}
     {% with error=0 %}
-    <form action="/search/{{ error }}/" method="post">
+    <form action="/search/{{ error }}/" method="post" class="searchform">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit" id=submit>
+        <input type="submit" value="Submit" id=submitbtn>
     </form>
     {% endwith %}
   </div>

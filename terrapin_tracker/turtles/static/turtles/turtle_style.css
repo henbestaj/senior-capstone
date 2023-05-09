@@ -53,7 +53,7 @@ p{
     margin:auto auto 10px;
     display: inline-block;
     width: 32.5%;
-    margin: 0px 15px
+    margin: 0px 15px;
    
 }
 ::marker{
@@ -93,6 +93,19 @@ ul{
     background: #eee;
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
+    
+}
+
+.search-box {
+    width: 60%;
+    height: 50%;
+    margin: 40px auto 30px;
+    padding: 10px 50px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    
 }
 
 #admin-link {
@@ -108,14 +121,49 @@ ul{
     margin: 0px 5px;
     text-decoration: none;
 }
+#submitbtn {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    /* margin:auto auto 10px; */
+    display: inline-block;
+    width: 26%;
+    /* margin: 0px 10px; */
+    text-align: center;
+    align-items: center;
+    margin-left: 320px;
+    margin-top: 30px;
+    /* margin:auto auto 10px;
+    margin: 0px 15px; */
+}
 
-#admin-link:hover, #goBack:hover, #create:hover {
+#submitbtnsettings {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+    width: 26%;
+    text-align: center;
+    align-items: center;
+    margin:auto auto 10px;
+    margin: 0px 15px;
+}
+
+#admin-link:hover, #goBack:hover, #create:hover, #submitbtn:hover {
     cursor:pointer;
     background-color:rgb(45, 125, 143);
     text-decoration: underline;
   
   }
-  #admin-link:active, #goBack:active, #create:active {
+  #admin-link:active, #goBack:active, #create:active, #submitbtn:active {
     background-color:rgb(65, 145, 163);
     color: black;
     text-decoration: none;
@@ -124,3 +172,6 @@ ul{
 .settings {
     margin-bottom: 45px;
 }
+
+
+

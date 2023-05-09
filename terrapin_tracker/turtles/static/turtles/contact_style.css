@@ -94,9 +94,6 @@ textarea{
 .message {
     font-size: 16pt;
     align-items: center;
-    margin-top: 30px;
-    margin-left: 180px;
-    margin-right: auto;
     text-align: center;
     background-color: rgb(26,82,94);
     color: white;
@@ -104,7 +101,9 @@ textarea{
     justify-content: center;
     width:70%;
     padding: 0px 35px 0px 0px;
-    flex-direction: column;
+    margin: 20px auto ;
+    align-items: center;
+    justify-content: center;
 }
 
 .sent {
