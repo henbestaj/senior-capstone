@@ -16,21 +16,22 @@
         <head>No Turtles Have Been Released at This Time, Sorry!</head>
     </div>
     {% else %}
-    <div class="current-title">
-        <head>Released Turtles</head>
-    </div>
-    <div class="r">
-        <br>
-        {% for year in years %}
-        <h2>{{ year }}</h2>
-            {% for r_num in r_nums %}
-                {% if r_num.1 == year %}
-                <h2><a href="{% url 'current_r' year r_num.0  %}" class = "rnum">R Group {{ r_num.0 }}</a></h2>
+    <div class="center-box">
+        <div class="current-title">
+                <head>Released Turtles</head>
+        </div>
                 <br>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
+                {% for year in years %}
+                <h2>{{ year }}</h2>
+                    <div class="current-table">
+                            {% for r_num in r_nums %}
+                                {% if r_num.1 == year %}
+                                <a href="{% url 'current_r' year r_num.0  %}" class = "rnum">R Group {{ r_num.0 }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+            {% endif %}
     </div>
-    {% endif %}
 </div>
 {% endblock %}
