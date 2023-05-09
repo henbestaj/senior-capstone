@@ -7,15 +7,10 @@
 {% block content %}
 <div class="container">
     <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Search</h3>
-    {% if error == 1 %}
-    Please include a year archived for archived R groups.
-    {% endif %}
-    {% with error=0 %}
-    <form action="/search/{{ error }}/" method="post">
+    <form action="/search/" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit" id=submit>
     </form>
-    {% endwith %}
   </div>
 {% endblock %}

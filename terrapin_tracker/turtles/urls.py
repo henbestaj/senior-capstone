@@ -16,7 +16,7 @@ urlpatterns = [
   path("accounts/", include("django.contrib.auth.urls")),
   path("logout/", logout_request, name="logout"),
   path("measurements.csv/", send_file, name='measurements.csv'),
-  path("search/<int:error>/", search, name="search"),
+  path("search/", search, name="search"),
   path('signup/', SignUp, name='signup'),
   path('confirm/<username>/', Confirm, name='confirm'),
   path('settings/<confirmation>/', settings, name='settings'),

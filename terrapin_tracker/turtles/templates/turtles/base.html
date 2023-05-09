@@ -28,9 +28,7 @@
             </script>
             {% endif %}
             <div class="search-container">
-                {% with error=0 %}
-                <a class="searchbutton" title="Search" href="{% url 'search' error %}"><span class="mglass">&#9906;</span></a>
-                {% endwith %}
+                <a class="searchbutton" title="Search" href="{% url 'search' %}"><span class="mglass">&#9906;</span></a>
             </div>
             <div class="settings-container">
                 <a class="settingsbutton" title="Settings" href = "{% url 'settings' confirmation %}"><img src = "{% static 'turtles/settings.png' %}" width='23' height='23' id = 'settings' alt= 'Settings gear'></a>

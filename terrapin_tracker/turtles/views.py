@@ -74,14 +74,11 @@ def SignUp(request):
 
   return render(request, 'registration/signup.html', context)
 
-def search(request, error):
-  error = error
+def search(request):
   if request.method == 'POST':
     form = NewSearchForm(request.POST)
     if form.is_valid():
-      if request.POST.get('archived') and request.POST.get('year_archived') == '':
-        return redirect('search', error=1)
-      elif request.POST.get('archived'):
+      if request.POST.get('archived'):
         return redirect('current_r', year_archived=request.POST.get('year_archived'), r_num=request.POST.get('r_num'))
       else:
         return redirect('current_r', year_archived=0, r_num=request.POST.get('r_num'))
@@ -96,7 +93,6 @@ def search(request, error):
     'about_act': '',
     'current_act': '',
     'form': form,
-    'error': error,
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
@@ -680,15 +676,14 @@ def userlogin(request):
   if request.method == 'POST':
       form = LoginForm(request.POST)
       if form.is_valid():
-          user = authenticate(
-              username = form.cleaned_data['username'],
-              password = form.cleaned_data['password'],
-          )
-          if user is not None:
-              login(request, user)
-              return redirect('home')
-          else:
-              return redirect('login')
+        user = authenticate(
+          username = form.cleaned_data['username'],
+          password = form.cleaned_data['password'],
+        )
+        if user is not None:
+          login(request, user)
+          return redirect('home')
+
   else:
     form = LoginForm()
   

@@ -6,10 +6,17 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Inherit Django's default UserCreationForm
 class UserRegisterForm(UserCreationForm):
-  # def clean_email(self):
-  #   if "@ocvts.org" not in self.cleaned_data['email'] and "@mail.ocvts.org" not in self.cleaned_data['email']:
-  #     raise forms.ValidationError("Must be a ocvts.org email address.")
-  #   return self.cleaned_data['email']
+  def clean(self):
+    data = self.cleaned_data
+    email = data['email']
+    username = data['username']
+
+    if User.objects.filter(username = username).exists() == True:
+      raise forms.ValidationError("The username you entered is already in use.")
+    if User.objects.filter(email = email, is_active = True).exists() == True:
+      raise forms.ValidationError("The email you entered is already in use.")
+    if 'ocvts.org' not in email:
+      raise forms.ValidationError("Please use your ocvts.org email.")
   
   email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
   first_name = forms.CharField(label = 'First Name')
@@ -23,6 +30,16 @@ class UserRegisterForm(UserCreationForm):
     fields = ['email', 'first_name', 'last_name', 'username', 'password1', 'password2']
 
 class NewTurtleCreateForm(forms.ModelForm):
+  def clean(self):
+    data = self.cleaned_data
+    r_num = data['r_num']
+    hatchling_num = data['hatchling_num']
+
+    if Turtle.objects.filter(archived = False, r_num = r_num, hatchling_num = hatchling_num).exists():
+      raise forms.ValidationError("This turtle already exists.")
+    
+    return data
+  
   class Meta:
     model = Turtle
     fields = ['r_num', 'hatchling_num', 'archived']
@@ -48,16 +65,32 @@ class NewContactForm(forms.Form):
   body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}), label='Body')
 
 class NewSearchForm(forms.Form):  
+  def clean(self):
+    data = self.cleaned_data
+    r_num = data['r_num']
+    archived = data['archived']
+    year_archived = data['year_archived']
+
+    if archived and not year_archived:
+      raise forms.ValidationError("Please enter a year archived when searching for archived turtles.")
+  
   r_num = forms.IntegerField(label = 'R Number')
   archived = forms.BooleanField(required=False, label = 'Archived?')
   year_archived = forms.IntegerField(required=False, label = 'Year Archived')
 
 class UserConfirmationForm(forms.Form):
-  code = forms.IntegerField(validators=[MaxValueValidator(99999), MinValueValidator(10000)])
+  code = forms.IntegerField(label='Confirmation Code', validators=[MaxValueValidator(99999), MinValueValidator(10000)])
 
 class NewDeleteForm(forms.Form):
   confirmation = forms.CharField(label = 'Type the letters above to confirm account deletion.')
 
 class LoginForm(forms.Form):
-  username = forms.CharField()
-  password = forms.CharField(widget = forms.PasswordInput)
+  def clean(self):
+    data = self.cleaned_data
+    username = data['username']
+
+    if User.objects.filter(username = username).exists() == False:
+      raise forms.ValidationError("Please enter a correct username.")
+  
+  username = forms.CharField(label='Username')
+  password = forms.CharField(label='Password', widget = forms.PasswordInput)
