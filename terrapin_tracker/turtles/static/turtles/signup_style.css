@@ -52,12 +52,14 @@ form{
                         "last-name ul"
                         "username ul"
                         "go-back submit";
+    grid-template-columns: 1fr 1fr;
+    grid-template: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 label{
-    margin-right: auto;
-    text-indent:20%;
-    white-space: nowrap;
+margin-right: auto;
+margin-left: 11%;
+
 }
 #email-info{
     grid-area: email-info;

@@ -16,6 +16,7 @@
   <h2 id="personal-info">Personal Info</h2>
   <h2 id="set-password">Set Password</h2>
   <form method="post">
+    <p id= email-info>Please use your @ocvts.org email</p>
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" id= sign-up>Sign Up</button>
