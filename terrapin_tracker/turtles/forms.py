@@ -29,6 +29,20 @@ class UserRegisterForm(UserCreationForm):
     model = User
     fields = ['email', 'first_name', 'last_name', 'username', 'password1', 'password2']
 
+class ChangePassword(forms.Form):
+  def clean(self):
+    data = self.cleaned_data
+    password1 = data['password1']
+    password2 = data['password2']
+
+    if password1 != password2:
+      raise forms.ValidationError("Passwords do not match.")
+  
+  old_password = forms.CharField(widget = forms.PasswordInput, label = 'Old Password')
+  password1 = forms.CharField(widget = forms.PasswordInput, label = 'New Password')
+  password2 = forms.CharField(widget = forms.PasswordInput, label = 'New Password Confirmation', help_text='Enter the same password as before, for verification.<ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>')
+  password = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
 class NewTurtleCreateForm(forms.ModelForm):
   def clean(self):
     data = self.cleaned_data
@@ -82,7 +96,23 @@ class UserConfirmationForm(forms.Form):
   code = forms.IntegerField(label='Confirmation Code', validators=[MaxValueValidator(99999), MinValueValidator(10000)])
 
 class NewDeleteForm(forms.Form):
-  confirmation = forms.CharField(label = 'Type the letters above to confirm account deletion.')
+  confirmation = forms.CharField(label = 'Type the letters above to confirm account deletion')
+  delete = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+class ForgotForm(forms.Form):
+  email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
+
+  def clean(self):
+    data = self.cleaned_data
+    email = data['email']
+
+    if not User.objects.filter(email = email, is_active = True).exists():
+      raise forms.ValidationError("This user does not exist.")
+
+class ChangeNameForm(forms.Form):
+  first_name = forms.CharField(label = 'First Name')
+  last_name = forms.CharField(label = 'Last Name')
+  name = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 class LoginForm(forms.Form):
   def clean(self):

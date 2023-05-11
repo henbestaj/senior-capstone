@@ -674,15 +674,15 @@ def current_r(request, year_archived, r_num):
 
 def userlogin(request):
   if request.method == 'POST':
-      form = LoginForm(request.POST)
-      if form.is_valid():
-        user = authenticate(
-          username = form.cleaned_data['username'],
-          password = form.cleaned_data['password'],
-        )
-        if user is not None:
-          login(request, user)
-          return redirect('home')
+    form = LoginForm(request.POST)
+    if form.is_valid():
+      user = authenticate(
+        username = form.cleaned_data['username'],
+        password = form.cleaned_data['password'],
+      )
+      if user is not None:
+        login(request, user)
+        return redirect('home')
 
   else:
     form = LoginForm()
@@ -715,19 +715,65 @@ def logout_request(request):
   logout(request)
   return redirect("home")
 
+def forgot(request):
+  if request.method == 'POST':
+    form = ForgotForm(request.POST)
+    if form.is_valid():
+      raw_password = ''.join(random.choices(string.ascii_letters, k=8)) + ''.join(random.choices(string.punctuation, k=2))
+      user = User.objects.get(email = form.cleaned_data['email'], is_active = True)
+      user.set_password(raw_password)
+      user.save()
+      yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "./oauth2_creds.json")
+      yag.send(to = [form.cleaned_data['email']], subject = 'Terrapin Tracker Username and Password Retrieval', contents = 'Your username is: ' + user.username + '\n\nYour new password is: ' + raw_password)
+      return redirect('login')
+
+  else:
+    form = ForgotForm()
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': '',
+    'form' : form,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+
+  return render(request, 'registration/forgot.html', context)
+
 @login_required
 def settings(request, confirmation):
+  delete = NewDeleteForm()
+  name = ChangeNameForm()
+  password = ChangePassword()
+
   if request.method == 'POST':
-    form = NewDeleteForm(request.POST)
-    if form.is_valid():
-      if form.cleaned_data["confirmation"] == confirmation:
-        User.objects.filter(username = request.user.get_username()).update(is_active = False)
-        return redirect("home")
-      else:
-        return redirect("settings")
-  
-  else:
-    form = NewDeleteForm()
+    if 'delete' in request.POST:
+      delete = NewDeleteForm(request.POST)
+      if delete.is_valid():
+        if delete.cleaned_data["confirmation"] == confirmation:
+          User.objects.filter(username = request.user.get_username()).update(is_active = False)
+          return redirect("home")
+        else:
+          return redirect("settings", ''.join(random.choices(string.ascii_uppercase, k=7)))
+    elif 'name' in request.POST:
+      name = ChangeNameForm(request.POST)
+      if name.is_valid():
+        User.objects.filter(username = request.user.get_username()).update(first_name = name.cleaned_data["first_name"])
+        User.objects.filter(username = request.user.get_username()).update(last_name = name.cleaned_data["last_name"])
+        return redirect("settings", ''.join(random.choices(string.ascii_uppercase, k=7)))
+    elif 'password' in request.POST:
+      password = ChangePassword(request.POST)
+      if password.is_valid():
+        user = authenticate(
+          username = request.user.get_username(),
+          password = password.cleaned_data['old_password'],
+        )
+        if user is not None:
+          user.set_password(password.cleaned_data['password1'])
+          user.save()
+          return redirect("settings", ''.join(random.choices(string.ascii_uppercase, k=7)))          
 
   context = {
     'home_act': '',
@@ -735,7 +781,9 @@ def settings(request, confirmation):
     'released_act': '',
     'about_act': '',
     'current_act': '',
-    'form': form,
+    'delete': delete,
+    'name': name,
+    'password': password,
     'confirmation': confirmation,
   }
 
