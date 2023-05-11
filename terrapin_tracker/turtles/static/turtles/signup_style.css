@@ -16,6 +16,11 @@
                         
 }
 
+.errorlist {
+    color: red;
+    margin-right: 300px !important;
+}
+
 #heading{
     text-align: center;
     font-weight: bold;

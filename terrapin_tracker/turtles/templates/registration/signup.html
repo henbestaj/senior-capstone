@@ -9,7 +9,6 @@
 {% block content %}
 <div id = "center-box">
   <h1 id= heading>Sign Up</h1>
-  
   {% if user.is_authenticated %}
   Please log out if you would like to create a new account.
   {% else %}
@@ -18,6 +17,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+    <ul class="form"><br><br><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>
     <button type="submit" id= sign-up>Sign Up</button>
     <button id = 'go-back' value="button" onclick = "history.back()">Go Back</button>
 
