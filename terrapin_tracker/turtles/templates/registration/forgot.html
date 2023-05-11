@@ -2,24 +2,21 @@
 {% load static %}
 
 {% block head %}
-<title>Log In</title>
+<title>Forgot Username and/or Password</title>
 <link rel="stylesheet" href="{% static 'turtles/login_style.css' %}">
 {% endblock %}
 
 {% block content %}
 <div id = "center-box">
-  <h1 id= heading>Log In</h1>
+  <h1 id= heading>Forgot Username and/or Password</h1>
   {% if user.is_authenticated %}
-  You are already logged in!
+  Please log out if you would like to retrieve your username and password.
   {% else %}
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Log In</button>
+    <button type="submit">Confirm</button>
   </form>
-  <a href = "{% url 'signup' %}">No account? Sign up here.</a>
-  <br>
-  <a href = "{% url 'forgot' %}">Forgot your username and/or password? Click here.</a>
   {% endif %}
 </div>
 {% endblock %}

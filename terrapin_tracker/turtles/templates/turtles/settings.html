@@ -18,6 +18,26 @@
     </div>
       <br>
       <br>
+    <div class="changename">
+      <h3 style="font-size: 20px">Change Name:</h3>
+      <form action="/settings/{{ confirmation }}/" method="post">
+        {% csrf_token %}
+        {{ name.as_p }}
+        <input type="submit" value="Submit" id="submitbtnsettings">
+      </form>
+    </div>
+      <br>
+      <br>
+    <div class="changepassword">
+      <h3 style="font-size: 20px">Change Password:</h3>
+      <form action="/settings/{{ confirmation }}/" method="post">
+        {% csrf_token %}
+        {{ password.as_p }}
+        <input type="submit" value="Submit" id="submitbtnsettings">
+      </form>
+    </div>
+      <br>
+      <br>
     <div class="deleteaccount">
       <h3 style="font-size: 20px">Delete Account:</h3>
       {% for i in confirmation %}
@@ -25,9 +45,9 @@
       {% endfor %}
       <br>
       <form action="/settings/{{ confirmation }}/" method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <input type="submit" value="Submit" id="submitbtnsettings">
+        {% csrf_token %}
+        {{ delete.as_p }}
+        <input type="submit" value="Submit" id="submitbtnsettings">
       </form>
     </div>
   </div>

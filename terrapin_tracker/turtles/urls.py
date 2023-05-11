@@ -21,4 +21,5 @@ urlpatterns = [
   path('confirm/<username>/', Confirm, name='confirm'),
   path('settings/<confirmation>/', settings, name='settings'),
   path('login/', userlogin, name='login'),
+  path('forgot/', forgot, name='forgot'),
 ]
