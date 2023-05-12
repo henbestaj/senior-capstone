@@ -17,9 +17,9 @@
     {{ form.as_p }}
     <button type="submit">Log In</button>
   </form>
-  <a href = "{% url 'signup' %}">No account? Sign up here.</a>
+  <a href = "{% url 'signup' %}" class="update-info">No account? Sign up here.</a>
   <br>
-  <a href = "{% url 'forgot' %}">Forgot your username and/or password? Click here.</a>
+  <a href = "{% url 'forgot' %}"class = update-info>Forgot your username and/or password? Click here.</a>
   {% endif %}
 </div>
 {% endblock %}
