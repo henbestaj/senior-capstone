@@ -49,7 +49,7 @@ class NewTurtleCreateForm(forms.ModelForm):
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
 
-    if Turtle.objects.filter(archived = False, r_num = r_num, hatchling_num = hatchling_num).exists():
+    if Turtle.objects.filter(archived = False, r_num = r_num, hatchling_num = hatchling_num, valid_to = None).exists():
       raise forms.ValidationError("This turtle already exists.")
     
     return data

@@ -31,7 +31,7 @@
             </thead>
             <tbody>
                 {% for measurement in Measurement %}
-                {% if measurement.turtle.r_num == r %}
+                {% if measurement.turtle.r_num == r and measurement.turtle.year_archived == year_archived %}
                     <tr>
                         <td>{{ measurement.date }}</td>
                         <td>{{ measurement.display_turtle }}</td>

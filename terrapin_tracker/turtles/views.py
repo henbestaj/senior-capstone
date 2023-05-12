@@ -156,39 +156,39 @@ def custom_bad_request_view(request, exception=None):
 
 def home(request, alert = 1):
 
-  Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
+  Turtle.objects.filter(archived = True, year_archived = 0, valid_to = None).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
   
   measurements = []
-  for i in Measurement.objects.all():
+  for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == False:
       measurements.append(i)
 
 
   date = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
       date.append(measurement.date)
   group = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
       group.append((measurement.display_turtle.split('-')[0]))
   
   carapace_length = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
       carapace_length.append(measurement.carapace_length)
   
   carapace_width = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
       carapace_width.append(measurement.carapace_width)
   
   plastron_length = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
       plastron_length.append(measurement.plastron_length)
   
   carapace_height = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
       carapace_height.append(measurement.carapace_height)
   
   mass = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
       mass.append(measurement.mass)
   
   fig, ax = plt.subplots()
@@ -313,7 +313,7 @@ def home(request, alert = 1):
     'released_act': '',
     'about_act': '',
     'current_act': '',
-    'Turtle': Turtle.objects.filter(archived = False),
+    'Turtle': Turtle.objects.filter(archived = False, valid_to = None),
     'Measurement' : measurements,
     'path9' : path9,
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
@@ -368,27 +368,27 @@ def contactsent(request):
   return render(request, 'turtles/contactsent.html', context)
 
 def released(request):  
-  Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
+  Turtle.objects.filter(archived = True, year_archived = 0, valid_to = None).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
 
   measurements = []
-  for i in Measurement.objects.all():
+  for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == True:
       measurements.append(i)
 
   with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
-    values = Measurement.objects.all().values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
+    values = Measurement.objects.filter(valid_to = None).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
     correct_values = []
     number = 0
     for x in values:
       correct_values.append([])
       one_time = True
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].r_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].hatchling_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].archived)
-      if Turtle.objects.filter(id = int(x[0]))[0].archived:
-        correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].year_archived)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].r_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].hatchling_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived)
+      if Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived:
+        correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].year_archived)
       else:
         correct_values[number].append('')
       for y in x:
@@ -402,13 +402,13 @@ def released(request):
   csvfile.close()
   
   r_nums = set()
-  for x in Turtle.objects.filter(archived = True):
+  for x in Turtle.objects.filter(archived = True, valid_to = None):
     r_nums.add((x.r_num, x.year_archived))
   r_nums = list(r_nums)
   r_nums = sorted(r_nums, key = lambda x: x[0])
   
   years = []
-  for i in Turtle.objects.filter(archived = True).values('year_archived').distinct():
+  for i in Turtle.objects.filter(archived = True, valid_to = None).values('year_archived').distinct():
     years.append(i['year_archived'])
   
   context = {
@@ -417,7 +417,7 @@ def released(request):
     'released_act': 'active',
     'about_act': '',
     'current_act': '',
-    'Turtle': Turtle.objects.filter(archived = True),
+    'Turtle': Turtle.objects.filter(archived = True, valid_to = None),
     'Measurement' : measurements,
     'r_nums' : r_nums,
     'years' : years,
@@ -439,27 +439,27 @@ def about(request):
   return render(request, 'turtles/about.html', context)
 
 def current(request):
-  Turtle.objects.filter(archived = True, year_archived = 0).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
+  Turtle.objects.filter(archived = True, year_archived = 0, valid_to = None).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
 
   measurements = []
-  for i in Measurement.objects.all():
+  for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == False:
       measurements.append(i)
   
   with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
-    values = Measurement.objects.all().values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
+    values = Measurement.objects.filter(valid_to = None).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
     correct_values = []
     number = 0
     for x in values:
       correct_values.append([])
       one_time = True
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].r_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].hatchling_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].archived)
-      if Turtle.objects.filter(id = int(x[0]))[0].archived:
-        correct_values[number].append(Turtle.objects.filter(id = int(x[0]))[0].year_archived)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].r_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].hatchling_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived)
+      if Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived:
+        correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].year_archived)
       else:
         correct_values[number].append('')
       for y in x:
@@ -473,9 +473,9 @@ def current(request):
   csvfile.close()
 
   r_nums = []
-  for x in Turtle.objects.values('r_num').distinct():
+  for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
     include = False
-    for y in Turtle.objects.filter(r_num = x['r_num']):
+    for y in Turtle.objects.filter(r_num = x['r_num'], valid_to = None):
       if (y.archived == False):
         include = True
     if include:
@@ -489,7 +489,7 @@ def current(request):
     'released_act': '',
     'about_act': '',
     'current_act': 'active',
-    'Turtle': Turtle.objects.filter(archived = False),
+    'Turtle': Turtle.objects.filter(archived = False, valid_to = None),
     'Measurement' : measurements,
     'r_nums' : r_nums,
     'year_archived' : 0,
@@ -503,7 +503,7 @@ def current_r(request, year_archived, r_num):
   year_archived = int(year_archived)
 
   no_turtles = True
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       no_turtles = False
   
@@ -522,8 +522,8 @@ def current_r(request, year_archived, r_num):
       'released_act': released_act,
       'about_act': '',
       'current_act': current_act,
-      'Turtle': Turtle.objects.all(),
-      'Measurement' : Measurement.objects.all(),
+      'Turtle': Turtle.objects.filter(valid_to = None),
+      'Measurement' : Measurement.objects.filter(valid_to = None),
       'r' : r_num,
       'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
     }
@@ -531,37 +531,37 @@ def current_r(request, year_archived, r_num):
     return render(request, 'turtles/current_r.html', context)
 
   date = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       date.append(measurement.date)
   
   turtle = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       turtle.append(measurement.display_turtle.split('-')[1])
   
   carapace_length = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_length.append(measurement.carapace_length)
   
   carapace_width = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_width.append(measurement.carapace_width)
   
   plastron_length = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       plastron_length.append(measurement.plastron_length)
   
   carapace_height = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_height.append(measurement.carapace_height)
   
   mass = []
-  for measurement in Measurement.objects.all():
+  for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       mass.append(measurement.mass)
   
@@ -655,9 +655,10 @@ def current_r(request, year_archived, r_num):
     'released_act': released_act,
     'about_act': '',
     'current_act': current_act,
-    'Turtle': Turtle.objects.all(),
-    'Measurement' : Measurement.objects.all(),
+    'Turtle': Turtle.objects.filter(valid_to = None),
+    'Measurement' : Measurement.objects.filter(valid_to = None),
     'r' : r_num,
+    'year_archived' : year_archived,
     'path1' : path1,
     'path2' : path2,
     'path3' : path3,
