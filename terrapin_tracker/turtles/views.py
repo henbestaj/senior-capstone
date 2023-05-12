@@ -22,6 +22,44 @@ from django.contrib.auth import login, authenticate
 import string
 
 # Create your views here.
+def MeasurementHistory(request, id):
+  current_act = ''
+  released_act = ''
+  if Measurement.objects.get(valid_to = None, id = id).turtle.year_archived == 0:
+    current_act = 'active'
+  else:
+    released_act = 'active'
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': released_act,
+    'about_act': '',
+    'current_act': current_act,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+
+  return render(request, 'turtles/MeasurementHistory.html', context)
+
+def TurtleHistory(request, id):
+  current_act = ''
+  released_act = ''
+  if Turtle.objects.get(valid_to = None, id = id).year_archived == 0:
+    current_act = 'active'
+  else:
+    released_act = 'active'
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': released_act,
+    'about_act': '',
+    'current_act': current_act,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+
+  return render(request, 'turtles/TurtleHistory.html', context)
+
 def Confirm(request, username):
   confirmation = request.session.get('confirmation')
   if request.method == 'POST':
@@ -636,7 +674,6 @@ def current_r(request, year_archived, r_num):
   fig.savefig(file_path)
   plt.clf()
 
-  
   path1 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
   path2 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
   path3 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbox.png'
@@ -647,6 +684,13 @@ def current_r(request, year_archived, r_num):
   path8 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'turtlevsheightbox.png'
   path9 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
 
+  unique_turtles = set()
+  for measurement in Measurement.objects.filter(valid_to = None):
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+      unique_turtles.add(Turtle.objects.get(r_num = r_num, year_archived = year_archived, hatchling_num = measurement.turtle.hatchling_num, valid_to = None))
+  
+  unique_turtles = list(unique_turtles)
+  # unique_turtles = sorted(unique_turtles, key = lambda x: x[0])
 
   context = {
     'no_turtles' : no_turtles,
@@ -668,6 +712,7 @@ def current_r(request, year_archived, r_num):
     'path7' : path7,
     'path8' : path8,
     'path9' : path9,
+    'unique_turtles': unique_turtles,
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 

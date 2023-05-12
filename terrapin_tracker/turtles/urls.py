@@ -22,4 +22,6 @@ urlpatterns = [
   path('settings/<confirmation>/', settings, name='settings'),
   path('login/', userlogin, name='login'),
   path('forgot/', forgot, name='forgot'),
+  path('history/measurement/<int:id>/', MeasurementHistory, name='MeasurementHistory'),
+  path('history/turtle/<int:id>/', TurtleHistory, name='TurtleHistory'),
 ]
