@@ -56,7 +56,33 @@ class NewTurtleCreateForm(forms.ModelForm):
   
   class Meta:
     model = Turtle
-    fields = ['r_num', 'hatchling_num', 'archived']
+    fields = ['r_num', 'hatchling_num']
+  
+class MassTurtleCreateForm(forms.Form):
+  r_num1 = forms.IntegerField(label = 'Starting R Number')
+  r_num2 = forms.IntegerField(label = 'Ending R Number')
+  hatchling_num1 = forms.IntegerField(label = 'Starting Hatchling Number')
+  hatchling_num2 = forms.IntegerField(label = 'Ending Hatchling Number')
+  
+  def clean(self):
+    data = self.cleaned_data
+    r_num1 = data['r_num1']
+    r_num2 = data['r_num2']
+    hatchling_num1 = data['hatchling_num1']
+    hatchling_num2 = data['hatchling_num2']
+
+    if r_num1 > r_num2:
+      raise forms.ValidationError("Please ensure the ending R number is above the starting R number.")
+    
+    if hatchling_num1 > hatchling_num2:
+      raise forms.ValidationError("Please ensure the ending hatchling number is above the starting hatchling number.")
+
+    for x in range(r_num1, r_num2 + 1):
+      for y in range(hatchling_num1, hatchling_num2 + 1):
+        if Turtle.objects.filter(archived = False, r_num = x, hatchling_num = y, valid_to = None).exists():
+          raise forms.ValidationError("One of these turtles already exists.")
+    
+    return data
 
 # class EditTurtleCreateForm(forms.ModelForm):
 #   class Meta:

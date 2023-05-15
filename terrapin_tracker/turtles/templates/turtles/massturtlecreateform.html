@@ -2,21 +2,20 @@
 {% load static %}
 
 {% block head %}
-<title>Create New Turtle</title>
+<title>Create New Turtles</title>
 <link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class = "center-box">
-  <h1 class = "formheading">Create New Turtle</h1>
+  <h1 class = "formheading">Create New Turtles</h1>
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <div id = "button-container">
       <button id = 'goBack'  type = "button" onclick = "history.back()">Go back</button>
       <button type="submit" value="Submit" id="create">Create</button>
-    </div>
+    </div> 
   </form>
-  <a href="{% url 'massturtlecreateform' %}">Want to create multiple turtles at once? Click here.</a>
 </div>
 {% endblock %}

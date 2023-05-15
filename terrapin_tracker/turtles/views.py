@@ -22,6 +22,30 @@ from django.contrib.auth import login, authenticate
 import string
 
 # Create your views here.
+def MassTurtleCreate(request):
+  if request.method == 'POST':
+    form = MassTurtleCreateForm(request.POST)
+    if form.is_valid():
+      for x in range(form.cleaned_data['r_num1'], form.cleaned_data['r_num2'] + 1):
+        for y in range(form.cleaned_data['hatchling_num1'], form.cleaned_data['hatchling_num2'] + 1):
+          new = Turtle(r_num = x, hatchling_num = y)
+          new.save()
+      return redirect('current')
+  else:
+    form = MassTurtleCreateForm()
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': 'active',
+    'form': form,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+
+  return render(request, 'turtles/newturtlecreateform.html', context)
+
 def MeasurementHistory(request, id):
   current_act = ''
   released_act = ''
