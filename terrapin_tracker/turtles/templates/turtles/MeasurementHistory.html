@@ -2,7 +2,51 @@
 {% load static %}
 {% block head %}
 <title>Measurement History</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="current-title">
+    <head>Measurement History</head>
+</div>
+<div class="current">
+    <div class="table-box">
+        <table class="measurement-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Turtle</th>
+                    <th>Carapace Length</th>
+                    <th>Carapace Width</th>
+                    <th>Plastron Length</th>
+                    <th>Carapace Height</th>
+                    <th>Mass</th>
+                    <th>Editor</th>
+                    <th>Valid From</th>
+                    <th>Valid To</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for measurement in history %}
+                    <tr>
+                        <td>{{ measurement.date }}</td>
+                        <td>{{ measurement.display_turtle }}</td>
+                        <td>{{ measurement.carapace_length }}</td>
+                        <td>{{ measurement.carapace_width }}</td>
+                        <td>{{ measurement.plastron_length }}</td>
+                        <td>{{ measurement.carapace_height }}</td>
+                        <td>{{ measurement.mass }}</td>
+                        <td>{{ measurement.editor }}</td>
+                        <td>{{ measurement.valid_from }}</td>
+                        {% if measurement.valid_to == None %}
+                        <td></td>
+                        {% else %}
+                        <td>{{ measurement.valid_to }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

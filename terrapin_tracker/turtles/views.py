@@ -54,13 +54,19 @@ def MeasurementHistory(request, id):
   else:
     released_act = 'active'
   
+  history = [Measurement.objects.get(valid_to = None, id = id)]
+  while Measurement.objects.get(id = id).previous_measurment != None:
+    id = Measurement.objects.get(id = id).previous_measurment.id
+    history.append(Measurement.objects.get(id = id))
+
   context = {
     'home_act': '',
     'contact_act': '',
     'released_act': released_act,
     'about_act': '',
     'current_act': current_act,
-    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+    'history': history,
   }
 
   return render(request, 'turtles/MeasurementHistory.html', context)
@@ -73,13 +79,19 @@ def TurtleHistory(request, id):
   else:
     released_act = 'active'
   
+  history = [Turtle.objects.get(valid_to = None, id = id)]
+  while Turtle.objects.get(id = id).previous_turtle != None:
+    id = Turtle.objects.get(id = id).previous_turtle.id
+    history.append(Turtle.objects.get(id = id))
+  
   context = {
     'home_act': '',
     'contact_act': '',
     'released_act': released_act,
     'about_act': '',
     'current_act': current_act,
-    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+    'history': history,
   }
 
   return render(request, 'turtles/TurtleHistory.html', context)

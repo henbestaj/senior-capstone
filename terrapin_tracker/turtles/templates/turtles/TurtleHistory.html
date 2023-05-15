@@ -2,7 +2,49 @@
 {% load static %}
 {% block head %}
 <title>Turtle History</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="current-title">
+    <head>Turtle History</head>
+</div>
+<div class="current">
+    <div class="table-box">
+        <table class="measurement-table">
+            <thead>
+                <tr>
+                    <th>R Number</th>
+                    <th>Hatchling Number</th>
+                    <th>Archived?</th>
+                    <th>Year Archived</th>
+                    <th>Editor</th>
+                    <th>Valid From</th>
+                    <th>Valid To</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turtle in history %}
+                    <tr>
+                        <td>{{ turtle.r_num }}</td>
+                        <td>{{ turtle.hatchling_num }}</td>
+                        <td>{{ turtle.archived }}</td>
+                        {% if turtle.year_archived == 0 %}
+                        <td></td>
+                        {% else %}
+                        <td>{{ turtle.year_archived }}</td>
+                        {% endif %}
+                        <td>{{ turtle.editor }}</td>
+                        <td>{{ turtle.valid_from }}</td>
+                        {% if turtle.valid_to == None %}
+                        <td></td>
+                        {% else %}
+                        <td>{{ turtle.valid_to }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
