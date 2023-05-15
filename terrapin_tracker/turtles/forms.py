@@ -74,7 +74,7 @@ class NewMeasurementCreateForm(forms.ModelForm):
 #     fields = '__all__'
 
 class NewContactForm(forms.Form):
-  email = forms.EmailField(label = 'Email')
+  email = forms.EmailField(label = 'Your Email')
   subject = forms.CharField(label = 'Subject')
   body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}), label='Body')
 

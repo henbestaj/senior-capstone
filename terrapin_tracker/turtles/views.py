@@ -137,6 +137,32 @@ def search(request):
   return render(request, 'turtles/search.html', context)
 
 def send_file(request):
+  with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
+    values = Measurement.objects.filter(valid_to = None).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
+    correct_values = []
+    number = 0
+    for x in values:
+      correct_values.append([])
+      one_time = True
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].r_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].hatchling_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived)
+      if Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived:
+        correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].year_archived)
+      else:
+        correct_values[number].append('')
+      for y in x:
+        if one_time:
+          one_time = False
+          continue
+        correct_values[number].append(y)
+      number += 1
+    for value in correct_values:
+      writer.writerow(value)
+  csvfile.close()
+  
   filename = './turtles/static/turtles/measurements.csv'
   download_name = 'measurements.csv'
   wrapper = FileWrapper(open(filename))
@@ -373,8 +399,11 @@ def contact(request):
     form = NewContactForm(request.POST)
     
     if form.is_valid():
+      emails = []
+      for i in User.objects.filter(is_superuser = True):
+        emails.append(i.email)
       yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "./oauth2_creds.json")
-      yag.send(to = ['henbestaj@gmail.com', 'lhiusnat@gmail.com', 'gangeloamato@gmail.com'], subject = str(form.cleaned_data["subject"]), contents = 'From:\n' + str(form.cleaned_data["email"]) + '\n\nMessage:\n' + str(form.cleaned_data["body"]))
+      yag.send(to = emails, subject = str(form.cleaned_data["subject"]), contents = 'From:\n' + str(form.cleaned_data["email"]) + '\n\nMessage:\n' + str(form.cleaned_data["body"]))
 
       return redirect('/contactsent/')
   
@@ -412,32 +441,6 @@ def released(request):
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == True:
       measurements.append(i)
-
-  with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
-    values = Measurement.objects.filter(valid_to = None).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
-    correct_values = []
-    number = 0
-    for x in values:
-      correct_values.append([])
-      one_time = True
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].r_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].hatchling_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived)
-      if Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived:
-        correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].year_archived)
-      else:
-        correct_values[number].append('')
-      for y in x:
-        if one_time:
-          one_time = False
-          continue
-        correct_values[number].append(y)
-      number += 1
-    for value in correct_values:
-      writer.writerow(value)
-  csvfile.close()
   
   r_nums = set()
   for x in Turtle.objects.filter(archived = True, valid_to = None):
