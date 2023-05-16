@@ -14,8 +14,7 @@ class UserRegisterForm(UserCreationForm):
     data = self.cleaned_data
     email = data['email']
     username = data['username']
-    password1 = forms.CharField(widget = forms.PasswordInput, label = 'Password')
-    password2 = forms.CharField(widget = forms.PasswordInput, label = 'Password Confirmation')
+
 
     # user, email, ocvts
     if User.objects.filter(username = username).exists() == True and User.objects.filter(email = email, is_active = True).exists() == True and 'ocvts.org' not in email:
