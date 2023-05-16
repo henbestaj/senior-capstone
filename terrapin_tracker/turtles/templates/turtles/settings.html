@@ -2,53 +2,50 @@
 {% load static %}
 {% block head %}
 <title>Settings</title>
-<br>
 <link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
+<link rel="stylesheet" href="{% static 'turtles/settings_style.css' %}">
+
 {% endblock %}
 
 {% block content %}
-<div class="delete-box">
-    <h1 class="settings formheading">Settings</h1>
+<div class="center-box">
+  <h1 class="settings-formheading">Settings</h1>
     {{ data }}
-    <div class="delete">
-      {% if user.is_superuser %}
-      <h3 style="font-size: 20px">Administrator Settings:</h3>
-      <a href="{% url 'admin:index' %}" id="admin-link">Click here to go to the administrator settings page.</a>
-      {% endif %}
-    </div>
-      <br>
-      <br>
-    <div class="changename">
-      <h3 style="font-size: 20px">Change Name:</h3>
-      <form action="/settings/{{ confirmation }}/" method="post">
-        {% csrf_token %}
-        {{ name.as_p }}
-        <input type="submit" value="Submit" id="submitbtnsettings">
-      </form>
-    </div>
-      <br>
-      <br>
-    <div class="changepassword">
-      <h3 style="font-size: 20px">Change Password:</h3>
-      <form action="/settings/{{ confirmation }}/" method="post">
-        {% csrf_token %}
-        {{ password.as_p }}
-        <input type="submit" value="Submit" id="submitbtnsettings">
-      </form>
-    </div>
-      <br>
-      <br>
-    <div class="deleteaccount">
-      <h3 style="font-size: 20px">Delete Account:</h3>
-      {% for i in confirmation %}
-      {{ i }} 
-      {% endfor %}
-      <br>
-      <form action="/settings/{{ confirmation }}/" method="post">
-        {% csrf_token %}
-        {{ delete.as_p }}
-        <input type="submit" value="Submit" id="submitbtnsettings">
-      </form>
-    </div>
+  <div class="admin">
+    {% if user.is_superuser %}
+    <a href="{% url 'admin:index' %}" id="admin-link">Administrator Settings</a>
+    {% endif %}
   </div>
+
+  <div class="change-name">
+    <h3 style="font-size: 20px">Change Name:</h3>
+    <form action="/settings/{{ confirmation }}/" method="post">
+      {% csrf_token %}
+      {{ name.as_p }}
+      <input type="submit" value="Change Name" class="submitbtnsettings">
+    </form>
+  </div>
+
+  <div class="change-password">
+    <h3 style="font-size: 20px">Change Password:</h3>
+    <form action="/settings/{{ confirmation }}/" method="post">
+      {% csrf_token %}
+      {{ password.as_p }}
+      <input type="submit" value="Change Password" class="submitbtnsettings">
+    </form>
+  </div>
+
+  <div class="delete-account">
+    <h3 style="font-size: 20px">Delete Account:</h3>
+    {% for i in confirmation %}
+    {{ i }} 
+    {% endfor %}
+
+    <form action="/settings/{{ confirmation }}/" method="post">
+      {% csrf_token %}
+      {{ delete.as_p }}
+      <input type="submit" value="Delete Account" class="submitbtnsettings">
+    </form>
+  </div>
+</div>
 {% endblock %}

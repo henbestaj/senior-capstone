@@ -1,0 +1,129 @@
+.center-box{
+    width: 60%;
+    height:120%;
+    margin: 80px auto 40px;
+    padding: 50px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    display:grid;
+    grid-gap: 25px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 3fr 3fr;
+    grid-template-areas: "heading heading"
+    "change-name change-password"
+    "delete-account change-password"
+    "admin admin";
+}
+
+form{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: baseline;
+    width:100%
+}
+
+p{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: baseline;
+    width:100%
+}
+.settings-formheading{
+    grid-area:heading;
+    text-align: center;
+    margin:0px
+}
+
+label{
+    width:80%;
+    overflow-wrap:break-word;
+    font-size: 14.5px;
+    text-indent: 3%;
+}
+
+.helptext{
+    overflow-wrap: break-word;
+    font-size:14px;
+    width:80%;
+    text-indent: 0%;
+    font-weight: bold;
+}
+
+.admin{
+    grid-area:admin;
+    text-align: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.submitbtnsettings{
+    background-color: rgb(26,82,94);
+    border-radius: 10px;
+    height: 50px;
+    width: 70%;
+    align-content: center;
+    border-color: rgb(26,82,94);
+    color:white;
+    font-size: 17px;
+    margin-top:auto;
+    margin:auto;
+}
+
+.change-name{
+    grid-area:change-name;
+    border: 1px solid #bbb;
+    background: #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #bbb;
+    padding: 25px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.change-password{
+    grid-area:change-password;
+    border: 1px solid #bbb;
+    background: #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #bbb;
+    padding:25px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.delete-account{
+    grid-area:delete-account;
+    border: 1px solid #bbb;
+    background: #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #bbb;
+    padding:25px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+input{
+    width:80%;
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+li{
+    text-align: left;
+    padding-bottom:10px;
+    font-size: 14px;
+    width:80%;
+
+}
