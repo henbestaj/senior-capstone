@@ -1,6 +1,6 @@
 #center-box{
     width: 80%;
-    height: 65%;
+    height: 75%;
     margin: 40px auto 10px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -16,10 +16,33 @@
                         
 }
 
-.errorlist {
-    color: red;
-    margin-right: 300px !important;
+li.error::marker {
+    color: #eee;
+    margin-left: 300px;
 }
+.errorlist {
+    color: #eee;
+} 
+
+li::marker {
+    color:rgb(65, 145, 163);
+}
+
+.error_list {
+    grid-area: error;
+    display: block;
+    background-color: rgb(65, 145, 163);
+    width: 63%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    text-align: center;
+    padding-right: 130px;
+}
+
 
 #heading{
     text-align: center;
@@ -51,14 +74,16 @@ p{
 form{
     grid-area: form;
     display: grid;
-    grid-template-areas:"email password-1"
+    grid-template-areas:"error error"
+                        "email password-1"
                         "first-name password-2"
                         "last-name ul"
                         "username ul"
                         "go-back submit";
     grid-template-columns: 1fr 1fr;
-    grid-template: 1fr 1fr 1fr 1fr 1fr;
+    grid-template: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+
 
 label{
 margin-right: auto;

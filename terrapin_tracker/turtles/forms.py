@@ -6,17 +6,39 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Inherit Django's default UserCreationForm
 class UserRegisterForm(UserCreationForm):
+  error_messages = {
+        'password_mismatch': 'Passwords do not match.',
+        
+    }
   def clean(self):
     data = self.cleaned_data
     email = data['email']
     username = data['username']
+    password1 = forms.CharField(widget = forms.PasswordInput, label = 'Password')
+    password2 = forms.CharField(widget = forms.PasswordInput, label = 'Password Confirmation')
 
+    # user, email, ocvts
+    if User.objects.filter(username = username).exists() == True and User.objects.filter(email = email, is_active = True).exists() == True and 'ocvts.org' not in email:
+      raise forms.ValidationError("The username and email you entered are already in use. Additionally, please use your ocvts.org email.")
+    # email and user
+    if User.objects.filter(username = username).exists() == True and User.objects.filter(email = email, is_active = True).exists() == True:
+      raise forms.ValidationError("The username and email you entered are already in use.")
+    # user and ocvts
+    if User.objects.filter(username = username).exists() == True and 'ocvts.org' not in email:
+      raise forms.ValidationError("The username you entered is already in use. Additionally, please use your ocvts.org email.")
+    # email and ocvts
+    if User.objects.filter(email = email, is_active = True).exists() == True and 'ocvts.org' not in email:
+      raise forms.ValidationError("The email you entered is already in use. Additionally, please use your ocvts.org email.")
+    # user
     if User.objects.filter(username = username).exists() == True:
       raise forms.ValidationError("The username you entered is already in use.")
+    # email
     if User.objects.filter(email = email, is_active = True).exists() == True:
       raise forms.ValidationError("The email you entered is already in use.")
+    # ocvts
     if 'ocvts.org' not in email:
       raise forms.ValidationError("Please use your ocvts.org email.")
+    
   
   email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
   first_name = forms.CharField(label = 'First Name')
@@ -25,6 +47,12 @@ class UserRegisterForm(UserCreationForm):
   password1 = forms.CharField(widget = forms.PasswordInput, label = 'Password')
   password2 = forms.CharField(widget = forms.PasswordInput, label = 'Password Confirmation', help_text='Enter the same password as before, for verification.')
   
+  def clean_password_confirm(self):
+    password = self.cleaned_data['password1']
+    password_confirm = self.cleaned_data.get('password2')
+    if password and password_confirm:
+        if password != password_confirm:
+            raise forms.ValidationError("")
   class Meta:
     model = User
     fields = ['email', 'first_name', 'last_name', 'username', 'password1', 'password2']
@@ -35,6 +63,7 @@ class ChangePassword(forms.Form):
     password1 = data['password1']
     password2 = data['password2']
 
+    
     if password1 != password2:
       raise forms.ValidationError("Passwords do not match.")
   

@@ -85,6 +85,6 @@ ul{
 }
 .update-info:hover{
     color:rgb(45, 125, 143);
-    text-decoration: none;
+    text-decoration: underline;
     font-weight: bold;
 }
