@@ -9,7 +9,15 @@
   margin-left: 350px;
   text-align: center;
   background-color: none;
+  margin-right: auto;
 }
+.table-box2 {
+  margin-top: 40px;
+  margin-left: 170px;
+  background-color: none;
+  margin-right: auto;
+}
+
 .measurement-table {
   border-spacing: 10px 1px;
 }
