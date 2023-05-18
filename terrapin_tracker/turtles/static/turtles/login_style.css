@@ -88,3 +88,21 @@ ul{
     text-decoration: underline;
     font-weight: bold;
 }
+
+p:has(#id_email){
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%
+}
+#id_email{
+    width:40%;
+}
+.helptext{
+    width:40%;
+}
+
+#confirm{
+    width:40%
+}
