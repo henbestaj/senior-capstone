@@ -15,7 +15,11 @@
     grid-template-rows: 1fr 1fr 6fr;
                         
 }
-
+.log {
+    display: inline-block;
+    margin-left: 400px;
+    width: 70%;
+}
 li.error::marker {
     color: #eee;
     margin-left: 300px;

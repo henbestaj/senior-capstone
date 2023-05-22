@@ -216,3 +216,8 @@ width: 100%;
   color: rgb(26,82,94);
   font-size: 30pt;
 }
+
+.numerror {
+  width: 100%;
+  text-align: center;
+}
