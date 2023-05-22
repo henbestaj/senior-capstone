@@ -62,7 +62,7 @@
     </div>
     <div class="turtles">
         {% for turtle in unique_turtles %}
-        <a href = "{% url 'TurtleHistory' turtle.id  %}">{{ turtle }}</a>
+        <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
         {% endfor %}
     </div>
     <a href="{% url 'current' %}" id="goback">Go back</a>

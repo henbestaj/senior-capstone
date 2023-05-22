@@ -140,6 +140,24 @@
     margin-left: 200px;
   }
 
+  .turtles {
+    width: 90%;
+    margin-left: 50px;
+    overflow: visible;
+    display: flex;
+    flex-direction: row;
+  }
+  .turtle-link {
+    background-color: rgb(65, 145, 163); 
+    color: white;
+    text-decoration: none;
+    padding: 2px 4px;
+    margin-top: 5px;
+  }
+
+  .turtle-link:hover {
+    text-decoration: underline;
+  }
 
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
