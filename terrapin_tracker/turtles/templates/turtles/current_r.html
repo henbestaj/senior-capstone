@@ -48,23 +48,28 @@
         </div>
     <div class = 'graphs'>
         <br>
-        <h2>Measurement Graphs:</h2>
-        <img src="{% static path1 %}" alt="Length by Width Scatterplot" class = "graph" style="width:30%"> <img src="{% static path2 %}" alt="Length by Width KDE" class = "graph" style="width:30%"> <img src="{% static path3 %}" alt="Length by Date Boxplot" class = "graph" style="width:30%">
         <br>
+        <h2 class="gtext ctext">Measurement Graphs</h2>
         <br>
-        <img src="{% static path4 %}" alt="Length by Height Scatterplot" class = "graph" style="width:30%"> <img src="{% static path5 %}" alt="Length by Height KDE" class = "graph" style="width:30%"> <img src="{% static path6 %}" alt="Height by Date Boxplot" class = "graph" style="width:30%">
-        <br>
-        <br>
-        <div class = 'massgraphs'><img src="{% static path7 %}" alt="Mass Histogram" class = "graph" style="width:37%"> <img src="{% static path8 %}" alt="Turtle ID by Height Boxplot" class = "graph" style="width:37%">
+        <div class="graphimage">
+            <img src="{% static path1 %}" alt="Length by Width Scatterplot" class = "graph" style="width:30%"> <img src="{% static path2 %}" alt="Length by Width KDE" class = "graph" style="width:30%"> <img src="{% static path3 %}" alt="Length by Date Boxplot" class = "graph" style="width:30%">
+            <br>
+            <img src="{% static path4 %}" alt="Length by Height Scatterplot" class = "graph" style="width:30%"> <img src="{% static path5 %}" alt="Length by Height KDE" class = "graph" style="width:30%"> <img src="{% static path6 %}" alt="Height by Date Boxplot" class = "graph" style="width:30%">
+            <br>
+            <div class = 'massgraphs'><img src="{% static path7 %}" alt="Mass Histogram" class = "graph" style="width:37%"> <img src="{% static path8 %}" alt="Turtle ID by Height Boxplot" class = "graph" style="width:37%">
+            </div>
         </div>
-
         <br><br><br>
+    </div>
+    <div class="current-title">
+        <head>Turtle History</head>
     </div>
     <div class="turtles">
         {% for turtle in unique_turtles %}
         <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
         {% endfor %}
     </div>
+    <br><br>
     <a href="{% url 'current' %}" id="goback">Go back</a>
 </div>
 {% endif %}

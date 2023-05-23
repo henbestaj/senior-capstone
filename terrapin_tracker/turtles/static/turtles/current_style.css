@@ -127,7 +127,6 @@
 
   h2 {
     font-size: 15pt;
-    font-family: sans-serif;
     text-align: left;
     margin-right: 50px;
     text-decoration: none;
@@ -146,6 +145,12 @@
     overflow: visible;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
   }
   .turtle-link {
     background-color: rgb(65, 145, 163); 
@@ -247,4 +252,32 @@
 /* When moving the mouse over the close button */
 .closebtn:hover {
   color: black;
+}
+
+.description {
+  width: 65%;
+}
+
+.gtext {
+  background-color: rgb(65, 145, 163);
+  padding: 4px;
+  color: white;
+  width: 65%;
+  margin: auto;
+  text-align: center;
+  font-size: 18pt;
+}
+
+.ctext{
+  font-size: 15pt;
+}
+
+.tleft {
+  margin-top: 4px;
+  text-align: left;
+  padding: 4px 0px;
+}
+
+.graphimage {
+  margin-left: 60px;
 }
