@@ -745,7 +745,14 @@ def current_r(request, year_archived, r_num):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to == None:
       unique_turtles.add(Turtle.objects.get(r_num = r_num, year_archived = year_archived, hatchling_num = measurement.turtle.hatchling_num, valid_to = None))
   
-  unique_turtles = list(unique_turtles)
+  def getR(obj):
+    return obj.r_num
+  
+  def getHatch(obj):
+    return obj.hatchling_num
+  
+  unique_turtles = sorted(list(unique_turtles), key=getHatch)
+  unique_turtles = sorted(list(unique_turtles), key=getR)
 
   context = {
     'no_turtles' : no_turtles,
