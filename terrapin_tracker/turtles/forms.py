@@ -70,10 +70,34 @@ class ChangePassword(forms.Form):
   password2 = forms.CharField(widget = forms.PasswordInput, label = 'New Password Confirmation', help_text='Enter the same password as before, for verification.<ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>')
   password = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
-class EditTurtleCreateForm(forms.Form):
+class EditTurtleCreateFormArchived(forms.Form):
+  def clean(self):
+    data = self.cleaned_data
+    r_num = data['r_num']
+    hatchling_num = data['hatchling_num']
+    year_archived = data['year_archived']
+
+    if Turtle.objects.filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
+      raise forms.ValidationError('This turtle already exists.')
+
   r_num = forms.IntegerField(label = 'R Number')
   hatchling_num = forms.IntegerField(label = 'Hatchling Number')
   archived = forms.BooleanField(required=False, label = 'Archived', widget=forms.CheckboxInput(attrs={'checked': ''}))
+  year_archived = forms.IntegerField(widget = forms.HiddenInput())
+
+class EditTurtleCreateForm(forms.Form):
+  def clean(self):
+    data = self.cleaned_data
+    r_num = data['r_num']
+    hatchling_num = data['hatchling_num']
+    year_archived = data['year_archived']
+
+    if Turtle.objects.filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
+      raise forms.ValidationError('This turtle already exists.')
+
+  r_num = forms.IntegerField(label = 'R Number')
+  hatchling_num = forms.IntegerField(label = 'Hatchling Number')
+  archived = forms.BooleanField(required=False, label = 'Archived')
   year_archived = forms.IntegerField(widget = forms.HiddenInput())
 
 class NewTurtleCreateForm(forms.ModelForm):

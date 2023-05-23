@@ -92,27 +92,44 @@ def TurtleHistory(request, id):
   id = original
 
   if request.method == 'POST':
-    form = EditTurtleCreateForm(request.POST)
+    if Turtle.objects.get(id = id).archived:
+      form = EditTurtleCreateFormArchived(request.POST)
+    else:
+      form = EditTurtleCreateForm(request.POST)
+    
+    _mutable = form.data._mutable
+    form.data._mutable = True
+
+    if 'archived' not in form.data:
+      form.data['archived'] = False
+    else:
+      form.data['archived'] = True
+
+    if form.data['archived'] and not Turtle.objects.get(id = id).archived:
+      form.data['year_archived'] = int(dateformat.format(timezone.now(), 'Y'))
+    elif not form.data['archived'] and Turtle.objects.get(id = id).archived:
+      form.data['year_archived'] = 0
+    else:
+      form.data['year_archived'] = form.data['year_archived']
+    
+    form.data._mutable = _mutable
+
+    Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
+
     if form.is_valid():
-      Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
-      if bool(form.cleaned_data['archived']) and not bool(Turtle.objects.get(id = id).archived):
-        new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
-        new.save()
-        Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
-      elif not bool(form.cleaned_data['archived']) and bool(Turtle.objects.get(id = id).archived):
-        new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = 0, previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
-        new.save()
-        Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
-      else:
-        new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = form.cleaned_data['year_archived'], previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
-        new.save()
-        Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
+      new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = form.cleaned_data['year_archived'], previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+      new.save()
+      Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
       if form.cleaned_data['archived']:
         return redirect('released')
       else:
         return redirect('current')
+  
   else:
-    form = EditTurtleCreateForm(initial={'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'archived': Turtle.objects.get(id = id).archived, 'year_archived': Turtle.objects.get(id = id).year_archived})
+    if Turtle.objects.get(id = id).archived:
+      form = EditTurtleCreateFormArchived(initial={'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
+    else:
+      form = EditTurtleCreateForm(initial={'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
   
   context = {
     'home_act': '',
