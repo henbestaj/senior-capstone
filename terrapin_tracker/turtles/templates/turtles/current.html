@@ -13,7 +13,7 @@
     <div class = "row-buttons">    
         <a href="{% url 'TurtleCreate' %}" class="turtle-button">New Turtle</a>
         <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
-        <a href="{% url 'measurements.csv' %}" download="measurements.csv" class="turtle-button">Download Data</a>
+        <a href="{% url 'current_measurements.csv' %}" download="current_measurements.csv" class="turtle-button">Download Data</a>
     </div>
     {% if Turtle|length == 0 %}
     <div class="current-title">

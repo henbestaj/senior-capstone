@@ -9,7 +9,7 @@
 {% block content %}
 <div class="current">
     <br>
-    <a href="{% url 'measurements.csv' %}" download="measurements.csv" class="turtle-button">Download Data</a>
+    <a href="{% url 'archived_measurements.csv' %}" download="archived_measurements.csv" class="turtle-button">Download Data</a>
     <br>
     {% if Turtle|length == 0 %}
     <div class="current-title">

@@ -221,11 +221,11 @@ def search(request):
 
   return render(request, 'turtles/search.html', context)
 
-def send_file(request):
-  with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
+def send_current_file(request):
+  with open('./turtles/static/turtles/current_measurements.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
-    values = Measurement.objects.filter(valid_to = None).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
+    values = Measurement.objects.filter(valid_to = None, turtle__archived = False).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
     correct_values = []
     number = 0
     for x in values:
@@ -248,8 +248,42 @@ def send_file(request):
       writer.writerow(value)
   csvfile.close()
   
-  filename = './turtles/static/turtles/measurements.csv'
-  download_name = 'measurements.csv'
+  filename = './turtles/static/turtles/current_measurements.csv'
+  download_name = 'current_measurements.csv'
+  wrapper = FileWrapper(open(filename))
+  response = HttpResponse(wrapper,content_type='text/csv')
+  response['Content-Disposition'] = "attachment; filename=%s"%download_name
+  return response
+
+def send_archived_file(request):
+  with open('./turtles/static/turtles/archived_measurements.csv', 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
+    values = Measurement.objects.filter(valid_to = None, turtle__archived = True).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
+    correct_values = []
+    number = 0
+    for x in values:
+      correct_values.append([])
+      one_time = True
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].r_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].hatchling_num)
+      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived)
+      if Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived:
+        correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].year_archived)
+      else:
+        correct_values[number].append('')
+      for y in x:
+        if one_time:
+          one_time = False
+          continue
+        correct_values[number].append(y)
+      number += 1
+    for value in correct_values:
+      writer.writerow(value)
+  csvfile.close()
+  
+  filename = './turtles/static/turtles/archived_measurements.csv'
+  download_name = 'archived_measurements.csv'
   wrapper = FileWrapper(open(filename))
   response = HttpResponse(wrapper,content_type='text/csv')
   response['Content-Disposition'] = "attachment; filename=%s"%download_name
