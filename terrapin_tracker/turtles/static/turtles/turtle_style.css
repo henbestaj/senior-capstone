@@ -179,3 +179,60 @@ ul{
 
 
 
+#multiple{
+    color:rgb(26,82,94);
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    margin-top:10px
+    
+}
+#multiple:hover{
+    color:rgb(45, 125, 143);
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.form_box{
+    display:grid;
+    grid-template-areas: "start_r end_r"
+                         "start_num end_num"
+                         "nav_buttons nav_buttons";
+    grid-template-columns: 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+}
+p:has(#id_r_num1){
+    grid-area: start_r;
+}
+p:has(#id_r_num2){
+    grid-area: end_r;
+}
+p:has(#id_hatchling_num1){
+    grid-area: start_num;
+}
+p:has(#id_hatchling_num2){
+    grid-area: end_num;
+}
+
+#nav_buttons{
+    grid-area: nav_buttons;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width:100%;
+}
+input{
+    width:100%;
+}
+
+#id_r_num1, #id_r_num2, #id_hatchling_num1, #id_hatchling_num2{
+    color:black;
+    width:80%;
+    height:40px;
+    align-items: center;
+    display:block;
+    margin:auto auto 10px;
+}

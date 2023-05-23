@@ -15,8 +15,8 @@
     <div id = "button-container">
       <button id = 'goBack'  type = "button" onclick = "history.back()">Go back</button>
       <button type="submit" value="Submit" id="create">Create</button>
+      <a href="{% url 'massturtlecreateform' %}" id ="multiple">Create Multiple Turtles Here</a>
     </div>
   </form>
-  <a href="{% url 'massturtlecreateform' %}">Want to create multiple turtles at once? Click here.</a>
 </div>
 {% endblock %}

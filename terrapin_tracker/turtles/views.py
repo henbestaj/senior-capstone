@@ -44,7 +44,7 @@ def MassTurtleCreate(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
-  return render(request, 'turtles/newturtlecreateform.html', context)
+  return render(request, 'turtles/massturtlecreateform.html', context)
 
 def MeasurementHistory(request, id):
   current_act = ''
