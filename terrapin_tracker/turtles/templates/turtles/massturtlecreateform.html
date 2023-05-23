@@ -8,11 +8,11 @@
 
 {% block content %}
 <div class = "center-box">
-  <h1 class = "formheading">Create New Turtles</h1>
-  <form method="POST">
+  <h1 class = "formheading">Create Multiple New Turtles</h1>
+  <form method="POST" class = "form_box">
     {% csrf_token %}
     {{ form.as_p }}
-    <div id = "button-container">
+    <div id = "nav_buttons">
       <button id = 'goBack'  type = "button" onclick = "history.back()">Go back</button>
       <button type="submit" value="Submit" id="create">Create</button>
     </div>

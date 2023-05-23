@@ -3,6 +3,7 @@ body{
   background-color: rgb(202,224,228);
   max-width: 100%;
   margin-right: 0px;
+  overflow-x:hidden;
 }
 
 /*creates layout grid*/
@@ -214,4 +215,9 @@ width: 100%;
   grid-area: title;
   color: rgb(26,82,94);
   font-size: 30pt;
+}
+
+.numerror {
+  width: 100%;
+  text-align: center;
 }

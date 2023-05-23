@@ -9,7 +9,15 @@
   margin-left: 350px;
   text-align: center;
   background-color: none;
+  margin-right: auto;
 }
+.table-box2 {
+  margin-top: 40px;
+  margin-left: 170px;
+  background-color: none;
+  margin-right: auto;
+}
+
 .measurement-table {
   border-spacing: 10px 1px;
 }
@@ -132,6 +140,24 @@
     margin-left: 200px;
   }
 
+  .turtles {
+    width: 90%;
+    margin-left: 50px;
+    overflow: visible;
+    display: flex;
+    flex-direction: row;
+  }
+  .turtle-link {
+    background-color: rgb(65, 145, 163); 
+    color: white;
+    text-decoration: none;
+    padding: 2px 4px;
+    margin-top: 5px;
+  }
+
+  .turtle-link:hover {
+    text-decoration: underline;
+  }
 
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 

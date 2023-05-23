@@ -60,11 +60,12 @@
 
         <br><br><br>
     </div>
-</div>
-<div class="turtles">
-    {% for turtle in unique_turtles %}
-    <a href = "{% url 'TurtleHistory' turtle.id  %}">{{ turtle }}</a>
-    {% endfor %}
+    <div class="turtles">
+        {% for turtle in unique_turtles %}
+        <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
+        {% endfor %}
+    </div>
+    <a href="{% url 'current' %}" id="goback">Go back</a>
 </div>
 {% endif %}
 <button id = 'goback' type = "button" onclick = "history.back()">Go back</button>

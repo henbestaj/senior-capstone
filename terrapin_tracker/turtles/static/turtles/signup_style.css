@@ -15,7 +15,11 @@
     grid-template-rows: 1fr 1fr 6fr;
                         
 }
-
+.log {
+    display: inline-block;
+    margin-left: 400px;
+    width: 70%;
+}
 li.error::marker {
     color: #eee;
     margin-left: 300px;
@@ -24,9 +28,7 @@ li.error::marker {
     color: #eee;
 } 
 
-li::marker {
-    color:rgb(65, 145, 163);
-}
+
 
 .error_list {
     grid-area: error;
@@ -41,6 +43,7 @@ li::marker {
     padding-left: 0px;
     text-align: center;
     padding-right: 130px;
+    
 }
 
 

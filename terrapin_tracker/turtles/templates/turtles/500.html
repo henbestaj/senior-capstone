@@ -3,8 +3,9 @@
 
 {% block head %}
 <title>500 Error</title>
+<link rel="stylesheet" href="{% static 'turtles/style.css' %}">
 {% endblock %}
 
 {% block content %}
-500 Internal Server Error
+<h2 class="numerror">500 Internal Server Error</h2>
 {% endblock %}
