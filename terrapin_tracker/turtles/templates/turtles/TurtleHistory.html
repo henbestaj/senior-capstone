@@ -10,6 +10,11 @@
     <head>Turtle History</head>
 </div>
 <div class="current">
+    <form action="{% url 'TurtleHistory' id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" id=submitbtn>
+    </form>
     <div class="table-box">
         <table class="measurement-table">
             <thead>
@@ -28,7 +33,11 @@
                     <tr>
                         <td>{{ turtle.r_num }}</td>
                         <td>{{ turtle.hatchling_num }}</td>
-                        <td>{{ turtle.archived }}</td>
+                        {% if turtle.archived %}
+                        <td>Yes</td>
+                        {% else %}
+                        <td>No</td>
+                        {% endif %}
                         {% if turtle.year_archived == 0 %}
                         <td></td>
                         {% else %}

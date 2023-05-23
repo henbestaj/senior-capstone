@@ -14,8 +14,6 @@ class UserRegisterForm(UserCreationForm):
     data = self.cleaned_data
     email = data['email']
     username = data['username']
-    password1 = forms.CharField(widget = forms.PasswordInput, label = 'Password')
-    password2 = forms.CharField(widget = forms.PasswordInput, label = 'Password Confirmation')
 
     # user, email, ocvts
     if User.objects.filter(username = username).exists() == True and User.objects.filter(email = email, is_active = True).exists() == True and 'ocvts.org' not in email:
@@ -72,6 +70,12 @@ class ChangePassword(forms.Form):
   password2 = forms.CharField(widget = forms.PasswordInput, label = 'New Password Confirmation', help_text='Enter the same password as before, for verification.<ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>')
   password = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
+class EditTurtleCreateForm(forms.Form):
+  r_num = forms.IntegerField(label = 'R Number')
+  hatchling_num = forms.IntegerField(label = 'Hatchling Number')
+  archived = forms.BooleanField(required=False, label = 'Archived', widget=forms.CheckboxInput(attrs={'checked': ''}))
+  year_archived = forms.IntegerField(widget = forms.HiddenInput())
+
 class NewTurtleCreateForm(forms.ModelForm):
   def clean(self):
     data = self.cleaned_data
@@ -83,15 +87,18 @@ class NewTurtleCreateForm(forms.ModelForm):
     
     return data
   
+  editor = forms.CharField(widget=forms.HiddenInput)
+
   class Meta:
     model = Turtle
-    fields = ['r_num', 'hatchling_num']
+    fields = ['r_num', 'hatchling_num', 'editor']
   
 class MassTurtleCreateForm(forms.Form):
   r_num1 = forms.IntegerField(label = 'Starting R Number')
   r_num2 = forms.IntegerField(label = 'Ending R Number')
   hatchling_num1 = forms.IntegerField(label = 'Starting Hatchling Number')
   hatchling_num2 = forms.IntegerField(label = 'Ending Hatchling Number')
+  editor = forms.CharField(widget=forms.HiddenInput)
   
   def clean(self):
     data = self.cleaned_data
@@ -113,20 +120,16 @@ class MassTurtleCreateForm(forms.Form):
     
     return data
 
-# class EditTurtleCreateForm(forms.ModelForm):
-#   class Meta:
-#     model = Turtle
-#     fields = '__all__'
-
 class NewMeasurementCreateForm(forms.ModelForm):
+  editor = forms.CharField(widget=forms.HiddenInput)
+  
+  def __init__(self, *args, **kwargs):
+    super(NewMeasurementCreateForm, self).__init__(*args, **kwargs)
+    self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
+  
   class Meta:
     model = Measurement
-    fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass']
-
-# class EditMeasurementCreateForm(forms.ModelForm):
-#   class Meta:
-#     model = Measurement
-#     fields = '__all__'
+    fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
 
 class NewContactForm(forms.Form):
   email = forms.EmailField(label = 'Your Email')
@@ -136,7 +139,6 @@ class NewContactForm(forms.Form):
 class NewSearchForm(forms.Form):  
   def clean(self):
     data = self.cleaned_data
-    r_num = data['r_num']
     archived = data['archived']
     year_archived = data['year_archived']
 

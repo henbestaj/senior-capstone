@@ -22,17 +22,18 @@ from django.contrib.auth import login, authenticate
 import string
 
 # Create your views here.
+@login_required
 def MassTurtleCreate(request):
   if request.method == 'POST':
     form = MassTurtleCreateForm(request.POST)
     if form.is_valid():
       for x in range(form.cleaned_data['r_num1'], form.cleaned_data['r_num2'] + 1):
         for y in range(form.cleaned_data['hatchling_num1'], form.cleaned_data['hatchling_num2'] + 1):
-          new = Turtle(r_num = x, hatchling_num = y)
+          new = Turtle(r_num = x, hatchling_num = y, editor = form.cleaned_data['editor'])
           new.save()
       return redirect('current')
   else:
-    form = MassTurtleCreateForm()
+    form = MassTurtleCreateForm(initial={'editor': request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')'})
   
   context = {
     'home_act': '',
@@ -44,8 +45,9 @@ def MassTurtleCreate(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
-  return render(request, 'turtles/newturtlecreateform.html', context)
+  return render(request, 'turtles/massturtlecreateform.html', context)
 
+@login_required
 def MeasurementHistory(request, id):
   current_act = ''
   released_act = ''
@@ -71,18 +73,46 @@ def MeasurementHistory(request, id):
 
   return render(request, 'turtles/MeasurementHistory.html', context)
 
+@login_required
 def TurtleHistory(request, id):
   current_act = ''
   released_act = ''
-  if Turtle.objects.get(valid_to = None, id = id).year_archived == 0:
+  if Turtle.objects.get(id = id).year_archived == 0:
     current_act = 'active'
   else:
     released_act = 'active'
   
-  history = [Turtle.objects.get(valid_to = None, id = id)]
+  original = id
+
+  history = [Turtle.objects.get(id = id)]
   while Turtle.objects.get(id = id).previous_turtle != None:
     id = Turtle.objects.get(id = id).previous_turtle.id
     history.append(Turtle.objects.get(id = id))
+  
+  id = original
+
+  if request.method == 'POST':
+    form = EditTurtleCreateForm(request.POST)
+    if form.is_valid():
+      Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
+      if bool(form.cleaned_data['archived']) and not bool(Turtle.objects.get(id = id).archived):
+        new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+        new.save()
+        Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
+      elif not bool(form.cleaned_data['archived']) and bool(Turtle.objects.get(id = id).archived):
+        new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = 0, previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+        new.save()
+        Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
+      else:
+        new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = form.cleaned_data['year_archived'], previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+        new.save()
+        Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
+      if form.cleaned_data['archived']:
+        return redirect('released')
+      else:
+        return redirect('current')
+  else:
+    form = EditTurtleCreateForm(initial={'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'archived': Turtle.objects.get(id = id).archived, 'year_archived': Turtle.objects.get(id = id).year_archived})
   
   context = {
     'home_act': '',
@@ -92,6 +122,8 @@ def TurtleHistory(request, id):
     'current_act': current_act,
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
     'history': history,
+    'form': form,
+    'id' : id,
   }
 
   return render(request, 'turtles/TurtleHistory.html', context)
@@ -255,8 +287,6 @@ def custom_bad_request_view(request, exception=None):
   return render(request, "turtles/400.html", context)
 
 def home(request, alert = 1):
-
-  Turtle.objects.filter(archived = True, year_archived = 0, valid_to = None).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
   
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
@@ -470,9 +500,7 @@ def contactsent(request):
 
   return render(request, 'turtles/contactsent.html', context)
 
-def released(request):  
-  Turtle.objects.filter(archived = True, year_archived = 0, valid_to = None).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
-
+def released(request):
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == True:
@@ -516,38 +544,10 @@ def about(request):
   return render(request, 'turtles/about.html', context)
 
 def current(request):
-  Turtle.objects.filter(archived = True, year_archived = 0, valid_to = None).update(year_archived = int(dateformat.format(timezone.now(), 'Y')))
-
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == False:
       measurements.append(i)
-  
-  with open('./turtles/static/turtles/measurements.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
-    values = Measurement.objects.filter(valid_to = None).values_list('turtle', 'date', 'carapace_length', 'carapace_width', 'plastron_length', 'carapace_height', 'mass')
-    correct_values = []
-    number = 0
-    for x in values:
-      correct_values.append([])
-      one_time = True
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].r_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].hatchling_num)
-      correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived)
-      if Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].archived:
-        correct_values[number].append(Turtle.objects.filter(id = int(x[0]), valid_to = None)[0].year_archived)
-      else:
-        correct_values[number].append('')
-      for y in x:
-        if one_time:
-          one_time = False
-          continue
-        correct_values[number].append(y)
-      number += 1
-    for value in correct_values:
-      writer.writerow(value)
-  csvfile.close()
 
   r_nums = []
   for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
@@ -725,11 +725,10 @@ def current_r(request, year_archived, r_num):
 
   unique_turtles = set()
   for measurement in Measurement.objects.filter(valid_to = None):
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to == None:
       unique_turtles.add(Turtle.objects.get(r_num = r_num, year_archived = year_archived, hatchling_num = measurement.turtle.hatchling_num, valid_to = None))
   
   unique_turtles = list(unique_turtles)
-  # unique_turtles = sorted(unique_turtles, key = lambda x: x[0])
 
   context = {
     'no_turtles' : no_turtles,
@@ -790,11 +789,17 @@ class TurtleCreate(LoginRequiredMixin, CreateView):
   template_name = 'turtles/newturtlecreateform.html'
   success_url = '/current/'
 
+  def get_initial(self):
+    return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')'}
+
 class MeasurementCreate(LoginRequiredMixin, CreateView):
   model = Measurement
   form_class = NewMeasurementCreateForm
   template_name = 'turtles/newmeasurementcreateform.html'
   success_url = '/current/'
+  
+  def get_initial(self):
+    return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')'}
 
 def logout_request(request):
   logout(request)
