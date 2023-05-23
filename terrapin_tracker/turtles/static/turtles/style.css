@@ -20,7 +20,7 @@ grid-template-columns: 120px 70% 30%;
 .topnav {
 overflow:visible;
 grid-area:nav;
-width: 95%;
+width: 100%;
 }
 
 
