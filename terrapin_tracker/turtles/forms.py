@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone, dateformat
 
-# Inherit Django's default UserCreationForm
 class MassArchiveForm(forms.Form):
   def clean(self):
     data = self.cleaned_data
