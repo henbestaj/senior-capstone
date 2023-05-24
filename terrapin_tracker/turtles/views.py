@@ -28,18 +28,18 @@ def MassArchive(request):
     form = MassArchiveForm(request.POST)
 
     if form.is_valid():
+      for i in form.cleaned_data['individual_turtles']:
+        new = Turtle(r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = Turtle.objects.get(id = i), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+        new.save()
+        Measurement.objects.filter(turtle = Turtle.objects.get(id = i)).update(turtle = new)
+        Turtle.objects.filter(valid_to = None, archived = False, id = i).update(valid_to = timezone.now())
+
       for i in form.cleaned_data['r_num_field']:
         for x in Turtle.objects.filter(valid_to = None, archived = False, r_num = i):
           new = Turtle(r_num = i, hatchling_num = x.hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = x, editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
           new.save()
           Measurement.objects.filter(turtle = x).update(turtle = new)
         Turtle.objects.filter(valid_to = None, archived = False, r_num = i).update(valid_to = timezone.now())
-      
-      for i in form.cleaned_data['individual_turtles']:
-        new = Turtle(r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = Turtle.objects.get(id = i), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
-        new.save()
-        Measurement.objects.filter(turtle = Turtle.objects.get(id = i)).update(turtle = new)
-        Turtle.objects.filter(valid_to = None, archived = False, id = i).update(valid_to = timezone.now())
       
       return redirect('released')
   
