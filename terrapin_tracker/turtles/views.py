@@ -23,6 +23,42 @@ import string
 
 # Create your views here.
 @login_required
+def MassArchive(request):
+  if request.method == 'POST':
+    form = MassArchiveForm(request.POST)
+
+    if form.is_valid():
+      for i in form.cleaned_data['r_num_field']:
+        for x in Turtle.objects.filter(valid_to = None, archived = False, r_num = i):
+          new = Turtle(r_num = i, hatchling_num = x.hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = x, editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+          new.save()
+          Measurement.objects.filter(turtle = x).update(turtle = new)
+        Turtle.objects.filter(valid_to = None, archived = False, r_num = i).update(valid_to = timezone.now())
+      
+      for i in form.cleaned_data['individual_turtles']:
+        new = Turtle(r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = Turtle.objects.get(id = i), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+        new.save()
+        Measurement.objects.filter(turtle = Turtle.objects.get(id = i)).update(turtle = new)
+        Turtle.objects.filter(valid_to = None, archived = False, id = i).update(valid_to = timezone.now())
+      
+      return redirect('released')
+  
+  else:
+    form = MassArchiveForm()
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': '',
+    'about_act': '',
+    'current_act': 'active',
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+    'form': form,
+  }
+
+  return render(request, 'turtles/MassArchive.html', context)
+
+@login_required
 def MassTurtleCreate(request):
   if request.method == 'POST':
     form = MassTurtleCreateForm(request.POST)
@@ -114,9 +150,8 @@ def TurtleHistory(request, id):
     
     form.data._mutable = _mutable
 
-    Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
-
     if form.is_valid():
+      Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
       new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = form.cleaned_data['year_archived'], previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
       new.save()
       Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(turtle = new)
@@ -127,9 +162,9 @@ def TurtleHistory(request, id):
   
   else:
     if Turtle.objects.get(id = id).archived:
-      form = EditTurtleCreateFormArchived(initial={'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
+      form = EditTurtleCreateFormArchived(initial={'id': id, 'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
     else:
-      form = EditTurtleCreateForm(initial={'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
+      form = EditTurtleCreateForm(initial={'id': id, 'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
   
   context = {
     'home_act': '',

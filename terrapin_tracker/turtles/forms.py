@@ -3,11 +3,72 @@ from .models import Turtle, Measurement
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone, dateformat
 
 # Inherit Django's default UserCreationForm
+class MassArchiveForm(forms.Form):
+  def clean(self):
+    data = self.cleaned_data
+    r_num_field = data['r_num_field']
+    individual_turtles = data['individual_turtles']
+
+    for i in individual_turtles:
+      if Turtle.objects.filter(r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
+        raise forms.ValidationError('One of these turtles already exists.')
+    
+    for i in r_num_field:
+      for x in Turtle.objects.filter(valid_to = None, archived = False, r_num = i):
+        if Turtle.objects.filter(r_num = i, hatchling_num = x.hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
+          raise forms.ValidationError('One of these turtles already exists.')
+
+  r_nums = []
+  for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
+    include = False
+    for y in Turtle.objects.filter(r_num = x['r_num'], valid_to = None):
+      if (y.archived == False):
+        include = True
+    if include:
+      r_nums.append(x['r_num'])
+  r_nums = sorted([x for x in r_nums])
+  
+  r_tuples = []
+  for i in r_nums:
+    r_tuples.append((i, i))
+  
+  turtles = []
+  for i in Turtle.objects.filter(valid_to = None, archived = False):
+    turtles.append((i.id, i))
+  
+  r_num_field = forms.MultipleChoiceField(label = 'Full R Groups', required=False, choices=r_tuples, widget=forms.CheckboxSelectMultiple)
+  individual_turtles = forms.MultipleChoiceField(label = 'Individual Turtles', required=False, choices=turtles, widget=forms.CheckboxSelectMultiple)
+
+  def __init__(self, *args, **kwargs):
+    super(MassArchiveForm, self).__init__(*args, **kwargs)
+    
+    r_nums = []
+    for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
+      include = False
+      for y in Turtle.objects.filter(r_num = x['r_num'], valid_to = None):
+        if (y.archived == False):
+          include = True
+      if include:
+        r_nums.append(x['r_num'])
+    r_nums = sorted([x for x in r_nums])
+    
+    r_tuples = []
+    for i in r_nums:
+      r_tuples.append((i, i))
+    
+    turtles = []
+    for i in Turtle.objects.filter(valid_to = None, archived = False):
+      turtles.append((i.id, i))
+    
+    self.fields['r_num_field'].choices = r_tuples
+    self.fields['individual_turtles'].choices = turtles
+
 class UserRegisterForm(UserCreationForm):
   error_messages = {
-        'password_mismatch': 'Passwords do not match.',
+      'password_mismatch': 'Passwords do not match.',
         
     }
   def clean(self):
@@ -73,32 +134,36 @@ class ChangePassword(forms.Form):
 class EditTurtleCreateFormArchived(forms.Form):
   def clean(self):
     data = self.cleaned_data
+    id = data['id']
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
     year_archived = data['year_archived']
 
-    if Turtle.objects.filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
+    if Turtle.objects.exclude(id = id).filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
       raise forms.ValidationError('This turtle already exists.')
 
   r_num = forms.IntegerField(label = 'R Number')
   hatchling_num = forms.IntegerField(label = 'Hatchling Number')
   archived = forms.BooleanField(required=False, label = 'Archived', widget=forms.CheckboxInput(attrs={'checked': ''}))
   year_archived = forms.IntegerField(widget = forms.HiddenInput())
+  id = forms.IntegerField(widget = forms.HiddenInput())
 
 class EditTurtleCreateForm(forms.Form):
   def clean(self):
     data = self.cleaned_data
+    id = data['id']
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
     year_archived = data['year_archived']
 
-    if Turtle.objects.filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
+    if Turtle.objects.exclude(id = id).filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
       raise forms.ValidationError('This turtle already exists.')
 
   r_num = forms.IntegerField(label = 'R Number')
   hatchling_num = forms.IntegerField(label = 'Hatchling Number')
   archived = forms.BooleanField(required=False, label = 'Archived')
   year_archived = forms.IntegerField(widget = forms.HiddenInput())
+  id = forms.IntegerField(widget = forms.HiddenInput())
 
 class NewTurtleCreateForm(forms.ModelForm):
   def clean(self):
