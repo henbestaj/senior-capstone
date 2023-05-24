@@ -10,7 +10,8 @@ urlpatterns = [
   path("released/", released, name="released"),
   path("about/", about, name="about"),
   path("current/", current, name="current"),
-  path("r_group/<year_archived>/<r_num>/", current_r, name="current_r"),
+  path("r_group/<int:year_archived>/<int:r_num>/", current_r, name="current_r"),
+  path("deleted_r_group/<int:year_archived>/<int:r_num>/<int:year_deleted>/", current_r_deleted, name="current_r_deleted"),
   path("current/TurtleCreate/", TurtleCreate.as_view(extra_context = {'home_act': '', 'contact_act': '', 'released_act': '', 'about_act': '', 'current_act': 'active', 'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))}), name="TurtleCreate"),
   path("current/MeasurementCreate/", MeasurementCreate.as_view(extra_context = {'home_act': '', 'contact_act': '', 'released_act': '', 'about_act': '', 'current_act': 'active', 'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))}), name="MeasurementCreate"),
   path("accounts/", include("django.contrib.auth.urls")),
@@ -25,6 +26,8 @@ urlpatterns = [
   path('forgot/', forgot, name='forgot'),
   path('history/measurement/<int:id>/', MeasurementHistory, name='MeasurementHistory'),
   path('history/turtle/<int:id>/', TurtleHistory, name='TurtleHistory'),
+  path('history/turtle/delete/<int:id>/', TurtleDelete, name='TurtleDelete'),
   path("current/MassTurtleCreate/", MassTurtleCreate, name='massturtlecreateform'),
-  path('current/MassArchive/', MassArchive, name='massarchive')
+  path('current/MassArchive/', MassArchive, name='massarchive'),
+  path('deleted/', Deleted, name='deleted'),
 ]

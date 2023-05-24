@@ -2,23 +2,20 @@
 {% load static %}
 
 {% block head %}
-<title>Released Turtles</title>
+<title>Deleted Turtles</title>
 <link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="current">
-    <br>
-    <a href="{% url 'archived_measurements.csv' %}" download="archived_measurements.csv" class="turtle-button">Download Data</a>
-    <br>
     {% if Turtle|length == 0 %}
     <div class="current-title">
-        <head>No Turtles Have Been Released at This Time, Sorry!</head>
+        <head>No Turtles Have Been Deleted at This Time, Sorry!</head>
     </div>
     {% else %}
     <div class="center-box">
         <div class="current-title">
-                <head>Released Turtles</head>
+                <head>Deleted Turtles</head>
         </div>
                 <br>
                 {% for year in years %}
@@ -26,13 +23,12 @@
                     <div class="current-table">
                             {% for r_num in r_nums %}
                                 {% if r_num.1 == year %}
-                                <a href="{% url 'current_r' year r_num.0  %}" class = "rnum">R Group {{ r_num.0 }}</a>
+                                <a href="{% url 'current_r_deleted' r_num.2 r_num.0 year %}" class = "rnum">R Group {{ r_num.0 }}</a>
                                 {% endif %}
                             {% endfor %}
                         </div>
                     {% endfor %}
             {% endif %}
     </div>
-    <a href="{% url 'deleted' %}" class="turtle-button">Deleted Turtles</a>
 </div>
 {% endblock %}
