@@ -132,10 +132,26 @@ def MeasurementHistory(request, id):
   else:
     released_act = 'active'
   
+  original = id
+
   history = [Measurement.objects.get(valid_to = None, id = id)]
   while Measurement.objects.get(id = id).previous_measurment != None:
     id = Measurement.objects.get(id = id).previous_measurment.id
     history.append(Measurement.objects.get(id = id))
+
+  id = original
+
+  if request.method == 'POST':
+    form = EditMeasurementCreateForm(request.POST)
+    
+    if form.is_valid():
+      Measurement.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
+      new = Measurement(date = form.cleaned_data['date'], carapace_length = form.cleaned_data['carapace_length'], carapace_width = form.cleaned_data['carapace_width'], plastron_length = form.cleaned_data['plastron_length'], carapace_height = form.cleaned_data['carapace_height'], mass = form.cleaned_data['mass'], turtle = form.cleaned_data['turtle'], previous_measurment = Measurement.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
+      new.save()
+      return redirect('current_r', form.cleaned_data['turtle'].year_archived, form.cleaned_data['turtle'].r_num)
+  
+  else:
+    form = EditMeasurementCreateForm(initial={'id': id, 'date': Measurement.objects.get(id = id).date, 'carapace_length': Measurement.objects.get(id = id).carapace_length, 'carapace_width': Measurement.objects.get(id = id).carapace_width, 'plastron_length': Measurement.objects.get(id = id).plastron_length, 'carapace_height': Measurement.objects.get(id = id).carapace_height, 'mass': Measurement.objects.get(id = id).mass, 'turtle': Measurement.objects.get(id = id).turtle})
 
   context = {
     'home_act': '',
@@ -145,6 +161,8 @@ def MeasurementHistory(request, id):
     'current_act': current_act,
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
     'history': history,
+    'form': form,
+    'id' : id,
   }
 
   return render(request, 'turtles/MeasurementHistory.html', context)
@@ -749,7 +767,7 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
     'about_act': '',
     'current_act': '',
     'Turtle': Turtle.objects.exclude(valid_to = None),
-    'Measurement' : Measurement.objects.exclude(valid_to = None),
+    'Measurement' : Measurement.objects.exclude(valid_to = None).order_by('date'),
     'r' : r_num,
     'year_archived': year_archived,
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
@@ -793,7 +811,7 @@ def current_r(request, year_archived, r_num):
       'about_act': '',
       'current_act': current_act,
       'Turtle': Turtle.objects.filter(valid_to = None),
-      'Measurement' : Measurement.objects.filter(valid_to = None),
+      'Measurement' : Measurement.objects.filter(valid_to = None).order_by('date'),
       'r' : r_num,
       'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
       'unique_turtles': unique_turtles,
@@ -925,7 +943,7 @@ def current_r(request, year_archived, r_num):
     'about_act': '',
     'current_act': current_act,
     'Turtle': Turtle.objects.filter(valid_to = None),
-    'Measurement' : Measurement.objects.filter(valid_to = None),
+    'Measurement' : Measurement.objects.filter(valid_to = None).order_by('date'),
     'r' : r_num,
     'year_archived' : year_archived,
     'path1' : path1,
@@ -986,7 +1004,7 @@ class MeasurementCreate(LoginRequiredMixin, CreateView):
   success_url = '/current/'
   
   def get_initial(self):
-    return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')'}
+    return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')', 'date': timezone.now}
 
 def logout_request(request):
   logout(request)
