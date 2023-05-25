@@ -3,7 +3,7 @@
 
 {% block head %}
 <title>Archive Multiple Turtles</title>
-<link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
+<link rel="stylesheet" href="{% static 'turtles/archive_style.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
     {{ form.as_p }}
     <div id = "nav_buttons">
       <button id = 'goBack'  type = "button" onclick = "history.back()">Go back</button>
-      <button type="submit" value="Submit" id="create">Archive</button>
+      <button type="submit" value="Submit" id="archive">Archive</button>
     </div>
   </form>
 </div>
