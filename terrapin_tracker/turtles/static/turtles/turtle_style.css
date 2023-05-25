@@ -1,6 +1,6 @@
 .center-box{
     width: 60%;
-    height: 50%;
+    height: 52%;
     margin: 40px auto 30px;
     padding: 50px;
     border: 1px solid #ccc;
@@ -133,16 +133,12 @@ ul{
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    /* margin:auto auto 10px; */
     display: inline-block;
     width: 26%;
-    /* margin: 0px 10px; */
     text-align: center;
     align-items: center;
     margin-left: 320px;
     margin-top: 30px;
-    /* margin:auto auto 10px;
-    margin: 0px 15px; */
 }
 
 #submitbtnsettings {
@@ -196,12 +192,17 @@ ul{
 
 .form_box{
     display:grid;
-    grid-template-areas: "start_r end_r"
+    grid-template-areas: "error error"
+                         "start_r end_r"
                          "start_num end_num"
                          "nav_buttons nav_buttons";
     grid-template-columns: 1fr 1fr ;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr;
     grid-column-gap: 10px;
+}
+
+.errorlist {
+    grid-area: error;
 }
 p:has(#id_r_num1){
     grid-area: start_r;

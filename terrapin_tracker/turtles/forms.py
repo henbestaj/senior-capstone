@@ -244,10 +244,12 @@ class NewMeasurementCreateForm(forms.ModelForm):
   def __init__(self, *args, **kwargs):
     super(NewMeasurementCreateForm, self).__init__(*args, **kwargs)
     self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
+
   
   class Meta:
     model = Measurement
     fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
+ 
 
 class NewContactForm(forms.Form):
   email = forms.EmailField(label = 'Your Email')
