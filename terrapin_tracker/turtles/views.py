@@ -23,6 +23,46 @@ import string
 
 # Create your views here.
 @login_required
+def Deleted(request):
+  measurements = []
+  for i in Measurement.objects.exclude(valid_to = None):
+    if not Measurement.objects.filter(previous_measurment = i).exists():
+      measurements.append(i)
+  
+  r_nums = set()
+  for x in Turtle.objects.exclude(valid_to = None):
+    if not Turtle.objects.filter(previous_turtle = x).exists():
+      r_nums.add((x.r_num, x.valid_to.year, x.year_archived))
+  r_nums = list(r_nums)
+  r_nums = sorted(r_nums, key = lambda x: x[0])
+  
+  years = set()
+  for i in r_nums:
+    years.add(i[1])
+  years = list(years)
+  years = sorted(years)
+
+  turtles = []
+  for i in Turtle.objects.exclude(valid_to = None):
+    if not Turtle.objects.filter(previous_turtle = i).exists():
+      turtles.append(i)
+
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': 'active',
+    'about_act': '',
+    'current_act': '',
+    'Turtle': turtles,
+    'Measurement' : measurements,
+    'r_nums' : r_nums,
+    'years' : years,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+  }
+
+  return render(request, 'turtles/deleted.html', context)
+
+@login_required
 def MassArchive(request):
   if request.method == 'POST':
     form = MassArchiveForm(request.POST)
@@ -179,6 +219,39 @@ def TurtleHistory(request, id):
   }
 
   return render(request, 'turtles/TurtleHistory.html', context)
+
+@login_required
+def TurtleDelete(request, id):
+  current_act = ''
+  released_act = ''
+  if Turtle.objects.get(id = id).year_archived == 0:
+    current_act = 'active'
+  else:
+    released_act = 'active'
+  
+  if request.method == 'POST':
+    form = TurtleDeleteForm(request.POST)
+
+    if form.is_valid():
+      Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
+      Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(valid_to = timezone.now())
+      return redirect('released')
+  
+  else:
+    form = TurtleDeleteForm()
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': released_act,
+    'about_act': '',
+    'current_act': current_act,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+    'form': form,
+    'turtle' : Turtle.objects.get(valid_to = None, id = id),
+  }
+
+  return render(request, 'turtles/TurtleDelete.html', context)
 
 def Confirm(request, username):
   confirmation = request.session.get('confirmation')
@@ -661,10 +734,31 @@ def current(request):
 
   return render(request, 'turtles/current.html', context)
 
-def current_r(request, year_archived, r_num):
-  r_num = int(r_num)
-  year_archived = int(year_archived)
+@login_required
+def current_r_deleted(request, year_archived, r_num, year_deleted):
+  no_turtles = True
+  for measurement in Measurement.objects.exclude(valid_to = None):
+    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to.year == year_deleted:
+      no_turtles = False
 
+  context = {
+    'no_turtles' : no_turtles,
+    'home_act': '',
+    'contact_act': '',
+    'released_act': 'active',
+    'about_act': '',
+    'current_act': '',
+    'Turtle': Turtle.objects.exclude(valid_to = None),
+    'Measurement' : Measurement.objects.exclude(valid_to = None),
+    'r' : r_num,
+    'year_archived': year_archived,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+    'year_deleted': year_deleted,
+  }
+
+  return render(request, 'turtles/current_r_deleted.html', context)
+
+def current_r(request, year_archived, r_num):
   no_turtles = True
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
@@ -676,6 +770,19 @@ def current_r(request, year_archived, r_num):
     current_act = 'active'
   else:
     released_act = 'active'
+  
+  unique_turtles = set()
+  for turtle in Turtle.objects.filter(valid_to = None, r_num = r_num, year_archived = year_archived):
+    unique_turtles.add(turtle)
+
+  def getR(obj):
+    return obj.r_num
+  
+  def getHatch(obj):
+    return obj.hatchling_num
+  
+  unique_turtles = sorted(list(unique_turtles), key=getHatch)
+  unique_turtles = sorted(list(unique_turtles), key=getR)
 
   if no_turtles:
     context = {
@@ -688,7 +795,8 @@ def current_r(request, year_archived, r_num):
       'Turtle': Turtle.objects.filter(valid_to = None),
       'Measurement' : Measurement.objects.filter(valid_to = None),
       'r' : r_num,
-      'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
+      'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+      'unique_turtles': unique_turtles,
     }
 
     return render(request, 'turtles/current_r.html', context)
@@ -808,20 +916,6 @@ def current_r(request, year_archived, r_num):
   path7 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'masshist.png'
   path8 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'turtlevsheightbox.png'
   path9 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
-
-  unique_turtles = set()
-  for measurement in Measurement.objects.filter(valid_to = None):
-    if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to == None:
-      unique_turtles.add(Turtle.objects.get(r_num = r_num, year_archived = year_archived, hatchling_num = measurement.turtle.hatchling_num, valid_to = None))
-  
-  def getR(obj):
-    return obj.r_num
-  
-  def getHatch(obj):
-    return obj.hatchling_num
-  
-  unique_turtles = sorted(list(unique_turtles), key=getHatch)
-  unique_turtles = sorted(list(unique_turtles), key=getR)
 
   context = {
     'no_turtles' : no_turtles,
