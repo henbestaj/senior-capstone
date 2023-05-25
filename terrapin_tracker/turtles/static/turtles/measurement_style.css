@@ -45,7 +45,6 @@ li.error::marker {
 
 .error_list {
     grid-area: error;
-    color: red;
     background-color: rgb(65, 145, 163);
     display: block;
     width: 63%;
