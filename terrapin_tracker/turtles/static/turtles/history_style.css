@@ -142,20 +142,15 @@ input[type="checkbox"] {
   
   }
 
+
+
   table {
-    border-collapse: collapse;
-    width:90%
+    border-spacing: 10px 1px;
   }
-  
-  table, th, td {
-    border: 1px solid black;
-  }
-  
-  th {
-    background-color: #888;
-    color: black;
-  }
-  
-  tr:nth-child(even) {
-    background-color: lightgray;
+  table td {
+    margin: 1px 10px 1px 10px;
+    align-items: center;
+    align-content: center;
+    border-bottom: 1px black solid;
+    text-align: center;
   }
