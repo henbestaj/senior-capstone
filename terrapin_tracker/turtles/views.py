@@ -249,6 +249,38 @@ def TurtleHistory(request, id):
   return render(request, 'turtles/TurtleHistory.html', context)
 
 @login_required
+def MeasurementDelete(request, id):
+  current_act = ''
+  released_act = ''
+  if Measurement.objects.get(id = id).turtle.year_archived == 0:
+    current_act = 'active'
+  else:
+    released_act = 'active'
+  
+  if request.method == 'POST':
+    form = MeasurementDeleteForm(request.POST)
+
+    if form.is_valid():
+      Measurement.objects.filter(id = id).update(valid_to = timezone.now())
+      return redirect('current_r', Measurement.objects.get(id = id).turtle.year_archived, Measurement.objects.get(id = id).turtle.r_num)
+  
+  else:
+    form = MeasurementDeleteForm()
+  
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': released_act,
+    'about_act': '',
+    'current_act': current_act,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+    'form': form,
+    'measurement' : Measurement.objects.get(valid_to = None, id = id),
+  }
+
+  return render(request, 'turtles/MeasurementDelete.html', context)
+
+@login_required
 def TurtleDelete(request, id):
   current_act = ''
   released_act = ''
@@ -790,6 +822,12 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
   unique_turtles = sorted(list(unique_turtles), key=getHatch)
   unique_turtles = sorted(list(unique_turtles), key=getR)
 
+  Measurements = Measurement.objects.exclude(valid_to = None).order_by('date')
+  CorrectMeasurements = Measurement.objects.exclude(valid_to = None).order_by('date')
+  for i in Measurements:
+    if Measurement.objects.filter(previous_measurment = i).exists():
+      CorrectMeasurements = CorrectMeasurements.exclude(id = i.id)
+
   context = {
     'no_turtles' : no_turtles,
     'home_act': '',
@@ -798,7 +836,7 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
     'about_act': '',
     'current_act': '',
     'Turtle': Turtle.objects.exclude(valid_to = None),
-    'Measurement' : Measurement.objects.exclude(valid_to = None).order_by('date'),
+    'Measurement' : CorrectMeasurements,
     'unique_turtles': unique_turtles,
     'r' : r_num,
     'year_archived': year_archived,

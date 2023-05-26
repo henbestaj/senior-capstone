@@ -1,0 +1,22 @@
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Delete Measurement</title>
+<link rel="stylesheet" href="{% static 'turtles/delete_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class = "center-box">
+  <h1 class = "formheading">Delete Measurement {{ measurement }}?</h1>
+  <form method="POST" class = "">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id = "nav_buttons">
+      <button id = 'goBack'  type = "button" onclick = "history.back()">Cancel</button>
+      <button type="submit" value="Submit" id="delete">Delete</button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}
