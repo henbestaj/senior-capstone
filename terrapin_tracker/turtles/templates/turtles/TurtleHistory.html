@@ -10,11 +10,13 @@
     <head>Turtle History</head>
 </div>
 <div class="current">
+    {% if not deleted %}
     <form action="{% url 'TurtleHistory' id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit" id=submitbtn>
     </form>
+    {% endif %}
     <div class="table-box">
         <table class="measurement-table">
             <thead>
@@ -55,6 +57,9 @@
             </tbody>
         </table>
     </div>
+    {% if not deleted %}
     <a href="{% url 'TurtleDelete' id %}">Want to delete this turtle? Click here.</a>
+    {% endif %}
+    <a id = 'goback'  type = "button" onclick = "history.back()">Go back</a>
 </div>
 {% endblock %}

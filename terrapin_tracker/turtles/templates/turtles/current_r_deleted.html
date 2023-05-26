@@ -33,13 +33,13 @@
                 {% for measurement in Measurement %}
                 {% if measurement.turtle.r_num == r and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to.year == year_deleted %}
                     <tr>
-                        <td>{{ measurement.date }}</td>
-                        <td>{{ measurement.display_turtle }}</td>
-                        <td>{{ measurement.carapace_length }}</td>
-                        <td>{{ measurement.carapace_width }}</td>
-                        <td>{{ measurement.plastron_length }}</td>
-                        <td>{{ measurement.carapace_height }}</td>
-                        <td>{{ measurement.mass }}</td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.date }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.display_turtle }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.carapace_length }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.carapace_width }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.plastron_length }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.carapace_height }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.mass }}</a></td>
                     </tr>
                 {% endif %}
                 {% endfor %}
@@ -48,6 +48,14 @@
     </div>
 </div>
 {% endif %}
+<div class="current-title">
+    <head>Turtle History</head>
+</div>
+<div class="turtles">
+    {% for turtle in unique_turtles %}
+    <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
+    {% endfor %}
+</div>
 <br><br>
 <a onclick = "history.back()" id="goback">Go back</a>
 {% endblock %}

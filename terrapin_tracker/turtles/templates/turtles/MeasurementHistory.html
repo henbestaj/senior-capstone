@@ -10,11 +10,13 @@
     <head>Measurement History</head>
 </div>
 <div class="current">
+    {% if not deleted %}
     <form action="{% url 'MeasurementHistory' id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit" id=submitbtn>
     </form>
+    {% endif %}
     <div class="table-box2">
         <table class="measurement-table">
             <thead>
