@@ -6,7 +6,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone, dateformat
 
 class TurtleDeleteForm(forms.Form):
-  confirm = forms.BooleanField(label="Delete Confirmation")
+  confirm = forms.BooleanField(label="Confirm you want to delete this turtle:")
 
 class MassArchiveForm(forms.Form):
   def clean(self):
