@@ -12,6 +12,14 @@
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
+    {% if form.errors %}
+    <style>#center-box {height:77%}</style>
+      <ol class = error_list>
+        {% for key,value in form.errors.items %}
+          <ol class="error">{{ value|escape }}</ol>
+        {% endfor %}
+      </ol>
+        {% endif %}
     <button type="submit" value="Submit" id = "update">Update</button>
     <button id = 'goBack' value="button" onclick = "history.back()">Go Back</button>
   </form>

@@ -188,8 +188,6 @@
   color:white;
   font-size: 15px;
   margin-top:10px;
-  /* margin-left: auto;
-  margin-right: auto; */
   padding: 10px;
   text-decoration: none;
 }
@@ -221,7 +219,6 @@
 .alert {
   background-color: rgb(65, 145, 163); 
   color: white;
-  /* margin-bottom: 15px; */
   width: 60%;
   text-align: center;
   display: flex;
@@ -232,8 +229,6 @@
   align-items: center;
 }
 .alertmsg {
-  /* justify-content: center;
-  align-items: center; */
   margin-left: 340px;
 }
 

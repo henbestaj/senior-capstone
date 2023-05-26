@@ -14,21 +14,49 @@
 
 form{
     display:grid;
-    grid-template-areas: "date id_r_num"
+    grid-template-areas: "error error"
+                         "date id_r_num"
                          "carapace_length carapace_width"
                          "carapace_height plastron_lenth"
                          "mass mass"
                          "goBack update";
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: 0.5fr, repeat(5, 1fr);
     padding: 15px
 }
 #heading{
     text-align: center;
     font-weight: bold;
     color: #333;
-    margin:5px auto
+    margin:5px auto;
 } 
+
+li.error::marker {
+    color: #eee;
+    margin-left: 300px;
+}
+
+.errorlist {
+    color: #eee;
+    grid-area: error;
+} 
+
+
+
+.error_list {
+    grid-area: error;
+    background-color: rgb(65, 145, 163);
+    display: block;
+    width: 63%;
+    margin: 10px 0px 10px 150px;
+    padding-left: 0px;
+    text-align: center;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    
+}
 
 /*aligns the label element to the left but on top of the input element*/
 label{
@@ -120,8 +148,6 @@ button {
 }
 
 li{
-    color:red;
-    font-weight: bold;
     text-align: center;
   }
 
@@ -129,4 +155,5 @@ li{
 ul{
     list-style: none;
     padding:0px;
+    color:rgb(65, 145, 163);
 }

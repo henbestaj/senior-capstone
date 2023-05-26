@@ -141,6 +141,12 @@ class EditTurtleCreateFormArchived(forms.Form):
     hatchling_num = data['hatchling_num']
     year_archived = data['year_archived']
 
+    if r_num < 0:
+      raise forms.ValidationError('Ensure the R number is greater than or equal to 0.')
+  
+    if hatchling_num < 0:
+      raise forms.ValidationError('Ensure the hatchling number is greater than or equal to 0.')
+
     if Turtle.objects.exclude(id = id).filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
       raise forms.ValidationError('This turtle already exists.')
 
@@ -150,6 +156,20 @@ class EditTurtleCreateFormArchived(forms.Form):
   year_archived = forms.IntegerField(widget = forms.HiddenInput())
   id = forms.IntegerField(widget = forms.HiddenInput())
 
+class EditMeasurementCreateForm(forms.Form):
+  date = forms.DateField(label = 'Date (YYYY-MM-DD)')
+  carapace_length = forms.FloatField(label = 'Carapace Length', validators=[MinValueValidator(0)])
+  carapace_width = forms.FloatField(label = 'Carapace Width', validators=[MinValueValidator(0)])
+  plastron_length = forms.FloatField(label = 'Plastron Length', validators=[MinValueValidator(0)])
+  carapace_height = forms.FloatField(label = 'Carapace Height', validators=[MinValueValidator(0)])
+  mass = forms.FloatField(label = 'Mass', validators=[MinValueValidator(0)])
+  turtle = forms.ModelChoiceField(queryset = Turtle.objects.all().filter(valid_to=None, archived=False), label = 'Turtle')
+  id = forms.IntegerField(widget = forms.HiddenInput())
+
+  def __init__(self, *args, **kwargs):
+    super(EditMeasurementCreateForm, self).__init__(*args, **kwargs)
+    self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
+
 class EditTurtleCreateForm(forms.Form):
   def clean(self):
     data = self.cleaned_data
@@ -157,6 +177,12 @@ class EditTurtleCreateForm(forms.Form):
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
     year_archived = data['year_archived']
+
+    if r_num < 0:
+      raise forms.ValidationError('Ensure the R number is greater than or equal to 0.')
+  
+    if hatchling_num < 0:
+      raise forms.ValidationError('Ensure the hatchling number is greater than or equal to 0.')
 
     if Turtle.objects.exclude(id = id).filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
       raise forms.ValidationError('This turtle already exists.')
@@ -213,14 +239,17 @@ class MassTurtleCreateForm(forms.Form):
 
 class NewMeasurementCreateForm(forms.ModelForm):
   editor = forms.CharField(widget=forms.HiddenInput)
+  date = forms.DateField(label = 'Date (YYYY-MM-DD)')
   
   def __init__(self, *args, **kwargs):
     super(NewMeasurementCreateForm, self).__init__(*args, **kwargs)
     self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
+
   
   class Meta:
     model = Measurement
     fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
+ 
 
 class NewContactForm(forms.Form):
   email = forms.EmailField(label = 'Your Email')
