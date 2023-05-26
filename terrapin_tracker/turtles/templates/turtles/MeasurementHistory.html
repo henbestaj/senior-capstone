@@ -55,6 +55,9 @@
             </tbody>
         </table>
     </div>
+    {% if not deleted %}
+    <a href="{% url 'MeasurementDelete' id %}" id="nav-delete">Delete Measurement</a>
+    {% endif %}
     <a id = 'goback'  type = "button" onclick = "history.back()">Go back</a>
 </div>
 {% endblock %}

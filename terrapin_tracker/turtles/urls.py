@@ -27,6 +27,7 @@ urlpatterns = [
   path('history/measurement/<int:id>/', MeasurementHistory, name='MeasurementHistory'),
   path('history/turtle/<int:id>/', TurtleHistory, name='TurtleHistory'),
   path('history/turtle/delete/<int:id>/', TurtleDelete, name='TurtleDelete'),
+  path('history/measurement/delete/<int:id>/', MeasurementDelete, name='MeasurementDelete'),
   path("current/MassTurtleCreate/", MassTurtleCreate, name='massturtlecreateform'),
   path('current/MassArchive/', MassArchive, name='massarchive'),
   path('deleted/', Deleted, name='deleted'),

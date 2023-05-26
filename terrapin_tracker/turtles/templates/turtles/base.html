@@ -9,8 +9,10 @@
     </head>
 
     <body>
-        <div class = grid-container> 
-            <a href = "{% url 'home' %}"><img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
+        <div class = grid-container>
+            {% with alert=0 %}
+            <a href = "{% url 'home' alert %}"><img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
+            {% endwith %}
             <h1 class = 'heading'>TerrapinTracker</h1>
             {% if user.is_authenticated %}
             <button id = 'signIn' onclick = "signOut()">Log out</button>
