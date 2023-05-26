@@ -483,30 +483,37 @@ def home(request, alert = 1):
 
   date = []
   for measurement in Measurement.objects.filter(valid_to = None):
-      date.append(measurement.date)
+      if measurement.turtle.year_archived == 0:
+        date.append(measurement.date)
   group = []
   for measurement in Measurement.objects.filter(valid_to = None):
-      group.append((measurement.display_turtle.split('-')[0]))
+      if measurement.turtle.year_archived == 0:
+        group.append((measurement.display_turtle.split('-')[0]))
   
   carapace_length = []
   for measurement in Measurement.objects.filter(valid_to = None):
-      carapace_length.append(measurement.carapace_length)
+       if measurement.turtle.year_archived == 0: 
+        carapace_length.append(measurement.carapace_length)
   
   carapace_width = []
   for measurement in Measurement.objects.filter(valid_to = None):
-      carapace_width.append(measurement.carapace_width)
+       if measurement.turtle.year_archived == 0: 
+        carapace_width.append(measurement.carapace_width)
   
   plastron_length = []
   for measurement in Measurement.objects.filter(valid_to = None):
-      plastron_length.append(measurement.plastron_length)
+       if measurement.turtle.year_archived == 0: 
+        plastron_length.append(measurement.plastron_length)
   
   carapace_height = []
   for measurement in Measurement.objects.filter(valid_to = None):
-      carapace_height.append(measurement.carapace_height)
+      if measurement.turtle.year_archived == 0:
+        carapace_height.append(measurement.carapace_height)
   
   mass = []
   for measurement in Measurement.objects.filter(valid_to = None):
-      mass.append(measurement.mass)
+       if measurement.turtle.year_archived == 0: 
+        mass.append(measurement.mass)
   
   fig, ax = plt.subplots()
   legend = (list(set(group)))
