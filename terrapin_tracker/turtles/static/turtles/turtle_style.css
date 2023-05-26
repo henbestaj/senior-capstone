@@ -23,19 +23,28 @@ p{
 
 #id_r_num{
     color:black;
-    width:70%;
+    width: 80%;
     height:40px;
     align-items: center;
     display:flex;
-    margin:auto auto 10px;
+    margin:auto auto 20px;
+    text-indent: 10%;
+}
+p:has(#id_r_num) {
+    text-indent: 10%;
+}
+p:has(#id_hatchling_num){
+    text-indent: 26%;
+    margin-top: 50px;
 }
 #id_hatchling_num{
     color:black;
-    width:70%;
+    width:48%;
     height:40px;
     align-items: center;
     display:block;
     margin:auto auto 10px;
+    margin-bottom: 50px;
 }
 /*Centers the div that contains two buttons*/
 #button-container{
@@ -54,6 +63,7 @@ p{
     display: inline-block;
     width: 32.5%;
     margin: 0px 15px;
+    margin-bottom: 30px;
    
 }
 ::marker{
