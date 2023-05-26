@@ -23,6 +23,38 @@ import string
 
 # Create your views here.
 @login_required
+def DeletedMeasurement(request , year_archived, r_num):
+  current_act = ''
+  released_act = ''
+  if year_archived == 0:
+    current_act = 'active'
+  else:
+    released_act = 'active'
+  
+  nothing = False
+
+  measurements = []
+  for i in Measurement.objects.exclude(valid_to = None).filter(turtle__year_archived = year_archived, turtle__r_num = r_num, turtle__valid_to = None):
+    if not Measurement.objects.filter(previous_measurment = i).exists():
+      measurements.append(i)
+
+  if measurements == []:
+    nothing = True
+
+  context = {
+    'home_act': '',
+    'contact_act': '',
+    'released_act': released_act,
+    'about_act': '',
+    'current_act': current_act,
+    'Measurement' : measurements,
+    'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
+    'nothing': nothing,
+  }
+
+  return render(request, 'turtles/DeletedMeasurement.html', context)
+
+@login_required
 def Deleted(request):
   measurements = []
   for i in Measurement.objects.exclude(valid_to = None):
@@ -124,10 +156,12 @@ def MassTurtleCreate(request):
   return render(request, 'turtles/massturtlecreateform.html', context)
 
 @login_required
-def MeasurementHistory(request, id):
+def MeasurementHistory(request, id, deleted=False):
   current_act = ''
   released_act = ''
-  deleted = False
+  deleted = bool(deleted)
+  if not deleted:
+    deleted = False
   if Turtle.objects.get(id = Measurement.objects.get(id = id).turtle.id).valid_to != None:
     released_act = 'active'
     deleted = True
@@ -885,6 +919,7 @@ def current_r(request, year_archived, r_num):
       'r' : r_num,
       'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
       'unique_turtles': unique_turtles,
+      'year_archived': year_archived,
     }
 
     return render(request, 'turtles/current_r.html', context)

@@ -1,0 +1,53 @@
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Deleted Measurements</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if nothing %}
+<div class="current-title">
+    <head>No Deleted Measurements Are Available for Turtles in This R Group, Sorry!</head>
+</div>
+{% else %}
+<div class="current-title">
+    <head>Deleted Measurements</head>
+</div>
+<div class="current">
+    <div class="table-box">
+        <table class="measurement-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Turtle</th>
+                    <th>Carapace Length</th>
+                    <th>Carapace Width</th>
+                    <th>Plastron Length</th>
+                    <th>Carapace Height</th>
+                    <th>Mass</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for measurement in Measurement %}
+                    <tr>
+                        {% with deleted=True %}
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.date }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.display_turtle }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.carapace_length }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.carapace_width }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.plastron_length }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.carapace_height }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.mass }}</a></td>
+                        {% endwith %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+<br><br>
+<a onclick = "history.back()" id="goback">Go back</a>
+{% endblock %}
