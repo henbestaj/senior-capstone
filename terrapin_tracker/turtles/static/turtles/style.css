@@ -246,6 +246,22 @@ width: 100%;
   grid-template-rows: 0.5fr, repeat(3, 1.5fr);
   padding: 15px
 }
+::marker{
+  list-style: none;
+  padding:0px;
+}
+.errorlist {
+  grid-area: error;
+  margin: auto;
+  margin-bottom: 15px;
+  color: red;
+}
+
+li{
+  color:red;
+  font-weight: bold;
+  text-align: center;
+}
 
 p:has(#id_r_num){
   grid-area: r_num;
