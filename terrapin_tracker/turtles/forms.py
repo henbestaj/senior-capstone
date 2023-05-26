@@ -157,12 +157,35 @@ class EditTurtleCreateFormArchived(forms.Form):
   id = forms.IntegerField(widget = forms.HiddenInput())
 
 class EditMeasurementCreateForm(forms.Form):
+  def clean(self):
+    data = self.cleaned_data
+    carapace_length = data['carapace_length']
+    carapace_width = data['carapace_width']
+    plastron_length = data['plastron_length']
+    carapace_height = data['carapace_height']
+    mass = data['mass']
+
+    if carapace_length < 0:
+      raise forms.ValidationError('Ensure the carapace length is greater than or equal to 0.')
+  
+    if carapace_width < 0:
+      raise forms.ValidationError('Ensure the carapace width is greater than or equal to 0.')
+
+    if plastron_length < 0:
+      raise forms.ValidationError('Ensure the plastron length is greater than or equal to 0.')
+    
+    if carapace_height < 0:
+      raise forms.ValidationError('Ensure the carapace height is greater than or equal to 0.')
+    
+    if mass < 0:
+      raise forms.ValidationError('Ensure the mass is greater than or equal to 0.')
+  
   date = forms.DateField(label = 'Date (YYYY-MM-DD)')
-  carapace_length = forms.FloatField(label = 'Carapace Length', validators=[MinValueValidator(0)])
-  carapace_width = forms.FloatField(label = 'Carapace Width', validators=[MinValueValidator(0)])
-  plastron_length = forms.FloatField(label = 'Plastron Length', validators=[MinValueValidator(0)])
-  carapace_height = forms.FloatField(label = 'Carapace Height', validators=[MinValueValidator(0)])
-  mass = forms.FloatField(label = 'Mass', validators=[MinValueValidator(0)])
+  carapace_length = forms.FloatField(label = 'Carapace Length')
+  carapace_width = forms.FloatField(label = 'Carapace Width')
+  plastron_length = forms.FloatField(label = 'Plastron Length')
+  carapace_height = forms.FloatField(label = 'Carapace Height')
+  mass = forms.FloatField(label = 'Mass')
   turtle = forms.ModelChoiceField(queryset = Turtle.objects.all().filter(valid_to=None, archived=False), label = 'Turtle')
   id = forms.IntegerField(widget = forms.HiddenInput())
 
@@ -249,7 +272,6 @@ class NewMeasurementCreateForm(forms.ModelForm):
   class Meta:
     model = Measurement
     fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
- 
 
 class NewContactForm(forms.Form):
   email = forms.EmailField(label = 'Your Email')

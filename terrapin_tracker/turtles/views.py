@@ -127,14 +127,18 @@ def MassTurtleCreate(request):
 def MeasurementHistory(request, id):
   current_act = ''
   released_act = ''
-  if Measurement.objects.get(valid_to = None, id = id).turtle.year_archived == 0:
+  deleted = False
+  if Turtle.objects.get(id = Measurement.objects.get(id = id).turtle.id).valid_to != None:
+    released_act = 'active'
+    deleted = True
+  elif Measurement.objects.get(id = id).turtle.year_archived == 0:
     current_act = 'active'
   else:
     released_act = 'active'
   
   original = id
 
-  history = [Measurement.objects.get(valid_to = None, id = id)]
+  history = [Measurement.objects.get(id = id)]
   while Measurement.objects.get(id = id).previous_measurment != None:
     id = Measurement.objects.get(id = id).previous_measurment.id
     history.append(Measurement.objects.get(id = id))
@@ -145,7 +149,7 @@ def MeasurementHistory(request, id):
     form = EditMeasurementCreateForm(request.POST)
     
     if form.is_valid():
-      Measurement.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
+      Measurement.objects.filter(id = id).update(valid_to = timezone.now())
       new = Measurement(date = form.cleaned_data['date'], carapace_length = form.cleaned_data['carapace_length'], carapace_width = form.cleaned_data['carapace_width'], plastron_length = form.cleaned_data['plastron_length'], carapace_height = form.cleaned_data['carapace_height'], mass = form.cleaned_data['mass'], turtle = form.cleaned_data['turtle'], previous_measurment = Measurement.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
       new.save()
       return redirect('current_r', form.cleaned_data['turtle'].year_archived, form.cleaned_data['turtle'].r_num)
@@ -163,6 +167,7 @@ def MeasurementHistory(request, id):
     'history': history,
     'form': form,
     'id' : id,
+    'deleted': deleted,
   }
 
   return render(request, 'turtles/MeasurementHistory.html', context)
@@ -171,7 +176,11 @@ def MeasurementHistory(request, id):
 def TurtleHistory(request, id):
   current_act = ''
   released_act = ''
-  if Turtle.objects.get(id = id).year_archived == 0:
+  deleted = False
+  if Turtle.objects.get(id = id).valid_to != None:
+    deleted = True
+    released_act = 'active'
+  elif Turtle.objects.get(id = id).year_archived == 0:
     current_act = 'active'
   else:
     released_act = 'active'
@@ -234,6 +243,7 @@ def TurtleHistory(request, id):
     'history': history,
     'form': form,
     'id' : id,
+    'deleted': deleted,
   }
 
   return render(request, 'turtles/TurtleHistory.html', context)
@@ -766,6 +776,20 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to.year == year_deleted:
       no_turtles = False
 
+  unique_turtles = set()
+  for turtle in Turtle.objects.exclude(valid_to = None).filter(r_num = r_num, year_archived = year_archived):
+    if turtle.valid_to.year == year_deleted and not Turtle.objects.filter(previous_turtle = turtle).exists():
+      unique_turtles.add(turtle)
+
+  def getR(obj):
+    return obj.r_num
+  
+  def getHatch(obj):
+    return obj.hatchling_num
+  
+  unique_turtles = sorted(list(unique_turtles), key=getHatch)
+  unique_turtles = sorted(list(unique_turtles), key=getR)
+
   context = {
     'no_turtles' : no_turtles,
     'home_act': '',
@@ -775,6 +799,7 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
     'current_act': '',
     'Turtle': Turtle.objects.exclude(valid_to = None),
     'Measurement' : Measurement.objects.exclude(valid_to = None).order_by('date'),
+    'unique_turtles': unique_turtles,
     'r' : r_num,
     'year_archived': year_archived,
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7)),
