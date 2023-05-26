@@ -28,7 +28,7 @@ p{
     align-items: center;
     display:flex;
     margin:auto auto 20px;
-    text-indent: 10%;
+    text-indent: 0%;
 }
 p:has(#id_r_num) {
     text-indent: 10%;
