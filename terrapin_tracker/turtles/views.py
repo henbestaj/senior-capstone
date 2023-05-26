@@ -783,6 +783,12 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
   unique_turtles = sorted(list(unique_turtles), key=getHatch)
   unique_turtles = sorted(list(unique_turtles), key=getR)
 
+  Measurements = Measurement.objects.exclude(valid_to = None).order_by('date')
+  CorrectMeasurements = Measurement.objects.exclude(valid_to = None).order_by('date')
+  for i in Measurements:
+    if Measurement.objects.filter(previous_measurment = i).exists():
+      CorrectMeasurements = CorrectMeasurements.exclude(id = i.id)
+
   context = {
     'no_turtles' : no_turtles,
     'home_act': '',
@@ -791,7 +797,7 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
     'about_act': '',
     'current_act': '',
     'Turtle': Turtle.objects.exclude(valid_to = None),
-    'Measurement' : Measurement.objects.exclude(valid_to = None).order_by('date'),
+    'Measurement' : CorrectMeasurements,
     'unique_turtles': unique_turtles,
     'r' : r_num,
     'year_archived': year_archived,
