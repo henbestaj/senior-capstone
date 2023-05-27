@@ -295,7 +295,7 @@ def MeasurementDelete(request, id):
     form = MeasurementDeleteForm(request.POST)
 
     if form.is_valid():
-      Measurement.objects.filter(id = id).update(valid_to = timezone.now())
+      Measurement.objects.filter(id = id).update(valid_to = timezone.now(), editor = Measurement.objects.get(id = id).editor + ' Deleted by: ' + request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
       return redirect('current_r', Measurement.objects.get(id = id).turtle.year_archived, Measurement.objects.get(id = id).turtle.r_num)
   
   else:
@@ -327,7 +327,7 @@ def TurtleDelete(request, id):
     form = TurtleDeleteForm(request.POST)
 
     if form.is_valid():
-      Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
+      Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now(), editor = Turtle.objects.get(id = id).editor + ' Deleted by: ' + request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
       Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(valid_to = timezone.now())
       return redirect('released')
   
