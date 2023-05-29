@@ -67,7 +67,7 @@ p:has(#id_plastron_length){
 p:has(#id_mass){
     grid-area:mass;
 }
-#submitbtn, #goBack{
+#submitbtn, #goBack, #nav-delete{
     background-color: rgb(26,82,94);
     color: white;
     border: none;
@@ -79,6 +79,7 @@ p:has(#id_mass){
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
 }
 
 
