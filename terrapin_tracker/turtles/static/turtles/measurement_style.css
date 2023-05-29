@@ -7,10 +7,7 @@
     background: #eee;
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
-    
-    
 }
-/*centers the heading inside of the centered box*/
 
 form{
     display:grid;

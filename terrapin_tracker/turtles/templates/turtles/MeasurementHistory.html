@@ -2,21 +2,25 @@
 {% load static %}
 {% block head %}
 <title>Measurement History</title>
-<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+<link rel="stylesheet" href="{% static 'turtles/measurement_history_style.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="current-title">
-    <head>Measurement History</head>
-</div>
 <div class="current">
     {% if not deleted %}
+    <div id="center-box">
+    <h1 id="heading">Edit Measurement History</h1>
     <form action="{% url 'MeasurementHistory' id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Submit" id=submitbtn>
+        <div id="nav">
+            <a id = 'goback'  type = "button" onclick = "history.back()">Go back</a>
+            <input type="submit" value="Submit" id=submitbtn>
+        </div>
     </form>
+    </div>
     {% endif %}
+    
     <div class="table-box2">
         <table class="measurement-table">
             <thead>
@@ -58,6 +62,6 @@
     {% if not deleted %}
     <a href="{% url 'MeasurementDelete' id %}" id="nav-delete">Delete Measurement</a>
     {% endif %}
-    <a id = 'goback'  type = "button" onclick = "history.back()">Go back</a>
+
 </div>
 {% endblock %}
