@@ -49,6 +49,7 @@ form{
     align-items: center;
     justify-content: center;
 }
+/* formats form boxes */
 p:has(input){
     display: flex;
     flex-direction: column;
@@ -60,7 +61,7 @@ p:has(input){
 label{
     padding-bottom:10px;
 }
-
+/* formats checkbox and creates slider */
 input[type="checkbox"] {
     width: 80px;
     height: 40px;

@@ -11,6 +11,7 @@
 {% block content %}
 {% if user.is_authenticated and alert == 1 %}
 <div class="alert">
+    <!-- creates a welcome message -->
     <div class="alertmsg">
         <h1>Hello {{ user.first_name }}!</h1>
     </div>
@@ -29,6 +30,7 @@
     <br>
     <br>
     <h2 class="gtext">Measurement Graphs</h2>
+    <!-- displays general graphs -->
     <br>
     <div class="graphimage">
     <img src="{% static path9 %}" alt="Length by Width Scatterplot" class = "graph" style="width:30%"> <img src="{% static path10 %}" alt="Length by Width KDE" class = "graph" style="width:30%"> <img src="{% static path11 %}" alt="Length by Date Boxplot" class = "graph" style="width:30%">

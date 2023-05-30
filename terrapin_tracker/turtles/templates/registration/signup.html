@@ -17,6 +17,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+    <!-- puts errors into list for styling -->
         {% if form.errors %}
       <ol class = error_list>
         {% for key,value in form.errors.items %} 

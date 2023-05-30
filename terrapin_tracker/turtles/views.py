@@ -540,7 +540,7 @@ def custom_bad_request_view(request, exception=None):
   return render(request, "turtles/400.html", context)
 
 def home(request, alert = 1):
-  
+  # creates lists of data for graphing
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == False:
@@ -580,7 +580,7 @@ def home(request, alert = 1):
   for measurement in Measurement.objects.filter(valid_to = None):
        if measurement.turtle.year_archived == 0: 
         mass.append(measurement.mass)
-  
+  # creates graphs
   fig, ax = plt.subplots()
   legend = (list(set(group)))
   try:
@@ -924,7 +924,7 @@ def current_r(request, year_archived, r_num):
     }
 
     return render(request, 'turtles/current_r.html', context)
-
+# creates lists of data by R group for graphing
   date = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
@@ -959,7 +959,7 @@ def current_r(request, year_archived, r_num):
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       mass.append(measurement.mass)
-  
+  # creates graphs
   fig, ax = plt.subplots()
   sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=date).set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )

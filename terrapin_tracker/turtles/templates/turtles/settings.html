@@ -12,11 +12,12 @@
   <h1 class="settings-formheading">Settings</h1>
     {{ data }}
   <div class="admin">
+    <!-- links to admin site only if user has superuser status -->
     {% if user.is_superuser %}
     <a href="{% url 'admin:index' %}" id="admin-link">Administrator Settings</a>
     {% endif %}
   </div>
-
+<!-- creates different forms for settings page -->
   <div class="change-name">
     <h3 style="font-size: 20px">Change Name:</h3>
     <form action="/settings/{{ confirmation }}/" method="post">

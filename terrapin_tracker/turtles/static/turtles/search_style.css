@@ -23,6 +23,7 @@
     grid-template-rows: 0.5fr, repeat(3, 1.5fr);
     padding: 15px
   }
+  /* styles error list */
   ::marker{
     list-style: none;
     padding:0px;
@@ -39,7 +40,7 @@
     font-weight: bold;
     text-align: center;
   }
-  
+  /* styles form boxes */
   p:has(#id_r_num){
     grid-area: r_num;
     width: 60%;
@@ -79,7 +80,7 @@
     margin-bottom: 10px;
   }
   
-  
+  /* styles submit button */
   #submitbtn {
     grid-area: submit;
     background-color: rgb(26,82,94);

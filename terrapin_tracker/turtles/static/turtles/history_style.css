@@ -35,7 +35,7 @@ input{
     padding-top:20px;
 }
 
-
+/* formats submit button */
 #submitbtn{
     background-color: rgb(26,82,94);
     color: white;
@@ -49,7 +49,7 @@ input{
     margin: 0px 15px;
     font-size: 16px;
 }
-
+/* formats back button */
 #goback {
   background-color: rgb(26,82,94);
     color: white;
@@ -64,7 +64,7 @@ input{
     margin: 0px 15px;
     font-size: 16px;
 }
-
+/* formats form boxes */
 #id_r_num{
     width: 100%;
 }
@@ -92,7 +92,7 @@ p:has(#id_archived) {
 #id_archived{
     margin-top:0px
 }
-
+/* formats checkbox and creates slider */
 input[type="checkbox"] {
     width: 40px;
     height: 18px;
@@ -125,7 +125,7 @@ input[type="checkbox"] {
     left: 20px;
   }
 
-
+/* formats history buttons */
   #nav-delete,#Go-Back {
     background-color: rgb(26,82,94);
     border-radius: 10px;
@@ -157,7 +157,7 @@ input[type="checkbox"] {
   
   }
 
-
+/* formats table */
 
   table {
     border-spacing: 10px 1px;

@@ -27,7 +27,7 @@ form{
     color: #333;
     margin:5px auto;
 } 
-
+/* styles error list */
 li.error::marker {
     color: #eee;
     margin-left: 300px;

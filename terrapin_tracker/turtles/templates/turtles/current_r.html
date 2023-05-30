@@ -18,6 +18,7 @@
 <div class="current">
     <div class="table-box">
         <table class="measurement-table">
+            <!-- creates table for active turtle data -->
             <thead>
                 <tr>
                     <th>Date</th>
@@ -47,6 +48,7 @@
         </table>
         </div>
     <div class = 'graphs'>
+        <!-- displays graphs -->
         <br>
         <br>
         <h2 class="gtext ctext">Measurement Graphs</h2>
@@ -66,6 +68,7 @@
         <head>Turtles in R Group</head>
     </div>
     <div class="turtles">
+        <!-- creates list of turtle history links -->
         {% for turtle in unique_turtles %}
         <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
         {% endfor %}

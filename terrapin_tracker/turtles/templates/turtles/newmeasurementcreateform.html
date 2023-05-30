@@ -14,6 +14,7 @@
     {{ form.as_p }}
     {% if form.errors %}
     <style>#center-box {height:77%}</style>
+    <!-- creates error list for styling -->
       <ol class = error_list>
         {% for key,value in form.errors.items %}
           <ol class="error">{{ value|escape }}</ol>

@@ -13,6 +13,7 @@
     <form action="{% url 'MeasurementHistory' id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        <!-- creates error list for styling -->
         {% if form.errors %}
       <ol class = error_list>
         {% for key,value in form.errors.items %} 
@@ -29,6 +30,7 @@
     {% endif %}
     
     <div class="table-box2">
+        <!-- creates history table -->
         <table class="measurement-table">
             <thead>
                 <tr>

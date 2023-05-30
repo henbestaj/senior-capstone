@@ -21,6 +21,7 @@
                 {% for year in years %}
                 <h2>{{ year }}</h2>
                     <div class="current-table">
+                        <!-- sorts table by R group and year -->
                             {% for r_num in r_nums %}
                                 {% if r_num.1 == year %}
                                 <a href="{% url 'current_r_deleted' r_num.2 r_num.0 year %}" class = "rnum">R Group {{ r_num.0 }}</a>

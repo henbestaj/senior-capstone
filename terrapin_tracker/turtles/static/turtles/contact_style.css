@@ -1,3 +1,4 @@
+
 .container{
     width:90%;
     height: 70%;
@@ -9,6 +10,7 @@
     box-shadow: 0 0 10px #ccc;
                          
 }
+
 form{
     display:grid;
     grid-template-areas: "email subject"
@@ -46,7 +48,7 @@ textarea{
     resize: none;
     height: 100%;
 }
-
+/* formats submit button */
 #submit {
     background-color: rgb(26,82,94);
     color: white;
@@ -63,7 +65,7 @@ textarea{
 #submit:hover {
     background-color:rgb(45, 125, 143);  
 }
-
+/* formats contact boxes */
 #id_subject{
     color:black;
     width:85%;
@@ -109,7 +111,7 @@ textarea{
 .sent {
     color: white;
 }
-
+/* formats back button */
 #goback {
   background-color: rgb(26,82,94);
   border-radius: 10px;

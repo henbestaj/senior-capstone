@@ -14,7 +14,7 @@ h2{
   margin-left:auto;
   margin-right: auto;
 }
-
+/* formats information cards */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 8px;
@@ -53,7 +53,7 @@ p.description{
 .title {
   color: black;
 }
-
+/* formats buttons */
 .contact_button {
   border: none;
   outline: 0;
@@ -76,7 +76,7 @@ p.description{
     display: block;
   }
 }
-
+/* formats images */
 .profile_picture{
   height:90%;
   width:auto;

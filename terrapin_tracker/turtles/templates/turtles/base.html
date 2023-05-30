@@ -11,10 +11,12 @@
     <body>
         <div class = grid-container>
             {% with alert=0 %}
+            <!-- formats logo -->
             <a href = "{% url 'home' alert %}"><img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
             {% endwith %}
             <h1 class = 'heading'>TerrapinTracker</h1>
             {% if user.is_authenticated %}
+            <!-- creates signin button and changes to sign out if user is logged in -->
             <button id = 'signIn' onclick = "signOut()">Log out</button>
             <script>
                 function signOut() {
@@ -30,11 +32,14 @@
             </script>
             {% endif %}
             <div class="search-container">
+                <!-- creates search icon and function -->
                 <a class="searchbutton" title="Search" href="{% url 'search' %}"><span class="mglass">&#9906;</span></a>
             </div>
             <div class="settings-container">
+                <!-- creates settings icon and function -->
                 <a class="settingsbutton" title="Settings" href = "{% url 'settings' confirmation %}"><img src = "{% static 'turtles/settings.png' %}" width='23' height='23' id = 'settings' alt= 'Settings gear'></a>
             </div>
+            <!-- creates navigation bar for all website pages -->
             <div class="topnav">
                 {% with alert=0 %}
                 <a class="{{ home_act }}" href="{% url 'home' alert %}">Home</a>

@@ -20,7 +20,7 @@ p{
     color:black;
 }
 
-
+/* styles form buttons */
 #id_r_num{
     color:black;
     width: 80%;
@@ -66,6 +66,7 @@ p:has(#id_hatchling_num){
     margin-bottom: 30px;
    
 }
+/* styles error list */
 ::marker{
     list-style: none;
     padding:0px;
@@ -198,7 +199,7 @@ ul{
     grid-template-rows: 0.5fr 1fr 1fr 1fr;
     grid-column-gap: 10px;
 }
-
+/* styles mass turtle create form boxes */
 .errorlist {
     grid-area: error;
 }

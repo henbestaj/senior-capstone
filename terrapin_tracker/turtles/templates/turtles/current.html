@@ -26,6 +26,7 @@
         </div>
         <div class="r">
         <div class="current-table" id="r-table">
+            <!-- displays turtles in order by R number -->
                 {% for r_num in r_nums %}
                 <a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a>     
                 {% endfor %}

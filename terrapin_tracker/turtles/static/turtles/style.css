@@ -105,7 +105,7 @@ width: 0;
 height: 100%;
 z-index: 10;
 }
-
+/* displays settings button */
 .settings-container {
 position: relative;
 display: inline-block;
@@ -215,7 +215,7 @@ width: 100%;
   color: rgb(26,82,94);
   font-size: 30pt;
 }
-
+/* formats 404, 403, 400, and 500 errors */
 .numerror {
   width: 100%;
   text-align: center;

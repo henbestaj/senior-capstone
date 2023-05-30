@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
 }
+/* formats checkboxes to automatically update when turtles are added/removed */
 #id_r_num_field{
     overflow:visible;
     margin: auto;

@@ -29,7 +29,7 @@ p{
 form{
     width:100%;
 }
-
+/* formats login boxes */
 #id_username{
     color:black;
     width:70%;
@@ -60,6 +60,7 @@ button {
   button:hover{
     background-color: rgb(45, 125, 143);
   }
+  /* formats error list */
 ::marker{
     list-style: none;
     padding:0px;
