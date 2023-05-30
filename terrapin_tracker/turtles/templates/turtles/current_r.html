@@ -70,9 +70,9 @@
         <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
         {% endfor %}
     </div>
-    <br><br>
-    <a href = "{% url 'DeletedMeasurement' year_archived r %}" id="deletebtn">Deleted Measurments for R Group {{ r }}</a>
-    <br><br>
-    <a onclick = "history.back()" id="goback">Go back</a>
+    <div id="nav">
+        <a onclick = "history.back()" id="goBack">Go Back</a>
+        <a href = "{% url 'DeletedMeasurement' year_archived r %}" id="deletebtn">Deleted Measurments for R Group {{ r }}</a>
+    </div>
 </div>
 {% endblock %}
