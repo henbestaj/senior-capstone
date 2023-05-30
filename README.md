@@ -4,7 +4,7 @@
 > Aidan Henbest, Lisa Hunt, and Angelo Amato\
 > Dr. Bixler\
 > Senior Capstone-CS\
-> 06 June 2023
+> 08 June 2023
 
 <details>
   <summary>Table of Contents</summary>
