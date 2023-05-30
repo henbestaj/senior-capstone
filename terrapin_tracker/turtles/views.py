@@ -596,6 +596,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
@@ -605,6 +606,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues', showfliers=False).set_title('Carapace Length over Time')
@@ -614,6 +616,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   legend = (list(set(group)))
@@ -627,6 +630,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
@@ -636,6 +640,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
   
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues', showfliers=False).set_title('Carapace Height over Time')
@@ -645,7 +650,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
-
+  plt.close()
   
   fig, ax = plt.subplots()
   sortgroup = sorted([int(x) for x in group])
@@ -657,6 +662,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sortgroup = sorted([int(x) for x in group])
@@ -668,6 +674,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sortgroup = sorted([int(x) for x in group])
@@ -679,9 +686,7 @@ def home(request, alert = 1):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
-
-
-
+  plt.close()
 
   path9 = 'turtles/plot_r' + 'lengthvswidthhomescatter.png'
   path10 = 'turtles/plot_r' + 'lengthvswidthhomekde.png'
@@ -692,10 +697,6 @@ def home(request, alert = 1):
   path15 = 'turtles/plot_r' + 'rvslengthbar.png'
   path16 = 'turtles/plot_r' + 'rvswidthbar.png'
   path17 = 'turtles/plot_r' + 'rvsheightbar.png'
-
-
-
-
 
   context= {
     'home_act': 'active',
@@ -967,6 +968,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
@@ -976,6 +978,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues').set_title('Carapace Length over Time')
@@ -985,6 +988,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=date).set_title('Plastron Length vs Carapace Height')
@@ -994,6 +998,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
@@ -1003,6 +1008,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues').set_title('Carapace Height over Time')
@@ -1012,6 +1018,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.histplot(ax=ax, x=mass, bins='auto').set_title('Turtle Mass Distribution')
@@ -1020,6 +1027,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   fig, ax = plt.subplots()
   sns_plot = sns.barplot(ax=ax, x=turtle, y=mass, palette='light:orange').set_title('Mass of Turtle by Hatchling Number')
@@ -1029,6 +1037,7 @@ def current_r(request, year_archived, r_num):
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
   plt.clf()
+  plt.close()
 
   path1 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
   path2 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
