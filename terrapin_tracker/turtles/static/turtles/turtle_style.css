@@ -23,7 +23,7 @@ p{
 /* styles form buttons */
 #id_r_num{
     color:black;
-    width: 80%;
+    width: 48%;
     height:40px;
     align-items: center;
     display:flex;
@@ -31,7 +31,7 @@ p{
     text-indent: 0%;
 }
 p:has(#id_r_num) {
-    text-indent: 10%;
+    text-indent: 26%;
 }
 p:has(#id_hatchling_num){
     text-indent: 26%;
