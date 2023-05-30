@@ -184,11 +184,11 @@ class EditMeasurementCreateForm(forms.Form):
       raise forms.ValidationError('Ensure the mass is greater than or equal to 0.')
   
   date = forms.DateField(label = 'Date (YYYY-MM-DD)')
-  carapace_length = forms.FloatField(label = 'Carapace Length (mm)', validators=[MinValueValidator(0)])
-  carapace_width = forms.FloatField(label = 'Carapace Width (mm)', validators=[MinValueValidator(0)])
-  plastron_length = forms.FloatField(label = 'Plastron Length (mm)', validators=[MinValueValidator(0)])
-  carapace_height = forms.FloatField(label = 'Carapace Height (mm)', validators=[MinValueValidator(0)])
-  mass = forms.FloatField(label = 'Mass (g)', validators=[MinValueValidator(0)])
+  carapace_length = forms.FloatField(label = 'Carapace Length (mm)')
+  carapace_width = forms.FloatField(label = 'Carapace Width (mm)')
+  plastron_length = forms.FloatField(label = 'Plastron Length (mm)')
+  carapace_height = forms.FloatField(label = 'Carapace Height (mm)')
+  mass = forms.FloatField(label = 'Mass (g)')
   turtle = forms.ModelChoiceField(queryset = Turtle.objects.all().filter(valid_to=None, archived=False), label = 'Turtle')
   id = forms.IntegerField(widget = forms.HiddenInput())
 
