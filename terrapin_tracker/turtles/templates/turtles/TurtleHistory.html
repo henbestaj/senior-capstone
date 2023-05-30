@@ -58,9 +58,12 @@
             </tbody>
         </table>
     </div>
-    {% if not deleted %}
-    <a href="{% url 'TurtleDelete' id %}" id="nav-delete">Delete Turtle</a>
-    {% endif %}
-    <a id = 'goback'  type = "button" onclick = "history.back()">Go back</a>
+    <div id="nav">
+        <a id = 'Go-Back'  type = "button" onclick = "history.back()">Go Back</a>
+        {% if not deleted %}
+        <a href="{% url 'TurtleDelete' id %}" id="nav-delete">Delete Turtle</a>
+        {% endif %}
+    </div>
+    
 </div>
 {% endblock %}

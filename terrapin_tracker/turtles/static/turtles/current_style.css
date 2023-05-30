@@ -6,10 +6,11 @@
 }
 .table-box {
   margin-top: 40px;
-  margin-left: 350px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background-color: none;
-  margin-right: auto;
 }
 .table-box2 {
   margin-top: 40px;
@@ -127,8 +128,7 @@
 
   h2 {
     font-size: 15pt;
-    text-align: left;
-    margin-right: 50px;
+    text-align: center;
     text-decoration: none;
   }
   
@@ -177,7 +177,7 @@
  font-size: .8em;
 }
 
-#goback {
+#goback{
   background-color: rgb(26,82,94);
   border-radius: 10px;
   height: 15px;
@@ -205,7 +205,7 @@
     text-decoration: none;
   }
 
-  #deletebtn {
+  #deletebtn, #goBack {
     background-color: rgb(26,82,94);
     border-radius: 10px;
     height: 15px;
@@ -216,19 +216,21 @@
     border-color: rgb(26,82,94);
     color:white;
     font-size: 15px;
-    margin-top:10px;
-    margin: auto;
+    margin-top:30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom:30px;
     padding: 10px;
     text-decoration: none;
   }
   
-  #deletebtn:hover {
+  #deletebtn:hover #goBack:hover{
       cursor:pointer;
       background-color:rgb(45, 125, 143);
       text-decoration: underline;
     
     }
-  #deletebtn:active {
+  #deletebtn:active #goBack:active{
       background-color:rgb(65, 145, 163);
       color: black;
       text-decoration: none;
@@ -336,5 +338,37 @@
     background-color:rgb(65, 145, 163);
     color: black;
     text-decoration: none;
+}
 
+.released{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#Go-Back{
+  background-color: rgb(26,82,94);
+  border-radius: 10px;
+  height: 5%;
+  width: 10%;
+  display: flex;
+  border-color: rgb(26,82,94);
+  color:white;
+  font-size: 17px;
+  margin-top:10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: auto;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#nav{
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:20px
 }

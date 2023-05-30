@@ -61,6 +61,8 @@
     </div>
     {% if not deleted %}
     <a href="{% url 'MeasurementDelete' id %}" id="nav-delete">Delete Measurement</a>
+    {%else%}
+    <a id = 'goback'  type = "button" onclick = "history.back()">Go Back</a>
     {% endif %}
 
 </div>
