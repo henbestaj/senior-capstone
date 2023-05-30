@@ -13,6 +13,13 @@
     <form action="{% url 'MeasurementHistory' id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        {% if form.errors %}
+      <ol class = error_list>
+        {% for key,value in form.errors.items %} 
+        <li class="error">{{ value|escape }}</li>
+        {% endfor %}
+      </ol>
+        {% endif %} 
         <div id="nav">
             <a id = 'goback'  type = "button" onclick = "history.back()">Go back</a>
             <input type="submit" value="Submit" id=submitbtn>
