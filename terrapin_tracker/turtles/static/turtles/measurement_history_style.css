@@ -102,11 +102,11 @@ li.error::marker {
     background-color: rgb(65, 145, 163);
     display: block;
     width: 63%;
-    margin: 10px 0px 10px 150px;
+    margin: 0px 0px 0px 150px;
     padding-left: 0px;
     text-align: center;
     padding-right: 0px;
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 10px;
     padding-left: 0px;
     
