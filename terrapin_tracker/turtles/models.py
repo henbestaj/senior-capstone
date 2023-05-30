@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator
 
-# Create your models here.
+# Model to store each turtle
 class Turtle(models.Model):
   r_num = models.PositiveIntegerField(verbose_name = "R Number")
   hatchling_num = models.PositiveIntegerField(verbose_name = "Hatchling Number")
@@ -16,12 +16,14 @@ class Turtle(models.Model):
   def get_absolute_url(self):
     return "/current/"
   
+  # Create custom str method for when the turtle is displayed
   def __str__(self):
     if self.archived:
       return str(self.r_num) + "-" + str(self.hatchling_num) + " (archived " + str(self.year_archived) + ")"
     else:
       return str(self.r_num) + "-" + str(self.hatchling_num) + " (active)"
 
+# Model to store each measurement
 class Measurement(models.Model):
   date = models.DateField(default = timezone.now, verbose_name = "Date")
   carapace_length = models.FloatField(null = True, blank = True, verbose_name = "Carapace Length", validators=[MinValueValidator(0)])
@@ -38,9 +40,11 @@ class Measurement(models.Model):
   def get_absolute_url(self):
     return "/current/"
 
+  # Create display_turtle property from existing data in the model
   @property
   def display_turtle(self):
     return str(self.turtle.r_num) + "-" + str(self.turtle.hatchling_num)
 
+  # Create custom str method for when the measurement is displayed
   def __str__(self):
     return str(self.turtle.r_num) + "-" + str(self.turtle.hatchling_num) + ": " + str(self.date)

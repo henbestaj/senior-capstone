@@ -2,6 +2,7 @@ from django.urls import path, include
 
 from .views import *
 
+# List of all urls, the views they associate with, and the name that will be used to call them
 urlpatterns = [
   path("", home, name="home"),
   path("<int:alert>/", home, name="home"),
