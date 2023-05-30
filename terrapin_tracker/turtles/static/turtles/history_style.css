@@ -169,3 +169,21 @@ input[type="checkbox"] {
     border-bottom: 1px black solid;
     text-align: center;
   }
+
+  #Go-Back{
+    background-color: rgb(26,82,94);
+    border-radius: 10px;
+    height: 5%;
+    width: 10%;
+    display: flex;
+    border-color: rgb(26,82,94);
+    color:white;
+    font-size: 17px;
+    margin-top:10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: auto;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+  }
