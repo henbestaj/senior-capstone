@@ -27,6 +27,7 @@
             </script>
             {% else %}
             <button id = 'signIn' onclick = "signIn()">Log in</button>
+            <!-- links to login page -->
             <script>
                 function signIn() {
                     window.location.href="{% url 'login' %}";

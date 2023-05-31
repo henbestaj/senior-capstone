@@ -27,8 +27,10 @@
         {% endfor %}
       </ol>
         {% endif %} 
+        <!-- form will not submit and trigger an error if one of the conditions is not met -->
     <ul class="form"><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>
     <button type="submit" id= sign-up>Sign Up</button>
+    <!-- redirects user to the last page opened -->
     <button id = 'go-back' value="button" onclick = "history.back()">Go Back</button>
 
   </form>

@@ -11,7 +11,7 @@
 {% block content %}
 {% if user.is_authenticated and alert == 1 %}
 <div class="alert">
-    <!-- creates a welcome message -->
+    <!-- creates a welcome message that can be closed by user -->
     <div class="alertmsg">
         <h1>Hello {{ user.first_name }}!</h1>
     </div>

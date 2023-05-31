@@ -23,6 +23,7 @@
             <!-- creates table of deleted turtles by R group -->
             <thead>
                 <tr>
+                    <!-- creates table columns -->
                     <th>Date</th>
                     <th>Turtle</th>
                     <th>Carapace Length</th>
@@ -33,7 +34,9 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- creates table rows -->
                 {% for measurement in Measurement %}
+                <!-- displays only deleted measurements within the R group -->
                 {% if measurement.turtle.r_num == r and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to.year == year_deleted %}
                     <tr>
                         <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.date }}</a></td>
@@ -56,9 +59,11 @@
 </div>
 <div class="turtles">
     {% for turtle in unique_turtles %}
+    <!-- links to individual turtle history -->
     <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
     {% endfor %}
 </div>
 <br><br>
+<!-- redirects user to last opened page -->
 <a onclick = "history.back()" id="Go-Back">Go Back</a>
 {% endblock %}

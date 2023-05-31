@@ -26,6 +26,7 @@
                     <div class="current-table">
                         <!-- sorts table by R group and year -->
                             {% for r_num in r_nums %}
+                            <!-- displays individual turtles by R group and year -->
                                 {% if r_num.1 == year %}
                                 <a href="{% url 'current_r_deleted' r_num.2 r_num.0 year %}" class = "rnum">R Group {{ r_num.0 }}</a>
                                 {% endif %}
@@ -35,6 +36,7 @@
             {% endif %}
         
     </div>
+    <!-- redirected user to last opened page -->
     <a onclick = "history.back()" id="Go-Back">Go Back</a>
 </div>
 {% endblock %}
