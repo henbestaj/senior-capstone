@@ -1,3 +1,5 @@
+<!--allows user to search for a turtle-->
+<!--stylesheet: search_style.css-->
 {% extends 'turtles/base.html' %}
 {% load static %}
 {% block head %}
@@ -6,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+<!--allows user to search for a specific turtle or R group across several years-->
 <div class="search-box">
     <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Search</h3>
     <form action="/search/" method="post" class="searchform">

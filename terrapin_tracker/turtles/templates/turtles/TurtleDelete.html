@@ -1,3 +1,5 @@
+<!--confirms the user wants to delete a turtle-->
+<!--stylesheet: delete_style.css-->
 {% extends 'turtles/base.html' %}
 {% load static %}
 
@@ -7,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+<!--confirms the user wants to delete a specific turtle from the logs-->
 <div class = "center-box">
   <h1 class = "formheading">Delete Turtle {{ turtle }}?</h1>
   <form method="POST" class = "">

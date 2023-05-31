@@ -1,3 +1,5 @@
+<!--provides a form to give users the ability to report any issues/bugs with the site-->
+<!--stylesheet:contact_style.css-->
 {% extends 'turtles/base.html' %}
 {% load static %}
 {% block head %}
@@ -6,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+<!-- form to send email to site owners-->
 <div class="container">
     <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Contact Us</h3>
     <form action="/contact/" method="post">
