@@ -19,8 +19,10 @@
     {{ form.as_p }}
     <button type="submit">Log In</button>
   </form>
+  <!-- links to the sign up page -->
   <a href = "{% url 'signup' %}" class="update-info">No account? Sign up here.</a>
   <br>
+  <!-- links to the forget page -->
   <a href = "{% url 'forgot' %}"class = update-info>Forgot your username and/or password? Click here.</a>
   {% endif %}
 </div>

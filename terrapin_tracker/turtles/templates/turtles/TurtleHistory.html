@@ -24,6 +24,7 @@
         <h2>Measurement History</h2>
         <table class="measurement-table">
             <thead>
+                <!-- creates table columns -->
                 <tr>
                     <th>R Number</th>
                     <th>Hatchling Number</th>
@@ -36,19 +37,23 @@
             </thead>
             <tbody>
                 {% for turtle in history %}
+                <!-- creates table rows -->
                     <tr>
                         <td>{{ turtle.r_num }}</td>
                         <td>{{ turtle.hatchling_num }}</td>
                         {% if turtle.archived %}
+                        <!-- displays 'yes' or 'no' in table -->
                         <td>Yes</td>
                         {% else %}
                         <td>No</td>
                         {% endif %}
                         {% if turtle.year_archived == 0 %}
+                        <!-- displays year archived in table -->
                         <td></td>
                         {% else %}
                         <td>{{ turtle.year_archived }}</td>
                         {% endif %}
+                        <!-- displays the user who edited the turtle -->
                         <td>{{ turtle.editor }}</td>
                         <td>{{ turtle.valid_from }}</td>
                         {% if turtle.valid_to == None %}
@@ -62,8 +67,10 @@
         </table>
     </div>
     <div id="nav">
+        <!-- redirects user to the last page opened -->
         <a id = 'Go-Back'  type = "button" onclick = "history.back()">Go Back</a>
         {% if not deleted %}
+        <!-- links to delete turtle page -->
         <a href="{% url 'TurtleDelete' id %}" id="nav-delete">Delete Turtle</a>
         {% endif %}
     </div>

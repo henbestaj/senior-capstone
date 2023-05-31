@@ -23,6 +23,7 @@
             <!-- creates table of deleted measurements by R group -->
             <thead>
                 <tr>
+                    <!-- creates table columns -->
                     <th>Date</th>
                     <th>Turtle</th>
                     <th>Carapace Length</th>
@@ -33,8 +34,10 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- creates table rows -->
                 {% for measurement in Measurement %}
                     <tr>
+                        <!-- displays only deleted measurements -->
                         {% with deleted=True %}
                         <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.date }}</a></td>
                         <td><a href = "{% url 'MeasurementHistory' measurement.id deleted %}">{{ measurement.display_turtle }}</a></td>
@@ -52,5 +55,6 @@
 </div>
 {% endif %}
 <br><br>
+<!-- redirects user to last opened page -->
 <a onclick = "history.back()" id="goback">Go back</a>
 {% endblock %}

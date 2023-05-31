@@ -11,6 +11,7 @@
 {% block content %}
 <div class="released">
     <br>
+    <!-- creates download data button -->
     <a href="{% url 'archived_measurements.csv' %}" download="archived_measurements.csv" class="turtle-button">Download Data</a>
     <br>
     {% if Turtle|length == 0 %}
@@ -27,6 +28,7 @@
                 {% for year in years %}
                 <h2>{{ year }}</h2>
                     <div class="current-table">
+                        <!-- displays turtles within each R group -->
                             {% for r_num in r_nums %}
                                 {% if r_num.1 == year %}
                                 <a href="{% url 'current_r' year r_num.0  %}" class = "rnum">R Group {{ r_num.0 }}</a>
@@ -36,6 +38,7 @@
                     {% endfor %}
             {% endif %}
     </div>
+    <!-- links to the page showing deleted turtles for the R group -->
     <a href="{% url 'deleted' %}" class="turtle-button">Deleted Turtles</a>
 </div>
 {% endblock %}

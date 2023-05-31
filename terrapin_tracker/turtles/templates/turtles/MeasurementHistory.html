@@ -38,6 +38,7 @@
         <table class="measurement-table">
             <thead>
                 <tr>
+                    <!-- creates table columns -->
                     <th>Date</th>
                     <th>Turtle</th>
                     <th>Carapace Length</th>
@@ -51,7 +52,9 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- creates table rows -->
                 {% for measurement in history %}
+                <!-- displays past measurements -->
                     <tr>
                         <td>{{ measurement.date }}</td>
                         <td>{{ measurement.display_turtle }}</td>
@@ -75,6 +78,7 @@
     {% if not deleted %}
     <a href="{% url 'MeasurementDelete' id %}" id="nav-delete">Delete Measurement</a>
     {%else%}
+    <!-- redirects user to last opened page -->
     <a id = 'goback'  type = "button" onclick = "history.back()">Go Back</a>
     {% endif %}
 
