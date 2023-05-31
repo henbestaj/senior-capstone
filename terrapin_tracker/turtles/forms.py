@@ -14,27 +14,37 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone, dateformat
 
+# Create a form to let the user confirm they want to delete a turtle
 class TurtleDeleteForm(forms.Form):
+  # Create the field for this form as well as parameters on the field
   confirm = forms.BooleanField(label="Confirm you want to delete this turtle:")
 
+# Create a form to let the user confirm they want to delete a measurement
 class MeasurementDeleteForm(forms.Form):
+  # Create the field for this form as well as parameters on the field
   confirm = forms.BooleanField(label="Confirm you want to delete this measurement:")
 
+# Create a form to let the user archive many turtles or R groups at once
 class MassArchiveForm(forms.Form):
+  # Create error messages for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the errors
     data = self.cleaned_data
     r_num_field = data['r_num_field']
     individual_turtles = data['individual_turtles']
 
+    # Create an error for when a similar turtle has already been archived
     for i in individual_turtles:
       if Turtle.objects.filter(r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
         raise forms.ValidationError('One of these turtles already exists.')
     
+    # Create an error for when in the R group being archived there is a turtle that is similar to a turtle that has already been archived
     for i in r_num_field:
       for x in Turtle.objects.filter(valid_to = None, archived = False, r_num = i):
         if Turtle.objects.filter(r_num = i, hatchling_num = x.hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
           raise forms.ValidationError('One of these turtles already exists.')
 
+  # Create a list of all the R numbers currently active
   r_nums = []
   for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
     include = False
@@ -45,20 +55,25 @@ class MassArchiveForm(forms.Form):
       r_nums.append(x['r_num'])
   r_nums = sorted([x for x in r_nums])
   
+  # Change the list of all the R numbers currently active to a list of tuples
   r_tuples = []
   for i in r_nums:
     r_tuples.append((i, i))
   
+  # Create a list of tuples of all the turtles currently active
   turtles = []
   for i in Turtle.objects.filter(valid_to = None, archived = False):
     turtles.append((i.id, i))
   
+  # Create the fields for this form as well as parameters on the fields
   r_num_field = forms.MultipleChoiceField(label = 'Full R Groups', required=False, choices=r_tuples, widget=forms.CheckboxSelectMultiple)
   individual_turtles = forms.MultipleChoiceField(label = 'Individual Turtles', required=False, choices=turtles, widget=forms.CheckboxSelectMultiple)
 
+  # Override the default __init__ function to allow the R numbers list and turtles list to automatically update every time the form is loaded in
   def __init__(self, *args, **kwargs):
     super(MassArchiveForm, self).__init__(*args, **kwargs)
     
+    # Create a list of all the R numbers currently active
     r_nums = []
     for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
       include = False
@@ -69,14 +84,17 @@ class MassArchiveForm(forms.Form):
         r_nums.append(x['r_num'])
     r_nums = sorted([x for x in r_nums])
     
+    # Change the list of all the R numbers currently active to a list of tuples
     r_tuples = []
     for i in r_nums:
       r_tuples.append((i, i))
     
+    # Create a list of tuples of all the turtles currently active
     turtles = []
     for i in Turtle.objects.filter(valid_to = None, archived = False):
       turtles.append((i.id, i))
     
+    # Update the choices for the r_num_field and individual_turtles fields
     self.fields['r_num_field'].choices = r_tuples
     self.fields['individual_turtles'].choices = turtles
 
