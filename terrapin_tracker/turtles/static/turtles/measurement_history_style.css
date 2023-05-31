@@ -16,7 +16,7 @@
     
     
 }
-
+/* uses grid to space elements correctly */
 form{
     display:grid;
     width:100%;
@@ -46,6 +46,7 @@ form{
     margin-top: 10px;
 }
 /* formats history boxes */
+/* places form elements in correct locations on grid */
 p:has(#id_date){
     grid-area:date;
 }
@@ -69,6 +70,7 @@ p:has(#id_plastron_length){
 p:has(#id_mass){
     grid-area:mass;
 }
+/* formats page buttons */
 #submitbtn, #goBack, #nav-delete{
     background-color: rgb(26,82,94);
     color: white;
