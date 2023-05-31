@@ -9,7 +9,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
 }
-
+/* uses grid format to correctly space elements */
 form{
     display:grid;
     grid-template-areas: "error error"
@@ -68,6 +68,7 @@ label{
 }
 
 /*centers element within grid space*/  
+/* places elements in correct locations on grid */
 #id_r_num{
     grid-area: id_r_num;
 }
@@ -126,7 +127,7 @@ input, select{
     height:30px;
     text-size-adjust: 20px;
 }
-
+/* formats page buttons */
 button {
     background-color: rgb(26,82,94);
     color: white;
@@ -139,7 +140,7 @@ button {
     width:80%;
     height: 50px;
 }
-
+/* formats error list elements */
 ::marker{
     list-style: none;
     padding:0px;

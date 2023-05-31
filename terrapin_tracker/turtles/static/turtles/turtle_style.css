@@ -110,7 +110,7 @@ ul{
     
 }
 
-
+/* formats buttons */
 
 #admin-link {
     background-color: rgb(26,82,94);
@@ -156,7 +156,7 @@ ul{
     margin:auto auto 10px;
     margin: 0px 15px;
 }
-
+/* styles hovered and clicked states for all buttons */
 #admin-link:hover, #goBack:hover, #create:hover, #submitbtn:hover {
     cursor:pointer;
     background-color:rgb(45, 125, 143);
@@ -173,7 +173,7 @@ ul{
     margin-bottom: 45px;
 }
 
-
+ /* styles mass turtle create form */
 
 #multiple{
     color:rgb(26,82,94);
@@ -192,6 +192,7 @@ ul{
 
 .form_box{
     display:grid;
+    /* uses grid to correctly space elements */
     grid-template-areas: "error error"
                          "start_r end_r"
                          "start_num end_num"
@@ -201,6 +202,7 @@ ul{
     grid-column-gap: 10px;
 }
 /* styles mass turtle create form boxes */
+/* places elements within the grid */
 .errorlist {
     grid-area: error;
 }

@@ -9,6 +9,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px #ccc;
     display: grid;
+    /* uses grid format to correctly space elements */
     grid-template-areas:"heading heading"
                         "personal-info set-password"
                         "form form";
@@ -29,8 +30,6 @@ li.error::marker {
 .errorlist {
     color: #eee;
 } 
-
-
 
 .error_list {
     grid-area: error;
@@ -80,6 +79,7 @@ p{
 form{
     grid-area: form;
     display: grid;
+    /* creates a second grid for just form elements */
     grid-template-areas:"error error"
                         "email password-1"
                         "first-name password-2"
@@ -96,6 +96,7 @@ margin-right: auto;
 margin-left: 11%;
 
 }
+/* places form elements within the grid */
 #email-info{
     grid-area: email-info;
     text-align: center;
@@ -132,6 +133,7 @@ p:has(#id_username){
     grid-area: go-back;
     text-align: center;
 }
+/* formats error list elements */
 ul{
     padding:0px;
     grid-area: ul;

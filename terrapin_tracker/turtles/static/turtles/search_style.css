@@ -12,7 +12,7 @@
     flex-direction: column;
     
   }
-  
+  /* uses grid format to space elements correctly */
   .searchform{
     display:grid;
     grid-template-areas: "error error"
@@ -42,6 +42,7 @@
     text-align: center;
   }
   /* styles form boxes */
+  /* places elements in correct locations on grid */
   p:has(#id_r_num){
     grid-area: r_num;
     width: 60%;

@@ -144,7 +144,7 @@ input[type="checkbox"] {
     align-items: center;
   }
   
-  
+  /* formats buttons when user hovers/clicks */
   #nav-delete:hover #Go-Back:hover{
       cursor:pointer;
       background-color:rgb(45, 125, 143);

@@ -13,6 +13,7 @@
     justify-content: center;
 }
 /* formats checkboxes to automatically update when turtles are added/removed */
+/*  uses grid format to fill rows of 5 before creating a new row */
 #id_r_num_field{
     overflow:visible;
     margin: auto;
@@ -40,7 +41,7 @@
     row-gap: 20px;
     column-gap: 40px;
 }
-
+/* formats go back and archive buttons */
 #nav_buttons{
     grid-area: nav_buttons;
     display:flex;
@@ -69,6 +70,7 @@
     text-decoration: none;
   }
   
+  /* formats buttons for when user hovers over/clicks them */
   #goback:hover, #archive:hover{
       cursor:pointer;
       background-color:rgb(45, 125, 143);
