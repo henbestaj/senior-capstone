@@ -101,7 +101,6 @@ class MassArchiveForm(forms.Form):
 class UserRegisterForm(UserCreationForm):
   error_messages = {
       'password_mismatch': 'Passwords do not match.',
-        
     }
   def clean(self):
     data = self.cleaned_data
@@ -129,7 +128,6 @@ class UserRegisterForm(UserCreationForm):
     # ocvts
     if 'ocvts.org' not in email:
       raise forms.ValidationError("Please use your ocvts.org email.")
-    
   
   email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
   first_name = forms.CharField(label = 'First Name')
@@ -154,7 +152,6 @@ class ChangePassword(forms.Form):
     password1 = data['password1']
     password2 = data['password2']
 
-    
     if password1 != password2:
       raise forms.ValidationError("Passwords do not match.")
   
@@ -298,7 +295,6 @@ class NewMeasurementCreateForm(forms.ModelForm):
     super(NewMeasurementCreateForm, self).__init__(*args, **kwargs)
     self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
 
-  
   class Meta:
     model = Measurement
     fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
