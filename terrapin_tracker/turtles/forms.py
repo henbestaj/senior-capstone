@@ -1,3 +1,12 @@
+# ****************************************************************************
+#   File Name: forms.py
+#   Purpose:
+#     * Create the forms that are needed as a part of the turtles app
+#     * Create the fields for each forms as well as parameters on each field
+#     * Create error messages for each form as needed
+# ****************************************************************************
+
+# Import statements
 from django import forms
 from .models import Turtle, Measurement
 from django.contrib.auth.models import User
