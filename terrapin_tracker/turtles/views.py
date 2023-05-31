@@ -1,3 +1,11 @@
+# ******************************************************************************************************************************
+#   File Name: views.py
+#   Purpose:
+#     * Create the views that are needed as a part of the turtles app
+#     * Render each view while including the request, html file associated with the view, and context associated with the view
+# ******************************************************************************************************************************
+
+# Import statements
 from django.utils import timezone, dateformat
 from django.shortcuts import render, redirect
 from .models import Turtle, Measurement
@@ -21,7 +29,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 import string
 
-# Create your views here.
 @login_required
 def DeletedMeasurement(request , year_archived, r_num):
   current_act = ''

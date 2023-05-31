@@ -1,5 +1,13 @@
-from django.urls import path, include
+# ************************************************************************************
+#   File Name: urls.py
+#   Purpose:
+#     * Keep track of the urls used in the turtles Django app
+#     * Associate each url with a view found in the views.py file
+#     * Create a name for each url so that it can be easily referenced in html links
+# ************************************************************************************
 
+# Import statements
+from django.urls import path, include
 from .views import *
 
 # List of all urls, the views they associate with, and the name that will be used to call them
