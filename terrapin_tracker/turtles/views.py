@@ -902,12 +902,15 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
 
   return render(request, 'turtles/current_r_deleted.html', context)
 
+# Create the view for displaying information about an R group
 def current_r(request, year_archived, r_num):
+  # Test if there are no measurements in the R group
   no_turtles = True
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       no_turtles = False
   
+  # Test whether the page should be considered current or released
   current_act = ''
   released_act = ''
   if year_archived == 0:
@@ -915,20 +918,20 @@ def current_r(request, year_archived, r_num):
   else:
     released_act = 'active'
   
+  # Create a list of each unique turtle
   unique_turtles = set()
   for turtle in Turtle.objects.filter(valid_to = None, r_num = r_num, year_archived = year_archived):
     unique_turtles.add(turtle)
-
   def getR(obj):
     return obj.r_num
-  
   def getHatch(obj):
     return obj.hatchling_num
-  
   unique_turtles = sorted(list(unique_turtles), key=getHatch)
   unique_turtles = sorted(list(unique_turtles), key=getR)
 
+  # Render the view without creating graphs if there are no measurements
   if no_turtles:
+    # Create the context dictionary
     context = {
       'no_turtles' : no_turtles,
       'home_act': '',
@@ -944,43 +947,40 @@ def current_r(request, year_archived, r_num):
       'year_archived': year_archived,
     }
 
+    # Render the view
     return render(request, 'turtles/current_r.html', context)
-# creates lists of data by R group for graphing
+  
+  # Creates lists of data by R group for graphing
   date = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       date.append(measurement.date)
-  
   turtle = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       turtle.append(measurement.display_turtle.split('-')[1])
-  
   carapace_length = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_length.append(measurement.carapace_length)
-  
   carapace_width = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_width.append(measurement.carapace_width)
-  
   plastron_length = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       plastron_length.append(measurement.plastron_length)
-  
   carapace_height = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       carapace_height.append(measurement.carapace_height)
-  
   mass = []
   for measurement in Measurement.objects.filter(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived:
       mass.append(measurement.mass)
-  # creates carapace length by carapace width scatterplot
+  
+  # Creates carapace length by carapace width scatterplot
   fig, ax = plt.subplots()
   sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=date).set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )
@@ -991,7 +991,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # creates carapace length by carapace width kde plot
+  # Creates carapace length by carapace width kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )
@@ -1002,7 +1002,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # creates carapace length by date box plot
+  # Creates carapace length by date box plot
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues').set_title('Carapace Length over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
@@ -1013,7 +1013,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # creates plastron length by carapace height scatterplot
+  # Creates plastron length by carapace height scatterplot
   fig, ax = plt.subplots()
   sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=date).set_title('Plastron Length vs Carapace Height')
   ax.set_xlabel( "Plastron Length" , size = 12 )
@@ -1024,7 +1024,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # creates plastron length by carapace height kde plot
+  # Creates plastron length by carapace height kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
   ax.set_xlabel( "Plastron Length" , size = 12 )
@@ -1035,7 +1035,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # creates carapace height by date box plot
+  # Creates carapace height by date box plot
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues').set_title('Carapace Height over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
@@ -1046,7 +1046,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # creates mass histogram
+  # Creates mass histogram
   fig, ax = plt.subplots()
   sns_plot = sns.histplot(ax=ax, x=mass, bins='auto').set_title('Turtle Mass Distribution')
   ax.set_xlabel( "Mass" , size = 12 )
@@ -1056,7 +1056,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # creates mass by individual turtle bar plot
+  # Creates mass by individual turtle bar plot
   fig, ax = plt.subplots()
   sns_plot = sns.barplot(ax=ax, x=turtle, y=mass, palette='light:orange').set_title('Mass of Turtle by Hatchling Number')
   ax.set_xlabel( "Turtle Number" , size = 12 )
@@ -1067,7 +1067,7 @@ def current_r(request, year_archived, r_num):
   plt.clf()
   plt.close()
 
-  # stores the graphs in paths that can be referenced in the current_r html file
+  # Stores the graphs in paths that can be referenced in the html file
   path1 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
   path2 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
   path3 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbox.png'
@@ -1078,6 +1078,7 @@ def current_r(request, year_archived, r_num):
   path8 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'turtlevsheightbox.png'
   path9 = 'turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'test.png'
 
+  # Create the context dictionary
   context = {
     'no_turtles' : no_turtles,
     'home_act': '',
@@ -1102,6 +1103,7 @@ def current_r(request, year_archived, r_num):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/current_r.html', context)
 
 # Create the view for logging in a user
