@@ -1149,8 +1149,12 @@ class MeasurementCreate(LoginRequiredMixin, CreateView):
   def get_initial(self):
     return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')', 'date': timezone.now}
 
+# Create the view for logging out a user
 def logout_request(request):
+  # Log out the user
   logout(request)
+
+  # Redirect the user to the homepage
   return redirect("home")
 
 # Create the view for the forgot username and/or password page
