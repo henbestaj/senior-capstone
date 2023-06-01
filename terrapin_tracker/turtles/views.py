@@ -1140,12 +1140,15 @@ class TurtleCreate(LoginRequiredMixin, CreateView):
   def get_initial(self):
     return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')'}
 
+# Create the view for creating a measurement and require a log in
 class MeasurementCreate(LoginRequiredMixin, CreateView):
+  # Esablish the information needed for a CreateView
   model = Measurement
   form_class = NewMeasurementCreateForm
   template_name = 'turtles/newmeasurementcreateform.html'
   success_url = '/current/'
   
+  # Establish initial values on the form
   def get_initial(self):
     return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')', 'date': timezone.now}
 
