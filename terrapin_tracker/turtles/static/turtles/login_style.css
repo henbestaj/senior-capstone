@@ -1,4 +1,11 @@
-/*pages styled: confirm.html, forgot.html, login.html*/
+/*******************************************************************************************************************************
+   File Name: login_style.css
+   Purpose:
+     * Styles the confirm.html, forgot.html, and login.html pages
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 
 #center-box{
     width: 60%;

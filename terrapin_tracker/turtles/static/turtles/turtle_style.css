@@ -1,4 +1,11 @@
-/*pages styled: massturtlecreateform.html */
+/*******************************************************************************************************************************
+   File Name: turtle_style.css
+   Purpose:
+     * Styles the massturtlecreateform.html and newturtlecreateform.html pages
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 .center-box{
     width: 60%;
     height: 52%;

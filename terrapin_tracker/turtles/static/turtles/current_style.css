@@ -1,4 +1,12 @@
-/*pages styled: current_r_deleted.html, current_r.html, current.html, deleted.html, DeletedMeasurements.html, home.html. released.html */
+/*******************************************************************************************************************************
+   File Name: current_style.css
+   Purpose:
+     * Styles the current_r_deleted.html, current_r.html, current.html, 
+        deleted.html, DeletedMeasurements.html, home.html, and released.html pages
+     * Formats text, input boxes, graphs, tables, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 
 .row-buttons{
   padding:30px 0px;

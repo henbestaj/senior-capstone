@@ -1,4 +1,11 @@
-/*pages styled: MeasurementHistory.html*/
+/*******************************************************************************************************************************
+   File Name: measurement_history_style.css
+   Purpose:
+     * Styles the MeasurementHistory.html page
+     * Formats text, input boxes, tables, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 #current{
     display: flex;
     align-items: center;

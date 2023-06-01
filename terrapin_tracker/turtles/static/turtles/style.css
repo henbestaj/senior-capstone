@@ -1,4 +1,12 @@
-/*pages styled: all(through extending base.html*/
+/*******************************************************************************************************************************
+   File Name: style.css
+   Purpose:
+     * Styles all pages through extending base.html
+     * Formats text, logo, navigation bar, background, and buttons on all pages
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+
 /* Add a light blue background color to the top navigation */
 body{
   background-color: rgb(202,224,228);

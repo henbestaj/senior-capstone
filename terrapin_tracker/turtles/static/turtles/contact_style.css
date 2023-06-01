@@ -1,4 +1,10 @@
-/*pages styled: contact.html, contactsent.html*/
+/*******************************************************************************************************************************
+   File Name: contact_style.css
+   Purpose:
+     * Styles the contact.html and contactsent.html pages
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
 
 .container{
     width:90%;

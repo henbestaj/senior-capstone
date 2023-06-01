@@ -1,4 +1,11 @@
-/*pages styled: TurtleHistory.html */
+/*******************************************************************************************************************************
+   File Name: history_style.css
+   Purpose:
+     * Styles the TurtleHistory.html page
+     * Formats text, input boxes, tables, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 form, .table-box{
     width: 60%;
     margin: 40px auto 30px;

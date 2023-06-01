@@ -1,4 +1,11 @@
-/*pages styled: about.html */
+/*******************************************************************************************************************************
+   File Name: about_style.css
+   Purpose:
+     * Styles the about.html page
+     * Formats text, images, and buttons on the about page
+     * Establishes color, alignment, and position of the page elements
+*******************************************************************************************************************************/
+
 h2{
   text-decoration: underline;
 }

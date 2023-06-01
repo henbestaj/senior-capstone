@@ -1,4 +1,11 @@
-/*pages styled: search.html*/
+/*******************************************************************************************************************************
+   File Name: search_style.css
+   Purpose:
+     * Styles the search.html page
+     * Formats text, input boxes, checkboxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 .search-box {
     width: 60%;
     height: 55%;

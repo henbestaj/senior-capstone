@@ -1,4 +1,11 @@
-/*pages styled: signup.html*/
+/*******************************************************************************************************************************
+   File Name: signup_style.css
+   Purpose:
+     * Styles the signup.html pages
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 #center-box{
     width: 80%;
     height: 75%;

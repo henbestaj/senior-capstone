@@ -1,4 +1,11 @@
-/*pages styled: MeasurementDelete.html, TurtleDelete.html*/
+/*******************************************************************************************************************************
+   File Name: delete_style.css
+   Purpose:
+     * Styles the MeasurementDelete.html and TurtleDelete.html pages
+     * Formats text, sliders, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 .center-box{
     width: 60%;
     height: 40%;

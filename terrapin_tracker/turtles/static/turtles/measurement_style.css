@@ -1,4 +1,11 @@
-/*pages styled: newmeasurementcreateform.html*/
+/*******************************************************************************************************************************
+   File Name: measurement_style.css
+   Purpose:
+     * Styles the newmeasurementcreateform.html page
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 #center-box{
     width: 60%;
     height: 65%;

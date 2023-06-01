@@ -1,4 +1,11 @@
-/*pages styled: settings.html */
+/*******************************************************************************************************************************
+   File Name: settings_style.css
+   Purpose:
+     * Styles the settings.html page
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
 .center-box{
     width: 60%;
     height:120%;
