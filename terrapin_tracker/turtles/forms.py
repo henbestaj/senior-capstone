@@ -295,21 +295,30 @@ class EditTurtleCreateForm(forms.Form):
   year_archived = forms.IntegerField(widget = forms.HiddenInput())
   id = forms.IntegerField(widget = forms.HiddenInput())
 
+# Create a form to let the user create a new turtle
 class NewTurtleCreateForm(forms.ModelForm):
+  # Create error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
 
+    # Create an error for when the turtle being created already exists
     if Turtle.objects.filter(archived = False, r_num = r_num, hatchling_num = hatchling_num, valid_to = None).exists():
       raise forms.ValidationError("This turtle already exists.")
     
     return data
   
+  # Create the field for this form as well as parameters on the field
   editor = forms.CharField(widget=forms.HiddenInput)
 
+  # Establish the metadata for the form
   class Meta:
+    # Establish the model associated with the form
     model = Turtle
+
+    # Establish the fields from the model needed in the form
     fields = ['r_num', 'hatchling_num', 'editor']
   
 class MassTurtleCreateForm(forms.Form):
