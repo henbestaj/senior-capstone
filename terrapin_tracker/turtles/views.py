@@ -825,12 +825,15 @@ def about(request):
 
   return render(request, 'turtles/about.html', context)
 
+# Create the view for displaying all of the currently active R groups
 def current(request):
+  # Create a list of measurements that aren't deleted
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == False:
       measurements.append(i)
 
+  # Create a list of unique R numbers that aren't deleted
   r_nums = []
   for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
     include = False
@@ -841,7 +844,7 @@ def current(request):
       r_nums.append(x['r_num'])
   r_nums = sorted([x for x in r_nums])
 
-
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -855,6 +858,7 @@ def current(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/current.html', context)
 
 # Create the view for displaying information about an R group that has been deleted and require a log in
