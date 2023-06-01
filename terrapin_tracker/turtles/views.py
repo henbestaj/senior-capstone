@@ -813,7 +813,9 @@ def released(request):
 
   return render(request, 'turtles/released.html', context)
 
+# Create the view for displaying the about page
 def about(request):
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -823,6 +825,7 @@ def about(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/about.html', context)
 
 # Create the view for displaying all of the currently active R groups
