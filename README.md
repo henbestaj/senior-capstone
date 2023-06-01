@@ -69,6 +69,6 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Acknowledgments
-> txt
+> We would like to thank Dr. Bixler, our teacher and mentor, for guiding us during this project. Their support and insights have been invaluable. We are grateful to the Marine Academy of Technology and Environmental Science for providing a conducive learning environment. Additionally, we appreciate Jon Gery's assistance in downloading the necessary software for our computers. Their contributions have greatly contributed to our success, and we express our sincere gratitude for their support.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- MARKDOWN LINKS & IMAGES -->
