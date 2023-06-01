@@ -321,26 +321,33 @@ class NewTurtleCreateForm(forms.ModelForm):
     # Establish the fields from the model needed in the form
     fields = ['r_num', 'hatchling_num', 'editor']
   
+# Create a form to let the user create numerous new turtles at once
 class MassTurtleCreateForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   r_num1 = forms.IntegerField(label = 'Starting R Number')
   r_num2 = forms.IntegerField(label = 'Ending R Number')
   hatchling_num1 = forms.IntegerField(label = 'Starting Hatchling Number')
   hatchling_num2 = forms.IntegerField(label = 'Ending Hatchling Number')
   editor = forms.CharField(widget=forms.HiddenInput)
   
+  # Create error messages for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the errors
     data = self.cleaned_data
     r_num1 = data['r_num1']
     r_num2 = data['r_num2']
     hatchling_num1 = data['hatchling_num1']
     hatchling_num2 = data['hatchling_num2']
 
+    # Create an error for when the first R number is greater than the second R number
     if r_num1 > r_num2:
       raise forms.ValidationError("Please ensure the ending R number is above the starting R number.")
     
+    # Create an error for when the first hatchling number is greater than the second hatchling number
     if hatchling_num1 > hatchling_num2:
       raise forms.ValidationError("Please ensure the ending hatchling number is above the starting hatchling number.")
 
+    # Create an error for when one of the turtles being created already exists
     for x in range(r_num1, r_num2 + 1):
       for y in range(hatchling_num1, hatchling_num2 + 1):
         if Turtle.objects.filter(archived = False, r_num = x, hatchling_num = y, valid_to = None).exists():
@@ -348,16 +355,25 @@ class MassTurtleCreateForm(forms.Form):
     
     return data
 
+# Create a form to let the user create a new measurement
 class NewMeasurementCreateForm(forms.ModelForm):
+  # Create the fields for this form as well as parameters on the fields
   editor = forms.CharField(widget=forms.HiddenInput)
   date = forms.DateField(label = 'Date (YYYY-MM-DD)')
   
+  # Override the default __init__ function to allow the turtles list to automatically update every time the form is loaded in
   def __init__(self, *args, **kwargs):
     super(NewMeasurementCreateForm, self).__init__(*args, **kwargs)
+
+    # Update the choices for the turtle field
     self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
 
+  # Establish the metadata for the form
   class Meta:
+    # Establish the model associated with the form
     model = Measurement
+
+    # Establish the fields from the model needed in the form
     fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
 
 # Create a form to let the user send an email to all superusers
