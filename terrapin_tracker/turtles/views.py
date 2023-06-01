@@ -1104,7 +1104,9 @@ def current_r(request, year_archived, r_num):
 
   return render(request, 'turtles/current_r.html', context)
 
+# Create the view for logging in a user
 def userlogin(request):
+  # Create the form needed to log the user in
   if request.method == 'POST':
     form = LoginForm(request.POST)
     if form.is_valid():
@@ -1115,10 +1117,10 @@ def userlogin(request):
       if user is not None:
         login(request, user)
         return redirect('home')
-
   else:
     form = LoginForm()
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -1129,14 +1131,18 @@ def userlogin(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'registration/login.html', context)
 
+# Create the view for creating a turtle and require a log in
 class TurtleCreate(LoginRequiredMixin, CreateView):
+  # Esablish the information needed for a CreateView
   model = Turtle
   form_class = NewTurtleCreateForm
   template_name = 'turtles/newturtlecreateform.html'
   success_url = '/current/'
 
+  # Establish initial values on the form
   def get_initial(self):
     return {'editor':self.request.user.first_name + ' ' + self.request.user.last_name + ' (' + self.request.user.email + ')'}
 
