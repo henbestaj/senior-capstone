@@ -782,22 +782,27 @@ def contactsent(request):
 
   return render(request, 'turtles/contactsent.html', context)
 
+# Create the view for displaying all of the currently released R groups
 def released(request):
+  # Create a list of measurements that are archived but aren't deleted
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == True:
       measurements.append(i)
   
+  # Create a list of unique R numbers that are archived but aren't deleted
   r_nums = set()
   for x in Turtle.objects.filter(archived = True, valid_to = None):
     r_nums.add((x.r_num, x.year_archived))
   r_nums = list(r_nums)
   r_nums = sorted(r_nums, key = lambda x: x[0])
   
+  # Create a list of the years these R numbers have been archived
   years = []
   for i in Turtle.objects.filter(archived = True, valid_to = None).values('year_archived').distinct():
     years.append(i['year_archived'])
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -811,6 +816,7 @@ def released(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/released.html', context)
 
 # Create the view for displaying the about page
@@ -830,13 +836,13 @@ def about(request):
 
 # Create the view for displaying all of the currently active R groups
 def current(request):
-  # Create a list of measurements that aren't deleted
+  # Create a list of measurements that aren't deleted or released
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == False:
       measurements.append(i)
 
-  # Create a list of unique R numbers that aren't deleted
+  # Create a list of unique R numbers that aren't deleted or released
   r_nums = []
   for x in Turtle.objects.filter(valid_to = None).values('r_num').distinct():
     include = False
