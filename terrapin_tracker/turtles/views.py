@@ -770,7 +770,9 @@ def contact(request):
 
   return render(request, 'turtles/contact.html', context)
 
+# Create the view for confirming that a message has been sent
 def contactsent(request):
+  # Create the view for displaying all of the currently active R groups
   context = {
     'home_act': '',
     'contact_act': 'active',
@@ -780,6 +782,7 @@ def contactsent(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/contactsent.html', context)
 
 # Create the view for displaying all of the currently released R groups
