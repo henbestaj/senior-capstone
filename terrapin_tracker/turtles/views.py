@@ -1153,7 +1153,9 @@ def logout_request(request):
   logout(request)
   return redirect("home")
 
+# Create the view for the forgot username and/or password page
 def forgot(request):
+  # Create the form needed to send the user an email with their username and a new password
   if request.method == 'POST':
     form = ForgotForm(request.POST)
     if form.is_valid():
@@ -1164,10 +1166,10 @@ def forgot(request):
       yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "./oauth2_creds.json")
       yag.send(to = [form.cleaned_data['email']], subject = 'Terrapin Tracker Username and Password Retrieval', contents = 'Your username is: ' + user.username + '\n\nYour new password is: ' + raw_password)
       return redirect('login')
-
   else:
     form = ForgotForm()
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -1178,14 +1180,16 @@ def forgot(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'registration/forgot.html', context)
 
+# Create the view for the settings page and require a log in
 @login_required
 def settings(request, confirmation):
+  # Create the forms needed to delete the user, change the user's name, and change the user's passsword
   delete = NewDeleteForm()
   name = ChangeNameForm()
   password = ChangePassword()
-
   if request.method == 'POST':
     if 'delete' in request.POST:
       delete = NewDeleteForm(request.POST)
@@ -1213,6 +1217,7 @@ def settings(request, confirmation):
           user.save()
           return redirect("settings", ''.join(random.choices(string.ascii_uppercase, k=7)))          
 
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -1225,4 +1230,5 @@ def settings(request, confirmation):
     'confirmation': confirmation,
   }
 
+  # Render the view
   return render(request, 'turtles/settings.html', context)
