@@ -857,33 +857,35 @@ def current(request):
 
   return render(request, 'turtles/current.html', context)
 
+# Create the view for displaying information about an R group that has been deleted and require a log in
 @login_required
 def current_r_deleted(request, year_archived, r_num, year_deleted):
+  # Test if there are no measurements in the R group
   no_turtles = True
   for measurement in Measurement.objects.exclude(valid_to = None):
     if measurement.turtle.r_num == r_num and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to.year == year_deleted:
       no_turtles = False
 
+  # Create a list of each unique turtle
   unique_turtles = set()
   for turtle in Turtle.objects.exclude(valid_to = None).filter(r_num = r_num, year_archived = year_archived):
     if turtle.valid_to.year == year_deleted and not Turtle.objects.filter(previous_turtle = turtle).exists():
       unique_turtles.add(turtle)
-
   def getR(obj):
     return obj.r_num
-  
   def getHatch(obj):
     return obj.hatchling_num
-  
   unique_turtles = sorted(list(unique_turtles), key=getHatch)
   unique_turtles = sorted(list(unique_turtles), key=getR)
 
+  # Create a list of measurements in the R group
   Measurements = Measurement.objects.exclude(valid_to = None).order_by('date')
   CorrectMeasurements = Measurement.objects.exclude(valid_to = None).order_by('date')
   for i in Measurements:
     if Measurement.objects.filter(previous_measurment = i).exists():
       CorrectMeasurements = CorrectMeasurements.exclude(id = i.id)
 
+  # Create the context dictionary
   context = {
     'no_turtles' : no_turtles,
     'home_act': '',
@@ -900,6 +902,7 @@ def current_r_deleted(request, year_archived, r_num, year_deleted):
     'year_deleted': year_deleted,
   }
 
+  # Render the view
   return render(request, 'turtles/current_r_deleted.html', context)
 
 # Create the view for displaying information about an R group
