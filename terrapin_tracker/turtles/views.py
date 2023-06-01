@@ -546,14 +546,13 @@ def custom_bad_request_view(request, exception=None):
   
   return render(request, "turtles/400.html", context)
 
+# Create the view for displaying the home page
 def home(request, alert = 1):
-  # creates lists of data for graphing
+  # Creates lists of data for graphing
   measurements = []
   for i in Measurement.objects.filter(valid_to = None):
     if i.turtle.archived == False:
       measurements.append(i)
-
-
   date = []
   for measurement in Measurement.objects.filter(valid_to = None):
       if measurement.turtle.year_archived == 0:
@@ -562,33 +561,28 @@ def home(request, alert = 1):
   for measurement in Measurement.objects.filter(valid_to = None):
       if measurement.turtle.year_archived == 0:
         group.append((measurement.display_turtle.split('-')[0]))
-  
   carapace_length = []
   for measurement in Measurement.objects.filter(valid_to = None):
        if measurement.turtle.year_archived == 0: 
         carapace_length.append(measurement.carapace_length)
-  
   carapace_width = []
   for measurement in Measurement.objects.filter(valid_to = None):
        if measurement.turtle.year_archived == 0: 
         carapace_width.append(measurement.carapace_width)
-  
   plastron_length = []
   for measurement in Measurement.objects.filter(valid_to = None):
        if measurement.turtle.year_archived == 0: 
         plastron_length.append(measurement.plastron_length)
-  
   carapace_height = []
   for measurement in Measurement.objects.filter(valid_to = None):
       if measurement.turtle.year_archived == 0:
         carapace_height.append(measurement.carapace_height)
-  
   mass = []
   for measurement in Measurement.objects.filter(valid_to = None):
        if measurement.turtle.year_archived == 0: 
         mass.append(measurement.mass)
   
-  #sorts graph legend by R group number
+  # Sorts graph legend by R group number
   fig, ax = plt.subplots()
   legend = (list(set(group)))
   try:
@@ -596,7 +590,8 @@ def home(request, alert = 1):
   except:
     print(legend)
   legend = ([str(x) for x in legend])
-  # creates the carapace length by carapace width scatterplot
+
+  # Creates the carapace length by carapace width scatterplot
   sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=group, hue_order = legend).set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )
   ax.set_ylabel( "Carapace Width" , size = 12 )
@@ -607,7 +602,7 @@ def home(request, alert = 1):
   plt.clf()
   plt.close()
 
-  # creates the carapace length by carapace width kde plot
+  # Creates the carapace length by carapace width kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
   ax.set_xlabel( "Carapace Length" , size = 12 )
@@ -618,7 +613,7 @@ def home(request, alert = 1):
   plt.clf()
   plt.close()
 
-  # creats the carapace length by date boxplot
+  # Creates the carapace length by date boxplot
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues', showfliers=False).set_title('Carapace Length over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
@@ -629,12 +624,13 @@ def home(request, alert = 1):
   plt.clf()
   plt.close()
 
-  # sorts legend by R group number
+  # Sorts legend by R group number
   fig, ax = plt.subplots()
   legend = (list(set(group)))
   legend = sorted([int(x) for x in legend])
   legend = ([str(x) for x in legend])
-  # creates the plastron length by carapace height scatterplot
+
+  #  Creates the plastron length by carapace height scatterplot
   sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=group, hue_order=legend).set_title('Plastron Length vs Carapace Height')
   ax.set_xlabel( "Plastron Length" , size = 12 )
   ax.set_ylabel( "Carapace Height" , size = 12 )
@@ -645,7 +641,7 @@ def home(request, alert = 1):
   plt.clf()
   plt.close()
 
-  # creates the plastron length by carapace height kde plot
+  # Creates the plastron length by carapace height kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
   ax.set_xlabel( "Plastron Length" , size = 12 )
@@ -656,7 +652,7 @@ def home(request, alert = 1):
   plt.clf()
   plt.close()
   
-  #creates the carapace height by date boxplot
+  # Creates the carapace height by date boxplot
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues', showfliers=False).set_title('Carapace Height over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
@@ -667,11 +663,12 @@ def home(request, alert = 1):
   plt.clf()
   plt.close()
   
-# sorts the R groups numerically
+  # Sorts the R groups numerically
   fig, ax = plt.subplots()
   sortgroup = sorted([int(x) for x in group])
   sortgroup = ([str(x) for x in sortgroup])
-  # creates the carapace length by R group bar plot
+  
+  # Creates the carapace length by R group bar plot
   sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_length, palette='light:orange').set_title('Carapace Length by R Group')
   ax.set_xlabel( "R Group" , size = 12 )
   ax.set_ylabel( "Carapace Length" , size = 12 )
@@ -685,7 +682,8 @@ def home(request, alert = 1):
   fig, ax = plt.subplots()
   sortgroup = sorted([int(x) for x in group])
   sortgroup = ([str(x) for x in sortgroup])
-  # creates the carapace width by R group bar plot
+  
+  # Creates the carapace width by R group bar plot
   sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_width, palette='light:orange').set_title('Carapace Width by R Group')
   ax.set_xlabel( "R Group" , size = 12 )
   ax.set_ylabel( "Carapace Width" , size = 12 )
@@ -698,7 +696,8 @@ def home(request, alert = 1):
   fig, ax = plt.subplots()
   sortgroup = sorted([int(x) for x in group])
   sortgroup = ([str(x) for x in sortgroup])
-  # creates the carapace height by R group bar plot
+  
+  # Creates the carapace height by R group bar plot
   sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_height, palette='light:orange').set_title('Carapace Height by R Group')
   ax.set_xlabel( "R Group" , size = 12 )
   ax.set_ylabel( "Carapace Height" , size = 12 )
@@ -708,7 +707,7 @@ def home(request, alert = 1):
   plt.clf()
   plt.close()
 
-  # stores the graphs in paths that can be referenced in the home html file
+  # Stores the graphs in paths that can be referenced in the home html file
   path9 = 'turtles/plot_r' + 'lengthvswidthhomescatter.png'
   path10 = 'turtles/plot_r' + 'lengthvswidthhomekde.png'
   path11 = 'turtles/plot_r' + 'datevslengthhomebox.png'
@@ -719,6 +718,7 @@ def home(request, alert = 1):
   path16 = 'turtles/plot_r' + 'rvswidthbar.png'
   path17 = 'turtles/plot_r' + 'rvsheightbar.png'
 
+  # Create the context dictionary
   context= {
     'home_act': 'active',
     'contact_act': '',
@@ -740,24 +740,25 @@ def home(request, alert = 1):
     'alert' : alert,
   }
 
+  # Render the view
   return render(request, 'turtles/home.html', context)
 
+# Create the view for sending a message to the emails of all superusers
 def contact(request):
+  # Create the form needed to retrieve the sender's information and send this information to the emails of all superusers
   if request.method == 'POST':
     form = NewContactForm(request.POST)
-    
     if form.is_valid():
       emails = []
       for i in User.objects.filter(is_superuser = True):
         emails.append(i.email)
       yag = yagmail.SMTP('terrapintrackercontact@gmail.com', oauth2_file = "./oauth2_creds.json")
       yag.send(to = emails, subject = str(form.cleaned_data["subject"]), contents = 'From:\n' + str(form.cleaned_data["email"]) + '\n\nMessage:\n' + str(form.cleaned_data["body"]))
-
       return redirect('/contactsent/')
-  
   else:
     form = NewContactForm()
 
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': 'active',
@@ -768,11 +769,12 @@ def contact(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/contact.html', context)
 
 # Create the view for confirming that a message has been sent
 def contactsent(request):
-  # Create the view for displaying all of the currently active R groups
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': 'active',
