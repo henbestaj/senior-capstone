@@ -351,53 +351,76 @@ class NewMeasurementCreateForm(forms.ModelForm):
     model = Measurement
     fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
 
+# Create a form to let the user send an email to all superusers
 class NewContactForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   email = forms.EmailField(label = 'Your Email')
   subject = forms.CharField(label = 'Subject')
   body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}), label='Body')
 
+# Create a form to let the user search for turtles
 class NewSearchForm(forms.Form):  
+  # Create the error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     archived = data['archived']
     year_archived = data['year_archived']
 
+    # Create an error for when the user enters that the turtle is archived but doesn't include a year archived
     if archived and not year_archived:
       raise forms.ValidationError("Please enter a year archived when searching for archived turtles.")
   
+  # Create the fields for this form as well as parameters on the fields
   r_num = forms.IntegerField(label = 'R Number')
   archived = forms.BooleanField(required=False, label = 'Archived?')
   year_archived = forms.IntegerField(required=False, label = 'Year Archived')
 
+# Create a form to let the user confirm their email address
 class UserConfirmationForm(forms.Form):
+  # Create the field for this form as well as parameters on the field
   code = forms.IntegerField(label='Confirmation Code', validators=[MaxValueValidator(99999), MinValueValidator(10000)])
 
+# Create a form to let the user delete their account
 class NewDeleteForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   confirmation = forms.CharField(label = 'Type the letters above to confirm account deletion')
   delete = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
+# Create a form to let the user retrieve their username and password if they forgot them
 class ForgotForm(forms.Form):
+  # Create the field for this form as well as parameters on the field
   email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
 
+  # Create the error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     email = data['email']
 
+    # Create an error for when the user doesn't exist
     if not User.objects.filter(email = email, is_active = True).exists():
       raise forms.ValidationError("This user does not exist.")
 
+# Create a form to let the user change their name
 class ChangeNameForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   first_name = forms.CharField(label = 'First Name')
   last_name = forms.CharField(label = 'Last Name')
   name = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
+# Create a form to let the user login
 class LoginForm(forms.Form):
+  # Create the error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     username = data['username']
 
+    # Create an error for when the user doesn't exist
     if User.objects.filter(username = username).exists() == False:
       raise forms.ValidationError("Please enter a correct username.")
   
+  # Create the fields for this form as well as parameters on the fields
   username = forms.CharField(label='Username')
   password = forms.CharField(label='Password', widget = forms.PasswordInput)
