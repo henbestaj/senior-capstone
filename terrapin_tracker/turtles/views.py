@@ -176,8 +176,10 @@ def MassTurtleCreate(request):
   # Render the view
   return render(request, 'turtles/massturtlecreateform.html', context)
 
+# Create the view for viewing the edit history of a measurement and require a log in
 @login_required
 def MeasurementHistory(request, id, deleted=False):
+  # Test whether the page should be considered current or released
   current_act = ''
   released_act = ''
   deleted = bool(deleted)
@@ -191,6 +193,7 @@ def MeasurementHistory(request, id, deleted=False):
   else:
     released_act = 'active'
   
+  # Create a list of the history of the measurement
   original = id
   history = [Measurement.objects.get(id = id)]
   while Measurement.objects.get(id = id).previous_measurment != None:
@@ -198,6 +201,7 @@ def MeasurementHistory(request, id, deleted=False):
     history.append(Measurement.objects.get(id = id))
   id = original
 
+  # Create the form needed to edit the measurement
   if request.method == 'POST':
     form = EditMeasurementCreateForm(request.POST)
     if form.is_valid():
@@ -208,6 +212,7 @@ def MeasurementHistory(request, id, deleted=False):
   else:
     form = EditMeasurementCreateForm(initial={'id': id, 'date': Measurement.objects.get(id = id).date, 'carapace_length': Measurement.objects.get(id = id).carapace_length, 'carapace_width': Measurement.objects.get(id = id).carapace_width, 'plastron_length': Measurement.objects.get(id = id).plastron_length, 'carapace_height': Measurement.objects.get(id = id).carapace_height, 'mass': Measurement.objects.get(id = id).mass, 'turtle': Measurement.objects.get(id = id).turtle})
 
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -221,10 +226,13 @@ def MeasurementHistory(request, id, deleted=False):
     'deleted': deleted,
   }
 
+  # Render the view
   return render(request, 'turtles/MeasurementHistory.html', context)
 
+# Create the view for viewing the edit history of a turtle and require a log in
 @login_required
 def TurtleHistory(request, id):
+  # Test whether the page should be considered current or released
   current_act = ''
   released_act = ''
   deleted = False
@@ -236,6 +244,7 @@ def TurtleHistory(request, id):
   else:
     released_act = 'active'
   
+  # Create a list of the history of the turtle
   original = id
   history = [Turtle.objects.get(id = id)]
   while Turtle.objects.get(id = id).previous_turtle != None:
@@ -243,6 +252,7 @@ def TurtleHistory(request, id):
     history.append(Turtle.objects.get(id = id))
   id = original
 
+  # Create the form needed to edit the turtle
   if request.method == 'POST':
     if Turtle.objects.get(id = id).archived:
       form = EditTurtleCreateFormArchived(request.POST)
@@ -276,6 +286,7 @@ def TurtleHistory(request, id):
     else:
       form = EditTurtleCreateForm(initial={'id': id, 'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -289,6 +300,7 @@ def TurtleHistory(request, id):
     'deleted': deleted,
   }
 
+  # Render the view
   return render(request, 'turtles/TurtleHistory.html', context)
 
 # Create the view for deleting a measurement and require a log in
