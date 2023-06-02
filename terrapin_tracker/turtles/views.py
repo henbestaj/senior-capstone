@@ -271,8 +271,10 @@ def TurtleHistory(request, id):
 
   return render(request, 'turtles/TurtleHistory.html', context)
 
+# Create the view for deleting a measurement
 @login_required
 def MeasurementDelete(request, id):
+  # Test whether the page should be considered current or released
   current_act = ''
   released_act = ''
   if Measurement.objects.get(id = id).turtle.year_archived == 0:
@@ -280,6 +282,7 @@ def MeasurementDelete(request, id):
   else:
     released_act = 'active'
   
+  # Create the form needed to delete the measurement
   if request.method == 'POST':
     form = MeasurementDeleteForm(request.POST)
     if form.is_valid():
@@ -288,6 +291,7 @@ def MeasurementDelete(request, id):
   else:
     form = MeasurementDeleteForm()
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -299,6 +303,7 @@ def MeasurementDelete(request, id):
     'measurement' : Measurement.objects.get(valid_to = None, id = id),
   }
 
+  # Render the view
   return render(request, 'turtles/MeasurementDelete.html', context)
 
 # Create the view for deleting a turtle
