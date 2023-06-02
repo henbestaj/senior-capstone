@@ -147,8 +147,10 @@ def MassArchive(request):
   # Render the view
   return render(request, 'turtles/MassArchive.html', context)
 
+# Create the view for creating many turtles at once and require a log in
 @login_required
 def MassTurtleCreate(request):
+  # Create the form needed to create the turtles
   if request.method == 'POST':
     form = MassTurtleCreateForm(request.POST)
     if form.is_valid():
@@ -160,6 +162,7 @@ def MassTurtleCreate(request):
   else:
     form = MassTurtleCreateForm(initial={'editor': request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')'})
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -170,6 +173,7 @@ def MassTurtleCreate(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/massturtlecreateform.html', context)
 
 @login_required
