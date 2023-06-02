@@ -498,7 +498,9 @@ def send_archived_file(request):
   response['Content-Disposition'] = "attachment; filename=%s"%download_name
   return response
 
+# Create the view for displaying a 404 error
 def custom_page_not_found_view(request, exception):
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -508,9 +510,12 @@ def custom_page_not_found_view(request, exception):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
   
+  # Render the view
   return render(request, "turtles/404.html", context)
 
+# Create the view for displaying a 500 error
 def custom_error_view(request, exception=None):
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -520,9 +525,12 @@ def custom_error_view(request, exception=None):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
   
+  # Render the view
   return render(request, "turtles/500.html", context)
 
+# Create the view for displaying a 403 error
 def custom_permission_denied_view(request, exception=None):
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -532,9 +540,12 @@ def custom_permission_denied_view(request, exception=None):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
   
+  # Render the view
   return render(request, "turtles/403.html", context)
 
+# Create the view for displaying a 400 error
 def custom_bad_request_view(request, exception=None):
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -544,6 +555,7 @@ def custom_bad_request_view(request, exception=None):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
   
+  # Render the view
   return render(request, "turtles/400.html", context)
 
 # Create the view for displaying the home page
