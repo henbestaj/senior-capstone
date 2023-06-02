@@ -430,7 +430,9 @@ def search(request):
 
   return render(request, 'turtles/search.html', context)
 
+# Create the view for downloading a csv of all active turtles' measurements
 def send_current_file(request):
+  # Create the csv file
   with open('./turtles/static/turtles/current_measurements.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
@@ -457,6 +459,7 @@ def send_current_file(request):
       writer.writerow(value)
   csvfile.close()
   
+  # Send the csv to the user
   filename = './turtles/static/turtles/current_measurements.csv'
   download_name = 'current_measurements.csv'
   wrapper = FileWrapper(open(filename))
@@ -464,7 +467,9 @@ def send_current_file(request):
   response['Content-Disposition'] = "attachment; filename=%s"%download_name
   return response
 
+# Create the view for downloading a csv of all archived turtles' measurements
 def send_archived_file(request):
+  # Create the csv file
   with open('./turtles/static/turtles/archived_measurements.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['R Number', 'Hatchling Number', 'Archived', 'Year Archived', 'Date','Carapace Length', 'Carapace Width', 'Plastron Length', 'Carapace Height', 'Mass'])
@@ -491,6 +496,7 @@ def send_archived_file(request):
       writer.writerow(value)
   csvfile.close()
   
+  # Send the csv to the user
   filename = './turtles/static/turtles/archived_measurements.csv'
   download_name = 'archived_measurements.csv'
   wrapper = FileWrapper(open(filename))
