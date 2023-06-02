@@ -98,37 +98,49 @@ class MassArchiveForm(forms.Form):
     self.fields['r_num_field'].choices = r_tuples
     self.fields['individual_turtles'].choices = turtles
 
+# Create a form to let the user sign up
 class UserRegisterForm(UserCreationForm):
+  # Override the default password_mismatch error
   error_messages = {
-      'password_mismatch': 'Passwords do not match.',
-    }
+    'password_mismatch': 'Passwords do not match.',
+  }
+  
+  # Create error messages for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the errors
     data = self.cleaned_data
     email = data['email']
     username = data['username']
 
-    # user, email, ocvts
+    # Create an error for when the username and email entered has already been used and they didn't use an ocvts email
     if User.objects.filter(username = username).exists() == True and User.objects.filter(email = email, is_active = True).exists() == True and 'ocvts.org' not in email:
       raise forms.ValidationError("The username and email you entered are already in use. Additionally, please use your ocvts.org email.")
-    # email and user
+    
+    # Create an error for when the username and email entered has already been used
     if User.objects.filter(username = username).exists() == True and User.objects.filter(email = email, is_active = True).exists() == True:
       raise forms.ValidationError("The username and email you entered are already in use.")
-    # user and ocvts
+    
+    # Create an error for when the username entered has already been used and they didn't use an ocvts email
     if User.objects.filter(username = username).exists() == True and 'ocvts.org' not in email:
       raise forms.ValidationError("The username you entered is already in use. Additionally, please use your ocvts.org email.")
-    # email and ocvts
+    
+    # Create an error for when the email entered has already been used and they didn't use an ocvts email
     if User.objects.filter(email = email, is_active = True).exists() == True and 'ocvts.org' not in email:
       raise forms.ValidationError("The email you entered is already in use. Additionally, please use your ocvts.org email.")
-    # user
+    
+    # Create an error for when the username entered has already been used
     if User.objects.filter(username = username).exists() == True:
       raise forms.ValidationError("The username you entered is already in use.")
-    # email
+    
+    # Create an error for when the email entered has already been used
     if User.objects.filter(email = email, is_active = True).exists() == True:
       raise forms.ValidationError("The email you entered is already in use.")
-    # ocvts
+    
+    # Create an error for when they didn't use an ocvts email
     if 'ocvts.org' not in email:
       raise forms.ValidationError("Please use your ocvts.org email.")
   
+  # Create the fields for this form as well as parameters on the fields
   email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
   first_name = forms.CharField(label = 'First Name')
   last_name = forms.CharField(label = 'Last Name')
@@ -136,55 +148,79 @@ class UserRegisterForm(UserCreationForm):
   password1 = forms.CharField(widget = forms.PasswordInput, label = 'Password')
   password2 = forms.CharField(widget = forms.PasswordInput, label = 'Password Confirmation', help_text='Enter the same password as before, for verification.')
   
+  # Corrects the password mismatch error
   def clean_password_confirm(self):
+    # Grab the data that is needed from the form to find the error
     password = self.cleaned_data['password1']
     password_confirm = self.cleaned_data.get('password2')
+
+    # Create an error for when passwords do not match
     if password and password_confirm:
-        if password != password_confirm:
-            raise forms.ValidationError("")
+      if password != password_confirm:
+        raise forms.ValidationError("")
+  
+  # Establish the metadata for the form
   class Meta:
+    # Establish the model associated with the form
     model = User
+
+    # Establish the fields from the model needed in the form
     fields = ['email', 'first_name', 'last_name', 'username', 'password1', 'password2']
 
+# Create a form to let the user change their password
 class ChangePassword(forms.Form):
+  # Create an error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     password1 = data['password1']
     password2 = data['password2']
 
+    # Create an error for when passwords do not match
     if password1 != password2:
       raise forms.ValidationError("Passwords do not match.")
   
+  # Create the fields for this form as well as parameters on the fields
   old_password = forms.CharField(widget = forms.PasswordInput, label = 'Old Password')
   password1 = forms.CharField(widget = forms.PasswordInput, label = 'New Password')
   password2 = forms.CharField(widget = forms.PasswordInput, label = 'New Password Confirmation', help_text='Enter the same password as before, for verification.<ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>')
   password = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
+# Create a form to let the user edit a turtle when the turtle is archived
 class EditTurtleCreateFormArchived(forms.Form):
+  # Create error messages for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the errors
     data = self.cleaned_data
     id = data['id']
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
     year_archived = data['year_archived']
 
+    # Create an error for when the R number is below zero
     if r_num < 0:
       raise forms.ValidationError('Ensure the R number is greater than or equal to 0.')
   
+    # Create an error for when the hatchling number is below zero
     if hatchling_num < 0:
       raise forms.ValidationError('Ensure the hatchling number is greater than or equal to 0.')
 
+    # Create an error for when the turtle already exists
     if Turtle.objects.exclude(id = id).filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
       raise forms.ValidationError('This turtle already exists.')
 
+  # Create the fields for this form as well as parameters on the fields
   r_num = forms.IntegerField(label = 'R Number')
   hatchling_num = forms.IntegerField(label = 'Hatchling Number')
   archived = forms.BooleanField(required=False, label = 'Archived', widget=forms.CheckboxInput(attrs={'checked': ''}))
   year_archived = forms.IntegerField(widget = forms.HiddenInput())
   id = forms.IntegerField(widget = forms.HiddenInput())
 
+# Create a form to let the user edit a measurement
 class EditMeasurementCreateForm(forms.Form):
+  # Create error messages for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the errors
     data = self.cleaned_data
     carapace_length = data['carapace_length']
     carapace_width = data['carapace_width']
@@ -192,21 +228,27 @@ class EditMeasurementCreateForm(forms.Form):
     carapace_height = data['carapace_height']
     mass = data['mass']
 
+    # Create an error for when the carapace length is below zero
     if carapace_length < 0:
       raise forms.ValidationError('Ensure the carapace length is greater than or equal to 0.')
-  
+
+    # Create an error for when the carapace width is below zero
     if carapace_width < 0:
       raise forms.ValidationError('Ensure the carapace width is greater than or equal to 0.')
 
+    # Create an error for when the plastron length is below zero
     if plastron_length < 0:
       raise forms.ValidationError('Ensure the plastron length is greater than or equal to 0.')
     
+    # Create an error for when the carapace height is below zero
     if carapace_height < 0:
       raise forms.ValidationError('Ensure the carapace height is greater than or equal to 0.')
     
+    # Create an error for when the mass is below zero
     if mass < 0:
       raise forms.ValidationError('Ensure the mass is greater than or equal to 0.')
   
+  # Create the fields for this form as well as parameters on the fields
   date = forms.DateField(label = 'Date (YYYY-MM-DD)')
   carapace_length = forms.FloatField(label = 'Carapace Length (mm)')
   carapace_width = forms.FloatField(label = 'Carapace Width (mm)')
@@ -216,70 +258,96 @@ class EditMeasurementCreateForm(forms.Form):
   turtle = forms.ModelChoiceField(queryset = Turtle.objects.all().filter(valid_to=None, archived=False), label = 'Turtle')
   id = forms.IntegerField(widget = forms.HiddenInput())
 
+  # Override the default __init__ function to allow the turtles list to automatically update every time the form is loaded in
   def __init__(self, *args, **kwargs):
     super(EditMeasurementCreateForm, self).__init__(*args, **kwargs)
+
+    # Update the choices for the turtle field
     self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
 
+# Create a form to let the user edit a turtle when the turtle is not archived
 class EditTurtleCreateForm(forms.Form):
+  # Create error messages for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the errors
     data = self.cleaned_data
     id = data['id']
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
     year_archived = data['year_archived']
 
+    # Create an error for when the R number is below zero
     if r_num < 0:
       raise forms.ValidationError('Ensure the R number is greater than or equal to 0.')
   
+    # Create an error for when the hatchling number is below zero
     if hatchling_num < 0:
       raise forms.ValidationError('Ensure the hatchling number is greater than or equal to 0.')
 
+    # Create an error for when the turtle already exists
     if Turtle.objects.exclude(id = id).filter(valid_to = None, r_num = r_num, hatchling_num = hatchling_num, year_archived = year_archived).exists():
       raise forms.ValidationError('This turtle already exists.')
 
+  # Create the fields for this form as well as parameters on the fields
   r_num = forms.IntegerField(label = 'R Number')
   hatchling_num = forms.IntegerField(label = 'Hatchling Number')
   archived = forms.BooleanField(required=False, label = 'Archived')
   year_archived = forms.IntegerField(widget = forms.HiddenInput())
   id = forms.IntegerField(widget = forms.HiddenInput())
 
+# Create a form to let the user create a new turtle
 class NewTurtleCreateForm(forms.ModelForm):
+  # Create error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     r_num = data['r_num']
     hatchling_num = data['hatchling_num']
 
+    # Create an error for when the turtle being created already exists
     if Turtle.objects.filter(archived = False, r_num = r_num, hatchling_num = hatchling_num, valid_to = None).exists():
       raise forms.ValidationError("This turtle already exists.")
     
     return data
   
+  # Create the field for this form as well as parameters on the field
   editor = forms.CharField(widget=forms.HiddenInput)
 
+  # Establish the metadata for the form
   class Meta:
+    # Establish the model associated with the form
     model = Turtle
+
+    # Establish the fields from the model needed in the form
     fields = ['r_num', 'hatchling_num', 'editor']
   
+# Create a form to let the user create numerous new turtles at once
 class MassTurtleCreateForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   r_num1 = forms.IntegerField(label = 'Starting R Number')
   r_num2 = forms.IntegerField(label = 'Ending R Number')
   hatchling_num1 = forms.IntegerField(label = 'Starting Hatchling Number')
   hatchling_num2 = forms.IntegerField(label = 'Ending Hatchling Number')
   editor = forms.CharField(widget=forms.HiddenInput)
   
+  # Create error messages for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the errors
     data = self.cleaned_data
     r_num1 = data['r_num1']
     r_num2 = data['r_num2']
     hatchling_num1 = data['hatchling_num1']
     hatchling_num2 = data['hatchling_num2']
 
+    # Create an error for when the first R number is greater than the second R number
     if r_num1 > r_num2:
       raise forms.ValidationError("Please ensure the ending R number is above the starting R number.")
     
+    # Create an error for when the first hatchling number is greater than the second hatchling number
     if hatchling_num1 > hatchling_num2:
       raise forms.ValidationError("Please ensure the ending hatchling number is above the starting hatchling number.")
 
+    # Create an error for when one of the turtles being created already exists
     for x in range(r_num1, r_num2 + 1):
       for y in range(hatchling_num1, hatchling_num2 + 1):
         if Turtle.objects.filter(archived = False, r_num = x, hatchling_num = y, valid_to = None).exists():
@@ -287,65 +355,97 @@ class MassTurtleCreateForm(forms.Form):
     
     return data
 
+# Create a form to let the user create a new measurement
 class NewMeasurementCreateForm(forms.ModelForm):
+  # Create the fields for this form as well as parameters on the fields
   editor = forms.CharField(widget=forms.HiddenInput)
   date = forms.DateField(label = 'Date (YYYY-MM-DD)')
   
+  # Override the default __init__ function to allow the turtles list to automatically update every time the form is loaded in
   def __init__(self, *args, **kwargs):
     super(NewMeasurementCreateForm, self).__init__(*args, **kwargs)
+
+    # Update the choices for the turtle field
     self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
 
+  # Establish the metadata for the form
   class Meta:
+    # Establish the model associated with the form
     model = Measurement
+
+    # Establish the fields from the model needed in the form
     fields = ['turtle','date', 'carapace_length', 'carapace_width', 'carapace_height', 'plastron_length', 'mass', 'editor']
 
+# Create a form to let the user send an email to all superusers
 class NewContactForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   email = forms.EmailField(label = 'Your Email')
   subject = forms.CharField(label = 'Subject')
   body = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}), label='Body')
 
+# Create a form to let the user search for turtles
 class NewSearchForm(forms.Form):  
+  # Create the error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     archived = data['archived']
     year_archived = data['year_archived']
 
+    # Create an error for when the user enters that the turtle is archived but doesn't include a year archived
     if archived and not year_archived:
       raise forms.ValidationError("Please enter a year archived when searching for archived turtles.")
   
+  # Create the fields for this form as well as parameters on the fields
   r_num = forms.IntegerField(label = 'R Number')
   archived = forms.BooleanField(required=False, label = 'Archived?')
   year_archived = forms.IntegerField(required=False, label = 'Year Archived')
 
+# Create a form to let the user confirm their email address
 class UserConfirmationForm(forms.Form):
+  # Create the field for this form as well as parameters on the field
   code = forms.IntegerField(label='Confirmation Code', validators=[MaxValueValidator(99999), MinValueValidator(10000)])
 
+# Create a form to let the user delete their account
 class NewDeleteForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   confirmation = forms.CharField(label = 'Type the letters above to confirm account deletion')
   delete = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
+# Create a form to let the user retrieve their username and password if they forgot them
 class ForgotForm(forms.Form):
+  # Create the field for this form as well as parameters on the field
   email = forms.EmailField(label = 'Email', help_text='Please use your ocvts.org email.')
 
+  # Create the error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     email = data['email']
 
+    # Create an error for when the user doesn't exist
     if not User.objects.filter(email = email, is_active = True).exists():
       raise forms.ValidationError("This user does not exist.")
 
+# Create a form to let the user change their name
 class ChangeNameForm(forms.Form):
+  # Create the fields for this form as well as parameters on the fields
   first_name = forms.CharField(label = 'First Name')
   last_name = forms.CharField(label = 'Last Name')
   name = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
+# Create a form to let the user login
 class LoginForm(forms.Form):
+  # Create the error message for this form
   def clean(self):
+    # Grab the data that is needed from the form to find the error
     data = self.cleaned_data
     username = data['username']
 
+    # Create an error for when the user doesn't exist
     if User.objects.filter(username = username).exists() == False:
       raise forms.ValidationError("Please enter a correct username.")
   
+  # Create the fields for this form as well as parameters on the fields
   username = forms.CharField(label='Username')
   password = forms.CharField(label='Password', widget = forms.PasswordInput)
