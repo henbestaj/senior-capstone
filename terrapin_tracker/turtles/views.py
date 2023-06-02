@@ -64,13 +64,16 @@ def DeletedMeasurement(request , year_archived, r_num):
   # Render the view
   return render(request, 'turtles/DeletedMeasurement.html', context)
 
+# Create the view for viewing R groups with deleted turtles and require a log in
 @login_required
 def Deleted(request):
+  # Create a list of each deleted measurement
   measurements = []
   for i in Measurement.objects.exclude(valid_to = None):
     if not Measurement.objects.filter(previous_measurment = i).exists():
       measurements.append(i)
   
+  # Create a list of each unique R number with a deleted turtle
   r_nums = set()
   for x in Turtle.objects.exclude(valid_to = None):
     if not Turtle.objects.filter(previous_turtle = x).exists():
@@ -78,17 +81,20 @@ def Deleted(request):
   r_nums = list(r_nums)
   r_nums = sorted(r_nums, key = lambda x: x[0])
   
+  # Create a list of each year that a turtle was deleted
   years = set()
   for i in r_nums:
     years.add(i[1])
   years = list(years)
   years = sorted(years)
 
+  # Create a list of each deleted turtle
   turtles = []
   for i in Turtle.objects.exclude(valid_to = None):
     if not Turtle.objects.filter(previous_turtle = i).exists():
       turtles.append(i)
 
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -102,6 +108,7 @@ def Deleted(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/deleted.html', context)
 
 # Create the view for archiving many turtles at once and require a log in
