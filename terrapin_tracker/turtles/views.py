@@ -29,8 +29,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 import string
 
+# Create the view for viewing deleted measurements in an R group and require a log in
 @login_required
 def DeletedMeasurement(request , year_archived, r_num):
+  # Test whether the page should be considered current or released
   current_act = ''
   released_act = ''
   if year_archived == 0:
@@ -38,6 +40,7 @@ def DeletedMeasurement(request , year_archived, r_num):
   else:
     released_act = 'active'
   
+  # Test if there are no deleted measurements in the R group
   nothing = False
   measurements = []
   for i in Measurement.objects.exclude(valid_to = None).filter(turtle__year_archived = year_archived, turtle__r_num = r_num, turtle__valid_to = None):
@@ -46,6 +49,7 @@ def DeletedMeasurement(request , year_archived, r_num):
   if measurements == []:
     nothing = True
 
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -57,6 +61,7 @@ def DeletedMeasurement(request , year_archived, r_num):
     'nothing': nothing,
   }
 
+  # Render the view
   return render(request, 'turtles/DeletedMeasurement.html', context)
 
 @login_required
@@ -99,8 +104,10 @@ def Deleted(request):
 
   return render(request, 'turtles/deleted.html', context)
 
+# Create the view for archiving many turtles at once and require a log in
 @login_required
 def MassArchive(request):
+  # Create the form needed to archive the turtles
   if request.method == 'POST':
     form = MassArchiveForm(request.POST)
     if form.is_valid():
@@ -119,6 +126,7 @@ def MassArchive(request):
   else:
     form = MassArchiveForm()
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -129,6 +137,7 @@ def MassArchive(request):
     'form': form,
   }
 
+  # Render the view
   return render(request, 'turtles/MassArchive.html', context)
 
 @login_required
@@ -271,7 +280,7 @@ def TurtleHistory(request, id):
 
   return render(request, 'turtles/TurtleHistory.html', context)
 
-# Create the view for deleting a measurement
+# Create the view for deleting a measurement and require a log in
 @login_required
 def MeasurementDelete(request, id):
   # Test whether the page should be considered current or released
@@ -306,7 +315,7 @@ def MeasurementDelete(request, id):
   # Render the view
   return render(request, 'turtles/MeasurementDelete.html', context)
 
-# Create the view for deleting a turtle
+# Create the view for deleting a turtle and require a log in
 @login_required
 def TurtleDelete(request, id):
   # Test whether the page should be considered current or released
