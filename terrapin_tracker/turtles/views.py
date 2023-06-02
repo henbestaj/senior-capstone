@@ -39,12 +39,10 @@ def DeletedMeasurement(request , year_archived, r_num):
     released_act = 'active'
   
   nothing = False
-
   measurements = []
   for i in Measurement.objects.exclude(valid_to = None).filter(turtle__year_archived = year_archived, turtle__r_num = r_num, turtle__valid_to = None):
     if not Measurement.objects.filter(previous_measurment = i).exists():
       measurements.append(i)
-
   if measurements == []:
     nothing = True
 
@@ -105,23 +103,19 @@ def Deleted(request):
 def MassArchive(request):
   if request.method == 'POST':
     form = MassArchiveForm(request.POST)
-
     if form.is_valid():
       for i in form.cleaned_data['individual_turtles']:
         new = Turtle(r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = Turtle.objects.get(id = i), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
         new.save()
         Measurement.objects.filter(turtle = Turtle.objects.get(id = i)).update(turtle = new)
         Turtle.objects.filter(valid_to = None, archived = False, id = i).update(valid_to = timezone.now())
-
       for i in form.cleaned_data['r_num_field']:
         for x in Turtle.objects.filter(valid_to = None, archived = False, r_num = i):
           new = Turtle(r_num = i, hatchling_num = x.hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y')), previous_turtle = x, editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
           new.save()
           Measurement.objects.filter(turtle = x).update(turtle = new)
         Turtle.objects.filter(valid_to = None, archived = False, r_num = i).update(valid_to = timezone.now())
-      
       return redirect('released')
-  
   else:
     form = MassArchiveForm()
   
@@ -178,23 +172,19 @@ def MeasurementHistory(request, id, deleted=False):
     released_act = 'active'
   
   original = id
-
   history = [Measurement.objects.get(id = id)]
   while Measurement.objects.get(id = id).previous_measurment != None:
     id = Measurement.objects.get(id = id).previous_measurment.id
     history.append(Measurement.objects.get(id = id))
-
   id = original
 
   if request.method == 'POST':
     form = EditMeasurementCreateForm(request.POST)
-    
     if form.is_valid():
       Measurement.objects.filter(id = id).update(valid_to = timezone.now())
       new = Measurement(date = form.cleaned_data['date'], carapace_length = form.cleaned_data['carapace_length'], carapace_width = form.cleaned_data['carapace_width'], plastron_length = form.cleaned_data['plastron_length'], carapace_height = form.cleaned_data['carapace_height'], mass = form.cleaned_data['mass'], turtle = form.cleaned_data['turtle'], previous_measurment = Measurement.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
       new.save()
       return redirect('current_r', form.cleaned_data['turtle'].year_archived, form.cleaned_data['turtle'].r_num)
-  
   else:
     form = EditMeasurementCreateForm(initial={'id': id, 'date': Measurement.objects.get(id = id).date, 'carapace_length': Measurement.objects.get(id = id).carapace_length, 'carapace_width': Measurement.objects.get(id = id).carapace_width, 'plastron_length': Measurement.objects.get(id = id).plastron_length, 'carapace_height': Measurement.objects.get(id = id).carapace_height, 'mass': Measurement.objects.get(id = id).mass, 'turtle': Measurement.objects.get(id = id).turtle})
 
@@ -227,12 +217,10 @@ def TurtleHistory(request, id):
     released_act = 'active'
   
   original = id
-
   history = [Turtle.objects.get(id = id)]
   while Turtle.objects.get(id = id).previous_turtle != None:
     id = Turtle.objects.get(id = id).previous_turtle.id
     history.append(Turtle.objects.get(id = id))
-  
   id = original
 
   if request.method == 'POST':
@@ -240,24 +228,19 @@ def TurtleHistory(request, id):
       form = EditTurtleCreateFormArchived(request.POST)
     else:
       form = EditTurtleCreateForm(request.POST)
-    
     _mutable = form.data._mutable
     form.data._mutable = True
-
     if 'archived' not in form.data:
       form.data['archived'] = False
     else:
       form.data['archived'] = True
-
     if form.data['archived'] and not Turtle.objects.get(id = id).archived:
       form.data['year_archived'] = int(dateformat.format(timezone.now(), 'Y'))
     elif not form.data['archived'] and Turtle.objects.get(id = id).archived:
       form.data['year_archived'] = 0
     else:
       form.data['year_archived'] = form.data['year_archived']
-    
     form.data._mutable = _mutable
-
     if form.is_valid():
       Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now())
       new = Turtle(r_num = form.cleaned_data['r_num'], hatchling_num = form.cleaned_data['hatchling_num'], archived = form.cleaned_data['archived'], year_archived = form.cleaned_data['year_archived'], previous_turtle = Turtle.objects.get(id = id), editor = request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
@@ -267,7 +250,6 @@ def TurtleHistory(request, id):
         return redirect('released')
       else:
         return redirect('current')
-  
   else:
     if Turtle.objects.get(id = id).archived:
       form = EditTurtleCreateFormArchived(initial={'id': id, 'r_num': Turtle.objects.get(id = id).r_num, 'hatchling_num': Turtle.objects.get(id = id).hatchling_num, 'year_archived': Turtle.objects.get(id = id).year_archived})
@@ -300,11 +282,9 @@ def MeasurementDelete(request, id):
   
   if request.method == 'POST':
     form = MeasurementDeleteForm(request.POST)
-
     if form.is_valid():
       Measurement.objects.filter(id = id).update(valid_to = timezone.now(), editor = Measurement.objects.get(id = id).editor + ' Deleted by: ' + request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
       return redirect('current_r', Measurement.objects.get(id = id).turtle.year_archived, Measurement.objects.get(id = id).turtle.r_num)
-  
   else:
     form = MeasurementDeleteForm()
   
@@ -332,12 +312,10 @@ def TurtleDelete(request, id):
   
   if request.method == 'POST':
     form = TurtleDeleteForm(request.POST)
-
     if form.is_valid():
       Turtle.objects.filter(valid_to = None, id = id).update(valid_to = timezone.now(), editor = Turtle.objects.get(id = id).editor + ' Deleted by: ' + request.user.first_name + ' ' + request.user.last_name + ' (' + request.user.email + ')')
       Measurement.objects.filter(turtle = Turtle.objects.get(id = id)).update(valid_to = timezone.now())
       return redirect('released')
-  
   else:
     form = TurtleDeleteForm()
   
@@ -354,7 +332,9 @@ def TurtleDelete(request, id):
 
   return render(request, 'turtles/TurtleDelete.html', context)
 
+# Create the view for confirming a user's email
 def Confirm(request, username):
+  # Create the form needed to confirm the email
   confirmation = request.session.get('confirmation')
   if request.method == 'POST':
     form = UserConfirmationForm(request.POST)
@@ -367,6 +347,7 @@ def Confirm(request, username):
   else:
     form = UserConfirmationForm()
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -377,9 +358,12 @@ def Confirm(request, username):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'registration/confirm.html', context)
 
+# Create the view for signing up
 def SignUp(request):
+  # Create the form needed to sign up the user
   if request.method == 'POST':
     form = UserRegisterForm(request.POST)
     if form.is_valid():
@@ -394,6 +378,7 @@ def SignUp(request):
   else:
     form = UserRegisterForm()
   
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -404,9 +389,12 @@ def SignUp(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'registration/signup.html', context)
 
+# Create the view for searching for a specific R group
 def search(request):
+  # Create the form needed to redirect the user to the R group they are searching for
   if request.method == 'POST':
     form = NewSearchForm(request.POST)
     if form.is_valid():
@@ -414,10 +402,10 @@ def search(request):
         return redirect('current_r', year_archived=request.POST.get('year_archived'), r_num=request.POST.get('r_num'))
       else:
         return redirect('current_r', year_archived=0, r_num=request.POST.get('r_num'))
-  
   else:
     form = NewSearchForm()
 
+  # Create the context dictionary
   context = {
     'home_act': '',
     'contact_act': '',
@@ -428,6 +416,7 @@ def search(request):
     'confirmation': ''.join(random.choices(string.ascii_uppercase, k=7))
   }
 
+  # Render the view
   return render(request, 'turtles/search.html', context)
 
 # Create the view for downloading a csv of all active turtles' measurements
