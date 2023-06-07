@@ -35,13 +35,13 @@ class MassArchiveForm(forms.Form):
 
     # Create an error for when a similar turtle has already been archived
     for i in individual_turtles:
-      if Turtle.objects.filter(r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
+      if Turtle.objects.filter(valid_to = None, r_num = Turtle.objects.get(id = i).r_num, hatchling_num = Turtle.objects.get(id = i).hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
         raise forms.ValidationError('One of these turtles already exists.')
     
     # Create an error for when in the R group being archived there is a turtle that is similar to a turtle that has already been archived
     for i in r_num_field:
       for x in Turtle.objects.filter(valid_to = None, archived = False, r_num = i):
-        if Turtle.objects.filter(r_num = i, hatchling_num = x.hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
+        if Turtle.objects.filter(valid_to = None, r_num = i, hatchling_num = x.hatchling_num, archived = True, year_archived = int(dateformat.format(timezone.now(), 'Y'))).exists():
           raise forms.ValidationError('One of these turtles already exists.')
 
   # Create a list of all the R numbers currently active
@@ -263,7 +263,7 @@ class EditMeasurementCreateForm(forms.Form):
     super(EditMeasurementCreateForm, self).__init__(*args, **kwargs)
 
     # Update the choices for the turtle field
-    self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None, archived=False)
+    self.fields['turtle'].queryset = Turtle.objects.all().filter(valid_to=None)
 
 # Create a form to let the user edit a turtle when the turtle is not archived
 class EditTurtleCreateForm(forms.Form):
