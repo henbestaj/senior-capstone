@@ -22,8 +22,7 @@
 </details>
 
 ### About
-> Our plan is to create a website for Project Terrapin that regularly updates with the statistics on the growth of the hatchlings cared for both at MATES and other affiliated schools. We will use the measurement data for the growing terrapins and, using Python and JavaScript, create different graphs to display the data. This website will be public and linked to the main [Project Terrapin website](https://www.projectterrapin.org/). The site will update automatically when new data is added from recent measurements.
-> Our project will help to raise awareness of the dangers that face the Northern Diamondback Terrapin species. They are a keystone species in the Barnegat Bay, meaning they are essential to the survival of the ecosystem. Our website will hopefully inspire others to get involved in the protection of terrapins, and potentially let them track the growth of hatchlings they may have found, giving them a more personal connection to the turtle(s) they helped to save.
+> We have created a website where members of Project Terrapin can record the measurements of the hatchlings in their care. Project Terrapin is an organization that cares for and measures the growth of northern diamondback terrapin hatchlings at MATES and other affiliated schools. Using Python, the data collected from the turtle measurements will be displayed on different graphs and tables throughout the website. This website will be public and Project Terrapin members will be able to log in to record these measurements. The graphs and tables on the site will update automatically when new data is collected. Our project aims to raise awareness of the dangers that face the Northern Diamondback Terrapin species. They are a keystone species in the Barnegat Bay, meaning they are essential to the survival of the ecosystem. We hope our website will inspire others to get involved in the protection of terrapins, and let them track the growth of hatchlings they may have found, giving them a more personal connection to the turtle(s) they helped to save.
 
 ### Built With
 >  - [![Python](https://img.shields.io/badge/python-4381B2?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -34,7 +33,6 @@
 >  - [![HTML5](https://img.shields.io/badge/html5-e54d26?style=for-the-badge&logo=html5&logoColor=white)](https://www.w3.org/html/)
 >  - [![CSS3](https://img.shields.io/badge/css3-2a65f1?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/)
 >  - [![MySQL](https://img.shields.io/badge/mysql-00618b?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
->  - [![Apache](https://img.shields.io/badge/apache-aa0000?style=for-the-badge&logo=apache&logoColor=white)](https://www.apache.org/)
 >  - [![AWS](https://img.shields.io/badge/AWS-ff9901?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -42,12 +40,8 @@
 > txt
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Installation
-> txt
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ### Usage
-> The demo video for this project can be found at the following link: https://youtu.be/l0yu8ONMzVQ
+> A demo video for this project can be found at the following link: https://youtu.be/l0yu8ONMzVQ
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Roadmap
