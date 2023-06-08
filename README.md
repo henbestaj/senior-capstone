@@ -54,7 +54,7 @@
 > In the last month of the project, we completed all of the pages and created edit pages, delete pages, history pages, and archive pages. As new HTML pages were created, new CSS files were also created to style the elements. Within the last two weeks, we worked on styling all of the Django forms that users enter information into. We also created errors for all forms, so if users input wrong information, Django will trigger an error.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Contributing
+### Contributors
 > The work was divided in a fairly simple manner: Aidan Henbest was the primary backend developer, while Angelo Amato and Lisa Hunt mainly focused on the frontend. Of course, overlap often occurred between these two groups (i.e. Lisa created the graphs on the backend before working on displaying them on the frontend), but for the most part each member of the group stayed in their own lane.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
