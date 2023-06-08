@@ -37,7 +37,7 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Prerequisites
-> txt
+> We used Visual Studio Code (Version 1.78.2) in order to code this website. The languages we used to program the site were HyperText Markup Language (Living Standard), Cascading Style Sheets (Snapshot 2023), and Python (Version 3.9.13). In addition we used many Python libraries: asgiref (Version 3.6.0), cachetools (Version 5.3.0), certifi (Version 2022.12.7), charset-normalizer (Version 3.1.0), contourpy (Version 1.0.7), cssselect (Version 1.2.0), cssutils (Version 2.6.0), cycler (Version 0.11.0), Django (Version 4.1.7), fonttools (Version 4.39.3), idna (Version 3.4), importlib-resources (Version 5.12.0), kiwisolver (Version 1.4.4), lxml (Version 4.9.2), matplotlib (Version 3.7.1), mysqlclient (Version 2.1.1), numpy (Version 1.24.2), packaging (Version 23.0), pandas (Version 2.0.1), Pillow (Version 9.5.0), premailer (Version 3.10.0), pyparsing (Version 3.0.9), python-dateutil (Version 2.8.2), pytz (Version 2023.3), requests (Version 2.28.2), seaborn (Version 0.12.2), six (Version 1.16.0), sqlparse (Version 0.4.3), tzdata (Version 2023.3), urllib3 (Version 1.26.15), yagmail (Version 0.15.293), zipp (Version 3.15.0). Lastly, we used MySQL Workbench (Version 8.0.32) for our database.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Usage
@@ -45,11 +45,17 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Roadmap
-> txt
+> The key milestones within the first two weeks, February 15 to February 26, consisted of learning the languages necessary to complete the project. Learn Django, HTML, CSS, and Javascript Codecademy courses were completed. We then gathered the measurement data from Project Terrapin members and organized it so it could be put into a SQL server.
+> 
+> In the month that followed, from February 27th to March 27th, we worked on creating all of the basic elements for the website. This included the base page with navigation links to the home page, about page, current page, released page, and contact page. Navigation buttons were created and all of the pages were linked together using Django. Initial CSS stylesheets and HTML files were created during this time to bring color, style, and text to the pages. During this time as well, we worked on setting up the SQL server so it could be used to display the first measurement table on the website.
+> 
+> In the next period from March 28th to April 6th and April 15th to April 25th, we continued creating various pages for the website. Both the contact and about pages were completed during this time. The current page expanded to include R group buttons with tables and graphs of the measurement data. We created user login abilities with an account system for Project Terrapin members to use to edit turtle information. The home page graphs were also completed during this time.
+> 
+> In the last month of the project, we completed all of the pages and created edit pages, delete pages, history pages, and archive pages. As new HTML pages were created, new CSS files were also created to style the elements. Within the last two weeks, we worked on styling all of the Django forms that users enter information into. We also created errors for all forms, so if users input wrong information, Django will trigger an error.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Contributing
-> txt
+> The work was divided in a fairly simple manner: Aidan Henbest was the primary backend developer, while Angelo Amato and Lisa Hunt mainly focused on the frontend. Of course, overlap often occurred between these two groups (i.e. Lisa created the graphs on the backend before working on displaying them on the frontend), but for the most part each member of the group stayed in their own lane.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### License
