@@ -346,6 +346,14 @@ class MassTurtleCreateForm(forms.Form):
     # Create an error for when the first hatchling number is greater than the second hatchling number
     if hatchling_num1 > hatchling_num2:
       raise forms.ValidationError("Please ensure the ending hatchling number is above the starting hatchling number.")
+    
+    # Create an error for when a user creates too many R groups
+    if r_num2 - r_num1 > 20:
+      raise forms.ValidationError("You cannot create more than 20 R groups at once.")
+    
+    # Create an error for when a user creates too many hatchlings per R group
+    if hatchling_num2 - hatchling_num1 > 30:
+      raise forms.ValidationError("You cannot create more than 30 hatchlings per R group at once.")
 
     # Create an error for when one of the turtles being created already exists
     for x in range(r_num1, r_num2 + 1):
