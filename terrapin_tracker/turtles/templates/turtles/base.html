@@ -12,7 +12,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="{% static 'turtles/style.css' %}">
-        <link rel="icon" href="{% static 'turtles/logo.png' %}">
+        <link rel="icon" href="{% static 'turtles/terrapintrackerlogo.png' %}">
         {% block head %}
         {% endblock %}
     </head>
@@ -21,7 +21,7 @@
         <div class = grid-container>
             {% with alert=0 %}
             <!-- formats logo -->
-            <a href = "{% url 'home' alert %}"><img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
+            <a href = "{% url 'home' alert %}"><img src = "{% static 'turtles/terrapintrackerlogo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
             {% endwith %}
             <h1 class = 'heading'>TerrapinTracker</h1>
             {% if user.is_authenticated %}
