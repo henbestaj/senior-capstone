@@ -642,8 +642,8 @@ def home(request, alert = 1):
 
   # Creates the carapace length by carapace width scatterplot
   sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=group, hue_order = legend).set_title('Carapace Length vs Carapace Width')
-  ax.set_xlabel( "Carapace Length" , size = 12 )
-  ax.set_ylabel( "Carapace Width" , size = 12 )
+  ax.set_xlabel( "Carapace Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Width (mm)" , size = 12 )
   plt.legend(title='R Group', loc='lower right')
   file_path = './turtles/static/turtles/plot_r' + 'lengthvswidthhomescatter.png'
   fig = sns_plot.get_figure()
@@ -654,8 +654,8 @@ def home(request, alert = 1):
   # Creates the carapace length by carapace width kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
-  ax.set_xlabel( "Carapace Length" , size = 12 )
-  ax.set_ylabel( "Carapace Width" , size = 12 )
+  ax.set_xlabel( "Carapace Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Width (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + 'lengthvswidthhomekde.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -666,7 +666,7 @@ def home(request, alert = 1):
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues', showfliers=False).set_title('Carapace Length over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
-  ax.set_ylabel( "Carapace Length" , size = 12 )
+  ax.set_ylabel( "Carapace Length (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + 'datevslengthhomebox.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -681,8 +681,8 @@ def home(request, alert = 1):
 
   #  Creates the plastron length by carapace height scatterplot
   sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=group, hue_order=legend).set_title('Plastron Length vs Carapace Height')
-  ax.set_xlabel( "Plastron Length" , size = 12 )
-  ax.set_ylabel( "Carapace Height" , size = 12 )
+  ax.set_xlabel( "Plastron Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Height (mm)" , size = 12 )
   plt.legend(title='R Group', loc='lower right')
   file_path = './turtles/static/turtles/plot_r' + 'lengthvsheighthomescatter.png'
   fig = sns_plot.get_figure()
@@ -693,8 +693,8 @@ def home(request, alert = 1):
   # Creates the plastron length by carapace height kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
-  ax.set_xlabel( "Plastron Length" , size = 12 )
-  ax.set_ylabel( "Carapace Height" , size = 12 )
+  ax.set_xlabel( "Plastron Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Height (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + 'lengthvsheighthomekde.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -705,7 +705,7 @@ def home(request, alert = 1):
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues', showfliers=False).set_title('Carapace Height over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
-  ax.set_ylabel( "Carapace Height" , size = 12 )
+  ax.set_ylabel( "Carapace Height (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + 'datevsheighthomebox.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -720,7 +720,7 @@ def home(request, alert = 1):
   # Creates the carapace length by R group bar plot
   sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_length, palette='light:orange').set_title('Carapace Length by R Group')
   ax.set_xlabel( "R Group" , size = 12 )
-  ax.set_ylabel( "Carapace Length" , size = 12 )
+  ax.set_ylabel( "Carapace Length (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + 'rvslengthbar.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -735,7 +735,7 @@ def home(request, alert = 1):
   # Creates the carapace width by R group bar plot
   sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_width, palette='light:orange').set_title('Carapace Width by R Group')
   ax.set_xlabel( "R Group" , size = 12 )
-  ax.set_ylabel( "Carapace Width" , size = 12 )
+  ax.set_ylabel( "Carapace Width (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + 'rvswidthbar.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -749,7 +749,7 @@ def home(request, alert = 1):
   # Creates the carapace height by R group bar plot
   sns_plot = sns.barplot(ax=ax, x=sortgroup, y=carapace_height, palette='light:orange').set_title('Carapace Height by R Group')
   ax.set_xlabel( "R Group" , size = 12 )
-  ax.set_ylabel( "Carapace Height" , size = 12 )
+  ax.set_ylabel( "Carapace Height (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + 'rvsheightbar.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1053,8 +1053,8 @@ def current_r(request, year_archived, r_num):
   # Creates carapace length by carapace width scatterplot
   fig, ax = plt.subplots()
   sns_plot = sns.scatterplot(ax=ax, x=carapace_length, y=carapace_width, hue=date).set_title('Carapace Length vs Carapace Width')
-  ax.set_xlabel( "Carapace Length" , size = 12 )
-  ax.set_ylabel( "Carapace Width" , size = 12 )
+  ax.set_xlabel( "Carapace Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Width (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthscatter.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1064,8 +1064,8 @@ def current_r(request, year_archived, r_num):
   # Creates carapace length by carapace width kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=carapace_length, y=carapace_width, fill=True, cmap="crest").set_title('Carapace Length vs Carapace Width')
-  ax.set_xlabel( "Carapace Length" , size = 12 )
-  ax.set_ylabel( "Carapace Width" , size = 12 )
+  ax.set_xlabel( "Carapace Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Width (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvswidthkde.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1076,7 +1076,7 @@ def current_r(request, year_archived, r_num):
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_length, palette='Blues').set_title('Carapace Length over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
-  ax.set_ylabel( "Carapace Length" , size = 12 )
+  ax.set_ylabel( "Carapace Length (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevslengthbox.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1086,8 +1086,8 @@ def current_r(request, year_archived, r_num):
   # Creates plastron length by carapace height scatterplot
   fig, ax = plt.subplots()
   sns_plot = sns.scatterplot(ax=ax, x=plastron_length, y=carapace_height, hue=date).set_title('Plastron Length vs Carapace Height')
-  ax.set_xlabel( "Plastron Length" , size = 12 )
-  ax.set_ylabel( "Carapace Height" , size = 12 )
+  ax.set_xlabel( "Plastron Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Height (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightscatter.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1097,8 +1097,8 @@ def current_r(request, year_archived, r_num):
   # Creates plastron length by carapace height kde plot
   fig, ax = plt.subplots()
   sns_plot = sns.kdeplot(ax=ax, x=plastron_length, y=carapace_height, fill=True, cmap='crest').set_title('Plastron Length vs Carapace Height')
-  ax.set_xlabel( "Plastron Length" , size = 12 )
-  ax.set_ylabel( "Carapace Height" , size = 12 )
+  ax.set_xlabel( "Plastron Length (mm)" , size = 12 )
+  ax.set_ylabel( "Carapace Height (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'lengthvsheightkde.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1109,7 +1109,7 @@ def current_r(request, year_archived, r_num):
   fig, ax = plt.subplots()
   sns_plot = sns.boxplot(ax=ax, x=date, y=carapace_height, palette='Blues').set_title('Carapace Height over Time')
   ax.set_xlabel( "Measurement Date" , size = 12 )
-  ax.set_ylabel( "Carapace Height" , size = 12 )
+  ax.set_ylabel( "Carapace Height (mm)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'datevsheightbox.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1119,7 +1119,7 @@ def current_r(request, year_archived, r_num):
   # Creates mass histogram
   fig, ax = plt.subplots()
   sns_plot = sns.histplot(ax=ax, x=mass, bins='auto').set_title('Turtle Mass Distribution')
-  ax.set_xlabel( "Mass" , size = 12 )
+  ax.set_xlabel( "Mass (g)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'masshist.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
@@ -1130,7 +1130,7 @@ def current_r(request, year_archived, r_num):
   fig, ax = plt.subplots()
   sns_plot = sns.barplot(ax=ax, x=turtle, y=mass, palette='light:orange').set_title('Mass of Turtle by Hatchling Number')
   ax.set_xlabel( "Turtle Number" , size = 12 )
-  ax.set_ylabel( "Mass" , size = 12 )
+  ax.set_ylabel( "Mass (g)" , size = 12 )
   file_path = './turtles/static/turtles/plot_r' + str(r_num) + 'year' + str(year_archived) + 'turtlevsheightbox.png'
   fig = sns_plot.get_figure()
   fig.savefig(file_path)
