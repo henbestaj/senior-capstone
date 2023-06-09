@@ -1,0 +1,32 @@
+<!--*******************************************************************************************************************************
+   File Name: newturtlecreateform.html
+   Purpose:
+     * allows the user to create a new turtle by R group and R number
+     * links from clicking the new turtle button on current.html
+  ******************************************************************************************************************************* -->
+
+
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Create New Turtle</title>
+<link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!--creates a single new turtle instance in a new or existing R group-->
+<div class = "center-box">
+  <h1 class = "formheading">Create New Turtle</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id = "button-container">
+      <button id = 'goBack'  type = "button" onclick = "history.back()">Go back</button>
+      <button type="submit" value="Submit" id="create">Create</button>
+      <!-- links to the mass turtle create page -->
+      <a href="{% url 'massturtlecreateform' %}" id ="multiple">Create Multiple Turtles Here</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,232 @@
+/*******************************************************************************************************************************
+   File Name: style.css
+   Purpose:
+     * Styles all pages through extending base.html
+     * Formats text, logo, navigation bar, background, and buttons on all pages
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+
+/* Add a light blue background color to the top navigation */
+body{
+  background-color: rgb(202,224,228);
+  max-width: 100%;
+  margin-right: 0px;
+  overflow-x:hidden;
+}
+
+/*creates layout grid*/
+.grid-container{
+display:grid;
+width: 97.4%;
+height: 150px;
+grid-template-areas:"logo title signin" "nav nav nav";
+grid-template-rows: 100px 50px;
+grid-template-columns: 120px 70% 30%;
+}
+
+/*makes buttons orange*/
+.topnav {
+overflow:visible;
+grid-area:nav;
+width: 100%;
+}
+
+
+/*Formats the logo in the top left-hand corner*/ 
+#logo{
+display:inline;
+grid-area:logo;
+height : 100px;
+width:100px;
+}
+
+/* Formats search box */
+.searchbutton {
+display: inline-block;
+grid-area: signin;
+margin-top:auto;
+background-color: rgb(202,224,228);
+font-size: 22px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+color: black;
+text-decoration: none;
+align-content: center;
+cursor: pointer;
+-moz-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+position: absolute;
+width: 100%;
+padding: 0;
+}
+
+/* Formats search button */
+.search-container {
+position: relative;
+display: inline-block;
+grid-area: signin;
+height: 30px;
+width: 30px;
+margin-right:220px;
+vertical-align: bottom;
+align-content: center;
+justify-content:center;
+justify-self: center;
+justify-items: center;
+margin-top: auto;
+margin-bottom: auto;
+}
+
+/* Displays search button */
+.mglass {
+display: inline-block;
+pointer-events: none;
+grid-area: signin;
+font-size: 30;
+justify-content:center;
+justify-self: center;
+justify-items: center;
+align-content: center;
+margin-top: auto;
+margin-bottom: auto;
+-webkit-transform: rotate(-45deg);
+-moz-transform: rotate(-45deg);
+-o-transform: rotate(-45deg);
+-ms-transform: rotate(-45deg);
+}
+
+.search {
+position: absolute;
+grid-area: signin;
+left: 55px; 
+align-content: center;
+background-color: white;
+outline: none;
+border: none;
+margin-top:auto;
+padding: 0;
+width: 0;
+height: 100%;
+z-index: 10;
+}
+/* displays settings button */
+.settings-container {
+position: relative;
+display: inline-block;
+grid-area: signin;
+height: 30px;
+width: 1%;
+margin-right:180px;
+margin-top:auto;
+align-content: center;
+justify-content:center;
+justify-self: center;
+justify-items: center;
+margin-top: auto;
+margin-bottom: auto;
+}
+
+.settingsbutton {
+display: inline-block;
+grid-area: signin;
+margin-top:auto;
+background-color: rgb(202,224,228);
+font-size: 22px;
+height: 30px;
+line-height: 30px;
+text-align: center;
+color: black;
+text-decoration: none;
+cursor: pointer;
+justify-content:center;
+justify-self: center;
+justify-items: center;
+align-content: center;
+-moz-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;
+user-select: none;
+position: absolute;
+width: 100%;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  background-color: rgb(226,136,23);
+  color: #f2f2f2;
+  text-align: center;
+  padding: 15px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display:inline;
+  align-items: center;
+  width: 17%;
+  overflow: hidden;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: rgb(243,167,67);
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color:rgb(26,82,94);
+  color: white;
+}
+
+ /* Add a color to the active/current link on hover */
+ .topnav a.active:hover {
+  background-color:rgb(45, 125, 143);
+  color: white;
+}
+
+
+/*sign in button style*/
+#signin{
+  background-color: rgb(26,82,94);
+  border-radius: 10px;
+  height: 50px;
+  width: 120px;
+  grid-area:signin;
+  align-content: center;
+  border-color: rgb(26,82,94);
+  color:white;
+  font-size: 17px;
+  margin-top:auto;
+  margin:auto;
+  
+}
+
+/*sign in hover and active style*/
+#signin:hover {
+  cursor:pointer;
+  background-color:rgb(45, 125, 143);
+  text-decoration: underline;
+
+}
+#signin:active {
+  background-color:rgb(65, 145, 163);
+  color: black;
+  text-decoration: none;
+}
+/*styles headings*/
+.heading{
+  grid-area: title;
+  color: rgb(26,82,94);
+  font-size: 30pt;
+}
+/* formats 404, 403, 400, and 500 errors */
+.numerror {
+  width: 100%;
+  text-align: center;
+}
+

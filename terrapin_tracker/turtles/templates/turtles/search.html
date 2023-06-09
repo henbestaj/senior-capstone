@@ -1,0 +1,27 @@
+<!--*******************************************************************************************************************************
+   File Name: search.html
+   Purpose:
+     * allows user to search for a turtle by R group and year if archived
+     * will link to the current_r page for the searched R group
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: search_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>Search</title>
+<link rel="stylesheet" href="{% static 'turtles/search_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!--allows user to search for a specific turtle or R group across several years-->
+<div class="search-box">
+    <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Search</h3>
+    <form action="/search/" method="post" class="searchform">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" id=submitbtn>
+    </form>
+  </div>
+{% endblock %}

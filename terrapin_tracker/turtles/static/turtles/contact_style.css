@@ -1,0 +1,151 @@
+/*******************************************************************************************************************************
+   File Name: contact_style.css
+   Purpose:
+     * Styles the contact.html and contactsent.html pages
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+.container{
+    width:90%;
+    height: 70%;
+    margin:20px auto ;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+                         
+}
+/* uses grid format to space form elements correctly */
+form{
+    display:grid;
+    grid-template-areas: "email subject"
+                         "body body"
+                         "submit submit";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:1fr 2.5fr 1fr;
+}
+/* places elements within the grid */
+p:has(#id_email){
+    grid-area: email;
+}
+
+p:has(#id_subject){
+    grid-area: subject;
+}
+p:has(#id_body){
+    grid-area: body;
+}
+.form-control{
+    width:70%;
+    align-items: center;
+    display:block;
+    margin:10px auto 10px;
+}
+
+p:has(#id_email), p:has(#id_subject){
+    text-indent:11%
+}
+
+p:has(#id_body) {
+    text-indent:6%
+}
+
+textarea{
+    resize: none;
+    height: 100%;
+}
+/* formats submit button */
+#submit {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:auto;
+    display: block;
+    width:50%;
+    grid-area: submit;
+  }
+  /* changes submit button when user hovers mouse over it */
+#submit:hover {
+    background-color:rgb(45, 125, 143);  
+}
+/* formats contact boxes */
+#id_subject{
+    color:black;
+    width:85%;
+    height: 80%;
+    align-items: center;
+    display:block;
+    margin:auto 10% 0px 5%;
+}
+
+#id_email{
+    color:black;
+    width:85%;
+    height: 80%;
+    align-items: center;
+    display:block;
+    margin:auto 5% 0px 10%;
+}
+
+#id_body{
+    color:black;
+    width:90%;
+    height: 100%;
+    align-items: center;
+    display:block;    
+    margin:auto auto 10px;    
+}
+/* formats message box */
+.message {
+    font-size: 16pt;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(26,82,94);
+    color: white;
+    display: block;
+    justify-content: center;
+    width:70%;
+    padding: 0px 35px 0px 0px;
+    margin: 20px auto ;
+    align-items: center;
+    justify-content: center;
+}
+
+.sent {
+    color: white;
+}
+/* formats back button */
+#goback {
+  background-color: rgb(26,82,94);
+  border-radius: 10px;
+  height: 20px;
+  width: 80px;
+  display: block;
+  text-align: center;
+  text-justify: center;
+  border-color: rgb(26,82,94);
+  color:white;
+  font-size: 17px;
+  margin-top:10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  text-decoration: none;
+}
+
+#goback:hover {
+    cursor:pointer;
+    background-color:rgb(45, 125, 143);
+    text-decoration: underline;
+  
+  }
+#goback:active {
+    background-color:rgb(65, 145, 163);
+    color: black;
+    text-decoration: none;
+  }

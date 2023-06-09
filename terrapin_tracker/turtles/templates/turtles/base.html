@@ -1,0 +1,66 @@
+<!--*******************************************************************************************************************************
+   File Name: base.html
+   Purpose:
+     * provides a header for all of the pages on the website and houses the main navigation bar across the top of the page
+     * displays logo, title, settings, search, and login buttons on all pages
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: style.css-->
+{% load static %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'turtles/style.css' %}">
+        <link rel="icon" href="{% static 'turtles/logo.png' %}">
+        {% block head %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <div class = grid-container>
+            {% with alert=0 %}
+            <!-- formats logo -->
+            <a href = "{% url 'home' alert %}"><img src = "{% static 'turtles/logo.png' %}" id = 'logo' alt= 'Project Terapin Logo'></a>
+            {% endwith %}
+            <h1 class = 'heading'>TerrapinTracker</h1>
+            {% if user.is_authenticated %}
+            <!-- creates signin button and changes to sign out if user is logged in -->
+            <button id = 'signIn' onclick = "signOut()">Log out</button>
+            <script>
+                function signOut() {
+                    window.location.href="{% url 'logout' %}";
+                }
+            </script>
+            {% else %}
+            <button id = 'signIn' onclick = "signIn()">Log in</button>
+            <!-- links to login page -->
+            <script>
+                function signIn() {
+                    window.location.href="{% url 'login' %}";
+                }
+            </script>
+            {% endif %}
+            <div class="search-container">
+                <!-- creates search icon and function -->
+                <a class="searchbutton" title="Search" href="{% url 'search' %}"><span class="mglass">&#9906;</span></a>
+            </div>
+            <div class="settings-container">
+                <!-- creates settings icon and function -->
+                <a class="settingsbutton" title="Settings" href = "{% url 'settings' confirmation %}"><img src = "{% static 'turtles/settings.png' %}" width='23' height='23' id = 'settings' alt= 'Settings gear'></a>
+            </div>
+            <!-- creates navigation bar for all website pages -->
+            <div class="topnav">
+                {% with alert=0 %}
+                <a class="{{ home_act }}" href="{% url 'home' alert %}">Home</a>
+                {% endwith %}
+                <a class="{{ about_act }}" href="{% url 'about' %}">About</a>
+                <a class="{{ current_act }}" href="{% url 'current' %}">Current Turtles</a>
+                <a class="{{ released_act }}" href="{% url 'released' %}">Released Turtles</a>
+                <a class="{{ contact_act }}" href="{% url 'contact' %}">Contact</a>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

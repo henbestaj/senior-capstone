@@ -1,0 +1,49 @@
+<!--*******************************************************************************************************************************
+   File Name: deleted.html
+   Purpose:
+     * shows the user different R groups of deleted turtles, sorted by year
+     * links from clicking the deleted turtles button on released.html
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: current_style.css-->
+
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Deleted Turtles</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="current">
+    {% if Turtle|length == 0 %}
+    <div class="current-title">
+        <head>No Turtles Have Been Deleted at This Time, Sorry!</head>
+    </div>
+    {% else %}
+    <div class="center-box">
+        <div class="current-title">
+                <head>Deleted Turtles</head>
+        </div>
+                <br>
+                {% for year in years %}
+                <h2>{{ year }}</h2>
+                    <div class="current-table">
+                        <!-- sorts table by R group and year -->
+                            {% for r_num in r_nums %}
+                            <!-- displays individual turtles by R group and year -->
+                                {% if r_num.1 == year %}
+                                <a href="{% url 'current_r_deleted' r_num.2 r_num.0 year %}" class = "rnum">R Group {{ r_num.0 }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+        
+    </div>
+    <!-- redirected user to last opened page -->
+    <a onclick = "history.back()" id="Go-Back">Go Back</a>
+</div>
+{% endblock %}

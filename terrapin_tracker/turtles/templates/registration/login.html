@@ -1,0 +1,34 @@
+<!--*******************************************************************************************************************************
+   File Name: forgot.html
+   Purpose:
+     * allows the user to login with a correct username and password
+  ******************************************************************************************************************************* -->
+
+<!--stylesheet: login_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Log In</title>
+<link rel="stylesheet" href="{% static 'turtles/login_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id = "center-box">
+  <h1 id= heading>Log In</h1>
+  {% if user.is_authenticated %}
+  You are already logged in!
+  {% else %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+  </form>
+  <!-- links to the sign up page -->
+  <a href = "{% url 'signup' %}" class="update-info">No account? Sign up here.</a>
+  <br>
+  <!-- links to the forget page -->
+  <a href = "{% url 'forgot' %}"class = update-info>Forgot your username and/or password? Click here.</a>
+  {% endif %}
+</div>
+{% endblock %}

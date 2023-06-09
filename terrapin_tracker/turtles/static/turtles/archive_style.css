@@ -1,0 +1,96 @@
+/*******************************************************************************************************************************
+   File Name: archive_style.css
+   Purpose:
+     * Styles the MassArchive.html page
+     * Formats text, checkboxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+.center-box{
+    width:80%;
+    margin:20px auto ;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* formats checkboxes to automatically update when turtles are added/removed */
+/*  uses grid format to fill rows of 5 before creating a new row */
+#id_r_num_field{
+    overflow:visible;
+    margin: auto;
+    background-color: none;
+    padding-bottom:40px;
+    text-align:left;
+    border-spacing: 15px 15px;
+    display:grid;
+    grid-template-areas:"r r r r r r";
+    grid-auto-flow: row;
+    row-gap: 20px;
+    column-gap: 40px;
+}
+
+#id_individual_turtles{
+    overflow:visible;
+    margin: auto;
+    padding-bottom: 40px; 
+    background-color: none;
+    text-align: left;
+    border-spacing: 15px 15px;
+    display:grid;
+    grid-template-areas:"r r r r r";
+    grid-auto-flow: row;
+    row-gap: 20px;
+    column-gap: 40px;
+}
+/* formats go back and archive buttons */
+#nav_buttons{
+    grid-area: nav_buttons;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width:100%;
+}
+
+#goback, #archive {
+    background-color: rgb(26,82,94);
+    border-radius: 10px;
+    height: 20%;
+    width: 40%;
+    display: block;
+    text-align: center;
+    text-justify: center;
+    border-color: rgb(26,82,94);
+    color:white;
+    font-size: 15px;
+    margin-top:25px;
+    margin-bottom:10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    text-decoration: none;
+  }
+  
+  /* formats buttons for when user hovers over/clicks them */
+  #goback:hover, #archive:hover{
+      cursor:pointer;
+      background-color:rgb(45, 125, 143);
+      text-decoration: underline;
+    
+    }
+#goback:active, #archive:active {
+      background-color:rgb(65, 145, 163);
+      color: black;
+      text-decoration: none;
+    }
+
+p label{
+    text-align: right;
+    font-size: 20px;
+    text-decoration: underline;}

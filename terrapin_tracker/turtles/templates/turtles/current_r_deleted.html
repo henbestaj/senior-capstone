@@ -1,0 +1,75 @@
+<!--*******************************************************************************************************************************
+   File Name: current_r_deleted.html
+   Purpose:
+     * shows the user a table of measurements for deleted turtle in active R groups
+  ******************************************************************************************************************************* -->
+
+
+<!-- stylesheet: current_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Measurement History</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if no_turtles %}
+<div class="current-title">
+    <head>No Measurements Are Available for Turtles in This R Group, Sorry!</head>
+</div>
+{% else %}
+<div class="current-title">
+    <head>Measurements</head>
+</div>
+<div class="current">
+    <div class="table-box">
+        <table class="measurement-table">
+            <!-- creates table of deleted turtles by R group -->
+            <thead>
+                <tr>
+                    <!-- creates table columns -->
+                    <th>Date</th>
+                    <th>Turtle</th>
+                    <th>Carapace Length</th>
+                    <th>Carapace Width</th>
+                    <th>Plastron Length</th>
+                    <th>Carapace Height</th>
+                    <th>Mass</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- creates table rows -->
+                {% for measurement in Measurement %}
+                <!-- displays only deleted measurements within the R group -->
+                {% if measurement.turtle.r_num == r and measurement.turtle.year_archived == year_archived and measurement.turtle.valid_to.year == year_deleted %}
+                    <tr>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.date }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.display_turtle }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.carapace_length }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.carapace_width }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.plastron_length }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.carapace_height }}</a></td>
+                        <td><a href = "{% url 'MeasurementHistory' measurement.id  %}">{{ measurement.mass }}</a></td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+<div class="current-title">
+    <head>Turtle History</head>
+</div>
+<div class="turtles">
+    {% for turtle in unique_turtles %}
+    <!-- links to individual turtle history -->
+    <a href = "{% url 'TurtleHistory' turtle.id  %}" class="turtle-link">{{ turtle }}</a>
+    {% endfor %}
+</div>
+<br><br>
+<!-- redirects user to last opened page -->
+<a onclick = "history.back()" id="Go-Back">Go Back</a>
+{% endblock %}

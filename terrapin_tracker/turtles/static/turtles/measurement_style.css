@@ -1,0 +1,165 @@
+/*******************************************************************************************************************************
+   File Name: measurement_style.css
+   Purpose:
+     * Styles the newmeasurementcreateform.html page
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+#center-box{
+    width: 60%;
+    height: 65%;
+    margin: 20px auto 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+}
+/* uses grid format to correctly space elements */
+form{
+    display:grid;
+    grid-template-areas: "error error"
+                         "date id_r_num"
+                         "carapace_length carapace_width"
+                         "carapace_height plastron_lenth"
+                         "mass mass"
+                         "goBack update";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr, repeat(5, 1fr);
+    padding: 15px
+}
+#heading{
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    margin:5px auto;
+} 
+/* styles error list */
+li.error::marker {
+    color: #eee;
+    margin-left: 300px;
+}
+
+.errorlist {
+    color: #eee;
+    grid-area: error;
+} 
+
+
+
+.error_list {
+    grid-area: error;
+    background-color: rgb(65, 145, 163);
+    display: block;
+    width: 63%;
+    margin: 10px 0px 10px 150px;
+    padding-left: 0px;
+    text-align: center;
+    padding-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    
+}
+
+/*aligns the label element to the left but on top of the input element*/
+label{
+    text-align: left;
+    width: 80%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+    text-indent: 5px;
+}
+
+/*centers element within grid space*/  
+/* places elements in correct locations on grid */
+#id_r_num{
+    grid-area: id_r_num;
+}
+#id_date{
+    grid-area: date;
+}
+#id_carapace_length{
+    grid-area: carapace_length;
+    display: block;
+    align-items: center;
+}
+#id_carapace_width{
+    grid-area: carapace_width;
+    display: block;
+}
+#id_carapace_height{
+    grid-area: carapace_height;
+    display: block;
+}
+#id_plastron_length{
+    grid-area: plastron_length;
+    display: block;
+}
+#id_mass{
+    display: block;
+    grid-area: span 2;
+    width:40%
+}
+#goBack{
+    grid-area: goBack;
+}
+#update{
+    grid-area: update;
+}
+
+p{
+    color:black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:10px;
+}
+
+p:has(#id_mass){
+    grid-area:mass;
+    width:100%;
+}
+
+p:has(#id_mass) > label{
+    width: 100%;
+    text-indent: 31%;
+}
+input, select{
+    width: 80%;
+    height:30px;
+    text-size-adjust: 20px;
+}
+/* formats page buttons */
+button {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:15px auto 10px;
+    display: block;
+    width:80%;
+    height: 50px;
+}
+/* formats error list elements */
+::marker{
+    list-style: none;
+    padding:0px;
+}
+
+li{
+    text-align: center;
+  }
+
+/*hides bullets in the list*/
+ul{
+    list-style: none;
+    padding:0px;
+    color:rgb(65, 145, 163);
+}

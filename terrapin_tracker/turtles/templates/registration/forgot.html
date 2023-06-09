@@ -1,0 +1,29 @@
+<!--*******************************************************************************************************************************
+   File Name: forgot.html
+   Purpose:
+     * allows the user to recover a forgotten username and password
+     * sends an email to the user containing their username and a temporary password
+  ******************************************************************************************************************************* -->
+
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Forgot Username and/or Password</title>
+<link rel="stylesheet" href="{% static 'turtles/login_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id = "center-box">
+  <h1 id= heading>Forgot Username and/or Password</h1>
+  {% if user.is_authenticated %}
+  Please log out if you would like to retrieve your username and password.
+  {% else %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" id = confirm>Confirm</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,190 @@
+/*******************************************************************************************************************************
+   File Name: signup_style.css
+   Purpose:
+     * Styles the signup.html pages
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+#center-box{
+    width: 80%;
+    height: 75%;
+    margin: 40px auto 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    display: grid;
+    /* uses grid format to correctly space elements */
+    grid-template-areas:"heading heading"
+                        "personal-info set-password"
+                        "form form";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 6fr;
+                        
+}
+.log {
+    display: inline-block;
+    margin-left: 400px;
+    width: 70%;
+}
+/* formats errors */
+li.error::marker {
+    color: #eee;
+    margin-left: 300px;
+}
+.errorlist {
+    color: #eee;
+} 
+
+.error_list {
+    grid-area: error;
+    display: block;
+    background-color: rgb(65, 145, 163);
+    width: 63%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    text-align: center;
+    padding-right: 130px;
+    
+}
+
+
+#heading{
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    grid-area: heading;
+    margin:5px auto;
+}
+h2{
+    margin-bottom: 0px;
+}
+
+p{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+}
+/* formats signup boxes */
+#personal-info{
+    grid-area: personal-info;
+    text-align: center;
+    color:#333;
+}
+#set-password{
+    grid-area: set-password;
+    text-align: center;
+    color:#333;
+}
+form{
+    grid-area: form;
+    display: grid;
+    /* creates a second grid for just form elements */
+    grid-template-areas:"error error"
+                        "email password-1"
+                        "first-name password-2"
+                        "last-name ul"
+                        "username ul"
+                        "go-back submit";
+    grid-template-columns: 1fr 1fr;
+    grid-template: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+
+label{
+margin-right: auto;
+margin-left: 11%;
+
+}
+/* places form elements within the grid */
+#email-info{
+    grid-area: email-info;
+    text-align: center;
+    color:#333; 
+    margin:3px auto 10px
+}
+p:has(#id_email){
+    grid-area: email;
+    text-align: center;
+    color:#333;
+}
+p:has(#id_first_name){
+    grid-area: first-name;
+    text-align: center;
+    color:#333;
+}
+p:has(#id_last_name){
+    grid-area: last-name;
+    text-align: center;
+    color:#333;
+}
+
+p:has(#id_username){
+    color:#333;
+    grid-area:username;
+    text-align: center;
+    align-items: center;
+}
+
+.helptext{
+    font-size: 14px;
+}
+#go-back{
+    grid-area: go-back;
+    text-align: center;
+}
+/* formats error list elements */
+ul{
+    padding:0px;
+    grid-area: ul;
+    width:80%;
+    display:inline-block;
+    padding-left: 20%;
+}
+li{
+    font-size: 14px;
+}
+p:has(#id_password1){
+    color:#333;
+    align-items: center;
+    grid-area: password-1;
+}
+
+p:has(#id_password2){
+    color:#333;
+
+    align-items: center;
+
+    grid-area:password-2
+}
+
+input{
+    width: 80%;
+    height: 30px;
+}
+
+/* formats signup button */
+#sign-up{
+    grid-area: submit;
+    text-align: center;
+}
+button {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:auto auto 10px;
+    display: block;
+    width:70%;
+    margin-top: 10px;
+  }
+

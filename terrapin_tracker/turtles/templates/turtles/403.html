@@ -1,0 +1,18 @@
+<!--*******************************************************************************************************************************
+   File Name: 403.html
+   Purpose:
+     * creates a 403 Forbidden error page
+  ******************************************************************************************************************************* -->
+
+
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>403 Error</title>
+<link rel="stylesheet" href="{% static 'turtles/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="numerror">403 Forbidden</h2>
+{% endblock %}

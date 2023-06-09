@@ -1,0 +1,18 @@
+<!--*******************************************************************************************************************************
+   File Name: 400.html
+   Purpose:
+     * creates a 400 Bad Request error page
+  ******************************************************************************************************************************* -->
+
+
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>400 Error</title>
+<link rel="stylesheet" href="{% static 'turtles/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="numerror">400 Bad Request</h2>
+{% endblock %}

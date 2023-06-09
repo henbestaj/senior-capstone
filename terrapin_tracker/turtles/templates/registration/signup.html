@@ -1,0 +1,45 @@
+<!--*******************************************************************************************************************************
+   File Name: signup.html
+   Purpose:
+     * allows user to create an account with ocvts email, name, username, and password
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: signup_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Sign Up</title>
+<link rel="stylesheet" href="{% static 'turtles/signup_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id = "center-box">
+  <h1 id= heading>Sign Up</h1>
+  {% if user.is_authenticated %}
+  <p class="log">Please log out if you would like to create a new account.</p>
+  {% else %}
+  <h2 id="personal-info">Personal Info</h2>
+  <h2 id="set-password">Set Password</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- puts errors into list for styling -->
+        {% if form.errors %}
+      <ol class = error_list>
+        {% for key,value in form.errors.items %} 
+        <li class="error">{{ value|escape }}</li>
+        {% endfor %}
+      </ol>
+        {% endif %} 
+        <!-- form will not submit and trigger an error if one of the conditions is not met -->
+    <ul class="form"><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>
+    <button type="submit" id= sign-up>Sign Up</button>
+    <!-- redirects user to the last page opened -->
+    <button id = 'go-back' value="button" onclick = "history.back()">Go Back</button>
+
+  </form>
+  {% endif %}
+</div>
+{% endblock %}

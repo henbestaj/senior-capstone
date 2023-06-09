@@ -1,0 +1,28 @@
+<!--*******************************************************************************************************************************
+   File Name: contactsent.html
+   Purpose:
+     * Page redirects user here after clicking submit button on contact.html
+     * provides the user with a confirmation message that their email has been sent
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: contact_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>Contact</title>
+<link rel="stylesheet" href="{% static 'turtles/contact_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!--shows user confirmation of email sent-->
+<div class="message">
+<br>
+<p class="sent">Your message has been sent!</p>
+<p class="sent">Thank you for contacting us!</p>
+<br>
+</div>
+<!-- redirects back to the main contact page -->
+<a href="{% url 'contact' %}" id="goback">Go back</a>
+
+{% endblock %}

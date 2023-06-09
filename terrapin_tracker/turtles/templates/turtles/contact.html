@@ -1,0 +1,27 @@
+<!--*******************************************************************************************************************************
+   File Name: contact.html
+   Purpose:
+     * provides a form to give users the ability to report any issues/bugs with the site
+     * Submitting the form will send an email to team members containing form input from terripintrackercontact@gmail.com
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet:contact_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>Contact</title>
+<link rel="stylesheet" href="{% static 'turtles/contact_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- form to send email to site owners-->
+<div class="container">
+    <h3 style="text-align: center; font-size: 30px; font-weight: bold;">Contact Us</h3>
+    <form action="/contact/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" id=submit>
+    </form>
+  </div>
+{% endblock %}

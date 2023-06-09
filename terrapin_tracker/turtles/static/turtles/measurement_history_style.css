@@ -1,0 +1,174 @@
+/*******************************************************************************************************************************
+   File Name: measurement_history_style.css
+   Purpose:
+     * Styles the MeasurementHistory.html page
+     * Formats text, input boxes, tables, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+#current{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#center-box{
+    width: 60%;
+    height: 75%;
+    margin: 20px auto 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    
+    
+}
+/* uses grid to space elements correctly */
+form{
+    display:grid;
+    width:100%;
+    grid-template-areas: "error error"
+                         "turtle date"
+                         "carapace_length carapace_width"
+                         "carapace_height plastron_length"
+                         "mass mass"
+                         "nav nav";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+#heading{
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    margin:5px auto;
+} 
+
+#nav{
+    grid-area:nav;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+}
+/* formats history boxes */
+/* places form elements in correct locations on grid */
+p:has(#id_date){
+    grid-area:date;
+}
+p:has(#id_turtle){
+    grid-area:turtle;
+}
+
+p:has(#id_carapace_length){
+    grid-area:carapace_length;
+}
+
+p:has(#id_carapace_width){
+    grid-area:carapace_width;
+}
+p:has(#id_carapace_height){
+    grid-area:carapace_height;
+}
+p:has(#id_plastron_length){
+    grid-area:plastron_length;
+}   
+p:has(#id_mass){
+    grid-area:mass;
+}
+/* formats page buttons */
+#submitbtn, #goBack, #nav-delete{
+    background-color: rgb(26,82,94);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:15px auto 10px;
+    width:40%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+
+/* formats errors */
+
+li.error::marker {
+    color: #eee;
+    margin-left: 300px;
+}
+
+.errorlist {
+    color: #eee;
+    grid-area: error;
+} 
+
+
+
+.error_list {
+    grid-area: error;
+    background-color: rgb(65, 145, 163);
+    display: block;
+    width: 63%;
+    margin: 0px 0px 0px 150px;
+    padding-left: 0px;
+    text-align: center;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    
+}
+
+label{
+    text-align: left;
+    width: 80%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+    text-indent: 5px;
+}
+
+input, select{
+    display:block;
+    width: 80%;
+    height:30px;
+    text-size-adjust: 20px;
+    
+}
+
+p{
+    color:black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:0px;
+}
+/* formats table */
+.table-box2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin:auto;
+}
+table {
+    border-spacing: 10px 1px;
+    margin-bottom:30px;
+    width:90%;
+
+}
+  table td {
+    margin: 1px 10px 1px 10px;
+    align-items: center;
+    align-content: center;
+    border-bottom: 1px black solid;
+    text-align: center;
+  }
+
+

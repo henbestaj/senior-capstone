@@ -1,0 +1,48 @@
+<!--*******************************************************************************************************************************
+   File Name: home.html
+   Purpose:
+     * first page the user sees when entering website, displays brief description and graphs of all current turtle data
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: current_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>TerrapinTracker</title>
+<link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated and alert == 1 %}
+<div class="alert">
+    <!-- creates a welcome message that can be closed by user -->
+    <div class="alertmsg">
+        <h1>Hello {{ user.first_name }}!</h1>
+    </div>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+</div>
+{% endif %}
+    
+</div>
+<div class = "welcome">
+      <h1>Welcome to Terrapin Tracker!</h1>
+      <p class = description>This website was built for Project Terrapin to keep track of hatchling measurements. This homepage consists of graphs for all active turtles. To view individual R group graphs and data, please visit the Current Turtles page.
+      To view any information on previous turtles from past years, please visit the Released Turtles page.</p>
+      <p class = description>Project Terrapin members: you may add turtles or measurements through the Current Turtles page once logged in.</p>
+    </div>
+<div class = graphs>
+    <br>
+    <br>
+    <h2 class="gtext">Measurement Graphs</h2>
+    <!-- displays general graphs -->
+    <br>
+    <div class="graphimage">
+    <img src="{% static path9 %}" alt="Length by Width Scatterplot" class = "graph" style="width:30%"> <img src="{% static path10 %}" alt="Length by Width KDE" class = "graph" style="width:30%"> <img src="{% static path11 %}" alt="Length by Date Boxplot" class = "graph" style="width:30%">
+    <img src="{% static path12 %}" alt="Length by Height Scatterplot" class = "graph" style="width:30%"> <img src="{% static path13 %}" alt="Length by Height KDE" class = "graph" style="width:30%"> <img src="{% static path14 %}" alt="Height by Date Boxplot" class = "graph" style="width:30%">
+    <img src="{% static path15 %}" alt="Length by R Group Barplot" class = "graph" style="width:30%"> <img src="{% static path16 %}" alt="Width by R Group Barplot" class = "graph" style="width:30%"> <img src="{% static path17 %}" alt="Height by R Group Barplot" class = "graph" style="width:30%">
+    </div>
+    <h2 class="gtext tleft"> </h2>
+</div>
+{% endblock %}

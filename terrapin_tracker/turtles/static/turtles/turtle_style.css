@@ -1,0 +1,248 @@
+/*******************************************************************************************************************************
+   File Name: turtle_style.css
+   Purpose:
+     * Styles the massturtlecreateform.html and newturtlecreateform.html pages
+     * Formats text, input boxes, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+.center-box{
+    width: 60%;
+    height: 52%;
+    margin: 40px auto 30px;
+    padding: 50px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    
+}
+/*centers the heading inside of the centered box*/
+.formheading{
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}   
+p{
+    text-indent: 15%;
+    color:black;
+}
+
+/* styles form buttons */
+#id_r_num{
+    color:black;
+    width: 48%;
+    height:40px;
+    align-items: center;
+    display:flex;
+    margin:auto auto 20px;
+    text-indent: 0%;
+}
+p:has(#id_r_num) {
+    text-indent: 26%;
+}
+p:has(#id_hatchling_num){
+    text-indent: 26%;
+    margin-top: 50px;
+}
+#id_hatchling_num{
+    color:black;
+    width:48%;
+    height:40px;
+    align-items: center;
+    display:block;
+    margin:auto auto 10px;
+    margin-bottom: 50px;
+}
+/*Centers the div that contains two buttons*/
+#button-container{
+    text-align: center;
+}
+
+/*formats the two buttons with ids #goBack and #create to be next to each other*/
+#goBack, #create{
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 10%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:auto auto 10px;
+    display: inline-block;
+    width: 32.5%;
+    margin: 0px 15px;
+    margin-bottom: 30px;
+   
+}
+/* styles error list */
+::marker{
+    list-style: none;
+    padding:0px;
+}
+
+li{
+    color:red;
+    font-weight: bold;
+    text-align: center;
+  }
+
+/*hides bullets in the list*/
+ul{
+    list-style: none;
+    padding:0px;
+}
+
+.delete {
+    text-align: center;
+    align-items: center;
+}
+
+
+.deleteaccount {
+    text-align: center;
+    align-items: center;
+}
+
+.delete-box {
+    width: 60%;
+    height: 65%;
+    margin: 40px auto 30px;
+    padding: 10px 50px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* formats buttons */
+
+#admin-link {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 5%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:auto auto 10px;
+    display: inline-block;
+    width: 45%;
+    margin: 0px 5px;
+    text-decoration: none;
+}
+#submitbtn {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+    width: 26%;
+    text-align: center;
+    align-items: center;
+    margin-left: 320px;
+    margin-top: 30px;
+}
+
+#submitbtnsettings {
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+    width: 26%;
+    text-align: center;
+    align-items: center;
+    margin:auto auto 10px;
+    margin: 0px 15px;
+}
+/* styles hovered and clicked states for all buttons */
+#admin-link:hover, #goBack:hover, #create:hover, #submitbtn:hover {
+    cursor:pointer;
+    background-color:rgb(45, 125, 143);
+    text-decoration: underline;
+  
+  }
+  #admin-link:active, #goBack:active, #create:active, #submitbtn:active {
+    background-color:rgb(65, 145, 163);
+    color: black;
+    text-decoration: none;
+  }
+
+.settings {
+    margin-bottom: 45px;
+}
+
+ /* styles mass turtle create form */
+
+#multiple{
+    color:rgb(26,82,94);
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    margin-top:10px
+    
+}
+#multiple:hover{
+    color:rgb(45, 125, 143);
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.form_box{
+    display:grid;
+    /* uses grid to correctly space elements */
+    grid-template-areas: "error error"
+                         "start_r end_r"
+                         "start_num end_num"
+                         "nav_buttons nav_buttons";
+    grid-template-columns: 1fr 1fr ;
+    grid-template-rows: 0.5fr 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+}
+/* styles mass turtle create form boxes */
+/* places elements within the grid */
+.errorlist {
+    grid-area: error;
+}
+p:has(#id_r_num1){
+    grid-area: start_r;
+}
+p:has(#id_r_num2){
+    grid-area: end_r;
+}
+p:has(#id_hatchling_num1){
+    grid-area: start_num;
+}
+p:has(#id_hatchling_num2){
+    grid-area: end_num;
+}
+
+#nav_buttons{
+    grid-area: nav_buttons;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width:100%;
+}
+input{
+    width:100%;
+}
+
+#id_r_num1, #id_r_num2, #id_hatchling_num1, #id_hatchling_num2{
+    color:black;
+    width:80%;
+    height:40px;
+    align-items: center;
+    display:block;
+    margin:auto auto 10px;
+}

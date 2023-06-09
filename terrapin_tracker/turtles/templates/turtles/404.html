@@ -1,0 +1,18 @@
+<!--*******************************************************************************************************************************
+   File Name: 404.html
+   Purpose:
+     * creates a 404 Not Found error page
+  ******************************************************************************************************************************* -->
+
+
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>404 Error</title>
+<link rel="stylesheet" href="{% static 'turtles/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="numerror">404 Not Found</h2>
+{% endblock %}

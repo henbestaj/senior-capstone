@@ -1,0 +1,32 @@
+<!--*******************************************************************************************************************************
+   File Name: TurtleDelete.html
+   Purpose:
+     * confirms the user wants to delete a turtle using a slider
+     * links from clicking delete turtle button on TurtleHistory.html
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: delete_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Delete Turtle</title>
+<link rel="stylesheet" href="{% static 'turtles/delete_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!--confirms the user wants to delete a specific turtle from the logs-->
+<div class = "center-box">
+  <h1 class = "formheading">Delete Turtle {{ turtle }}?</h1>
+  <form method="POST" class = "">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id = "nav_buttons">
+      <button id = 'goBack'  type = "button" onclick = "history.back()">Cancel</button>
+      <button type="submit" value="Submit" id="delete">Delete</button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

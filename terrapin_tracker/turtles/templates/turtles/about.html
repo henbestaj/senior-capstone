@@ -1,0 +1,73 @@
+<!--*******************************************************************************************************************************
+   File Name: about.html
+   Purpose:
+     * Provides a general description of the project as well as the people working on it and their contact info
+     * Links to team member github accounts and emails
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: about_style.css -->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>About</title>
+<link rel="stylesheet" href="{% static 'turtles/about_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class = "about">
+  <div class="about-section">
+    <h1>About Us</h1>
+    <p class = description>    This website is used by Project Terrapin to avoid tracking the growth of hatchlings through spreadsheets; the data is directly input into the website by members.</p>
+    <p class = description>    Our project aims to help raise awareness of the dangers that face the Northern Diamondback Terrapin species. They are a keystone species in the Barnegat Bay, meaning they are essential to the survival of the ecosystem. Our website will hopefully inspire others to get involved in the protection of terrapins, and potentially let them track the growth of hatchlings they may have found, giving them a more personal connection to the turtle(s) they helped to save.</p>
+  </div>
+  <!-- creates information cards -->
+  <h2 style="text-align:center">Our Team</h2>
+  <div class="row">
+    <div class="column" id = "Angelo">
+      <div class="card">
+        <img src="{% static 'turtles/Angelo.png' %}" alt="Girolamo (Angelo) Amato" class = "profile_picture" style="width:100%">
+        <div class="container">
+          <h2>Angelo Amato</h2>
+          <p class="title">Marine Academy of Technology and Environmental Science Class of 2023</p>
+          <p>Boston University Class of 2027</p>
+          <p>Data Science Major</p>
+          <!-- creates link to github -->
+          <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/Angelo-2231"><button class="contact_button">GitHub</button></a></p>
+          <!-- opens the user's email app addressed to team member -->
+          <p><a target="_blank" rel="noopener noreferrer" href="mailto:gangeloamato@gmail.com"><button class="contact_button">Email</button></a></p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card" id = "Aidan">
+        <img src="{% static 'turtles/Aidan.png' %}" alt="Aidan Henbest" class = "profile_picture" style="width:100%">
+        <div class="container">
+          <h2>Aidan Henbest</h2>
+          <p class="title">Marine Academy of Technology and Environmental Science Class of 2023</p>
+          <p>Worcester Polytechnic Institute Class of 2027 </p>
+          <p>Data Science Major</p>
+          <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/henbestaj"><button class="contact_button">GitHub</button></a></p>
+          <p><a target="_blank" rel="noopener noreferrer" href="mailto:henbestaj@gmail.com"><button class="contact_button">Email</button></a></p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card" id = "Lisa">
+        <img src= "{% static 'turtles/Lisa.png' %}" alt="Lisa Hunt" class = "profile_picture" style="width:100%">
+        <div class="container">
+          <h2>Lisa Hunt</h2>
+          <p class="title">Marine Academy of Technology and Environmental Science Class of 2023</p>
+          <p>Brown University Class of 2027</p>
+          <p>Mathematics Major</p>
+          <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/lhiusnat"><button class="contact_button">GitHub</button></a></p>
+          <p><a target="_blank" rel="noopener noreferrer" href="mailto:lhiusnat@gmail.com"><button class="contact_button">Email</button></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

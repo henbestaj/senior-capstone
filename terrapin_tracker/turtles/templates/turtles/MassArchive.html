@@ -1,0 +1,31 @@
+<!--*******************************************************************************************************************************
+   File Name: MassArchive.html
+   Purpose:
+     * gives user the ability to archive multiple turtles individually or by r group when released
+     * displays checkboxes for users to select which turtles to archive
+     * links from archive button on current.html
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: archive_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Archive Multiple Turtles</title>
+<link rel="stylesheet" href="{% static 'turtles/archive_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class = "center-box">
+  <h1 class = "formheading">Archive Multiple Turtles</h1>
+  <form method="POST" class = "">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id = "nav_buttons">
+      <button id = 'goBack'  type = "button" onclick = "history.back()">Go Back</button>
+      <button type="submit" value="Submit" id="archive">Archive</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

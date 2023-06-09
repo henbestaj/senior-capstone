@@ -1,0 +1,92 @@
+/*******************************************************************************************************************************
+   File Name: about_style.css
+   Purpose:
+     * Styles the about.html page
+     * Formats text, images, and buttons on the about page
+     * Establishes color, alignment, and position of the page elements
+*******************************************************************************************************************************/
+
+h2{
+  text-decoration: underline;
+}
+.row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.column {
+  float: left;
+  width: 25%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+  margin-left:auto;
+  margin-right: auto;
+}
+/* formats information cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+/* styles information blurb */
+.about-section {
+  text-align: center;
+  background-color: rgb(26,82,94);
+  color: white;
+  margin: 20px auto 20px auto;
+  padding-bottom:20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:80%;
+  flex-direction: column;
+}
+p.description{
+  text-align: justify;
+  margin: 0;
+  width: 50%;
+  padding-bottom:5px;
+  text-indent: 25px;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: black;
+}
+/* formats buttons */
+.contact_button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: rgb(26,82,94);
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.contact_button:hover {
+  background-color: rgb(45, 125, 143);
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+/* formats images */
+.profile_picture{
+  height:90%;
+  width:auto;
+}

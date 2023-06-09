@@ -1,0 +1,31 @@
+<!--*******************************************************************************************************************************
+   File Name: massturtlecreateform.html
+   Purpose:
+     * allows user to create multiple turtles at once
+     * displays checkboxes for users to select which turtles to archive
+     * links from newturtlecreateform.html
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet:turtle_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Create New Turtles</title>
+<link rel="stylesheet" href="{% static 'turtles/turtle_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class = "center-box">
+  <h1 class = "formheading">Create Multiple New Turtles</h1>
+  <form method="POST" class = "form_box">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id = "nav_buttons">
+      <button id = 'goBack'  type = "button" onclick = "history.back()">Go back</button>
+      <button type="submit" value="Submit" id="create">Create</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

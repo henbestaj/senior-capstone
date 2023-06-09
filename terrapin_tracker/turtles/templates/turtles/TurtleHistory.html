@@ -1,0 +1,87 @@
+<!--*******************************************************************************************************************************
+   File Name: TurtleHistory.html
+   Purpose:
+     * Shows the measurement history of of a specific turtle
+     * Allows user to edit the R number and R group of the selected turtle
+     * links from clicking a specific turtle under Turtles in R Group on current_r.html
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: history_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+{% block head %}
+<title>Turtle History</title>
+<link rel="stylesheet" href="{% static 'turtles/history_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="current">
+    {% if not deleted %}
+    <form action="{% url 'TurtleHistory' id %}" method="post">
+        <h2>Edit Turtle</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div id ="nav-buttons">
+            <input type="submit" value="Submit" id=submitbtn>
+        </div>
+    </form>
+    {% endif %}
+    <div class="table-box">
+        <!-- creates table for turtles within the R group -->
+        <h2>Measurement History</h2>
+        <table class="measurement-table">
+            <thead>
+                <!-- creates table columns -->
+                <tr>
+                    <th>R Number</th>
+                    <th>Hatchling Number</th>
+                    <th>Archived?</th>
+                    <th>Year Archived</th>
+                    <th>Editor</th>
+                    <th>Valid From</th>
+                    <th>Valid To</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turtle in history %}
+                <!-- creates table rows -->
+                    <tr>
+                        <td>{{ turtle.r_num }}</td>
+                        <td>{{ turtle.hatchling_num }}</td>
+                        {% if turtle.archived %}
+                        <!-- displays 'yes' or 'no' in table -->
+                        <td>Yes</td>
+                        {% else %}
+                        <td>No</td>
+                        {% endif %}
+                        {% if turtle.year_archived == 0 %}
+                        <!-- displays year archived in table -->
+                        <td></td>
+                        {% else %}
+                        <td>{{ turtle.year_archived }}</td>
+                        {% endif %}
+                        <!-- displays the user who edited the turtle -->
+                        <td>{{ turtle.editor }}</td>
+                        <td>{{ turtle.valid_from }}</td>
+                        {% if turtle.valid_to == None %}
+                        <td></td>
+                        {% else %}
+                        <td>{{ turtle.valid_to }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="nav">
+        <!-- redirects user to the last page opened -->
+        <a id = 'Go-Back'  type = "button" onclick = "history.back()">Go Back</a>
+        {% if not deleted %}
+        <!-- links to delete turtle page -->
+        <a href="{% url 'TurtleDelete' id %}" id="nav-delete">Delete Turtle</a>
+        {% endif %}
+    </div>
+    
+</div>
+{% endblock %}

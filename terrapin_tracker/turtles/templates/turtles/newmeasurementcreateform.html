@@ -1,0 +1,50 @@
+<!--*******************************************************************************************************************************
+   File Name: newmeasurementcreateform.html
+   Purpose:
+     * allows the user to record a measurement for a specified turtle
+     * uses a dropdown to select the turtle
+     * links from clicking the new measurement button on current.html
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: measurement_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<title>New Turtle</title>
+<link rel="stylesheet" href="{% static 'turtles/measurement_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id = "center-box">
+  <h1 id = "heading">New Measurement</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if form.errors %}
+    <style>#center-box {height:77%}</style>
+    <!-- creates error list for styling -->
+      <ol class = error_list>
+        {% for key,value in form.errors.items %}
+          <ol class="error">{{ value|escape }}</ol>
+        {% endfor %}
+      </ol>
+        {% endif %}
+    <button type="submit" value="Submit" id = "update">Update</button>
+    <button id = 'goBack' value="button" onclick = "history.back()">Go Back</button>
+  </form>
+  <!--script tag that adds the text "(cm)" to the text inside the label tag-->
+  <script>
+    var label = document.getElementsByTagName("label");
+    for (var i = 2; i < label.length; i++) {
+      if(i!=label.length-1){
+        label[i].innerText = label[i].innerText.slice(0,-1)+" (mm):";
+      }else{
+        label[i].innerText = label[i].innerText.slice(0,-1)+" (g):";
+      }
+    }
+  </script>
+  
+</div>
+{% endblock %}

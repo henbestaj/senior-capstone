@@ -1,0 +1,52 @@
+<!--*******************************************************************************************************************************
+   File Name: current.html
+   Purpose:
+     * Gives user the option to download data, or create a new measurement/turtle instance
+     * The user can also use this page to view different R groups and archive turtles
+  ******************************************************************************************************************************* -->
+
+
+<!--stylesheet: current_style.css-->
+{% extends 'turtles/base.html' %}
+{% load static %}
+
+{% block head %}
+<head>
+  <title>Current Turtles</title>
+  <link rel="stylesheet" href="{% static 'turtles/current_style.css' %}">
+</head>
+{% endblock %}
+
+{% block content %}
+<div class="current">
+    <div class = "row-buttons">    
+        <!-- links to pages: create new turtle and create new measurement -->
+        <a href="{% url 'TurtleCreate' %}" class="turtle-button">New Turtle</a>
+        <a href="{% url 'MeasurementCreate' %}" class="turtle-button">New Measurement</a>
+        <!-- downloads current data csv to the user's device -->
+        <a href="{% url 'current_measurements.csv' %}" download="current_measurements.csv" class="turtle-button">Download Data</a>
+    </div>
+    {% if Turtle|length == 0 %}
+    <div class="current-title">
+        <head>There Are No Current Turtles at This Time, Sorry!</head>
+    </div>
+    {% else %}
+    <div class="center-box">
+        <div class="current-title">
+            <head>Current Turtles</head>
+        </div>
+        <div class="r">
+        <div class="current-table" id="r-table">
+            <!-- displays turtles in order by R number -->
+                {% for r_num in r_nums %}
+                <a href="{% url 'current_r' year_archived r_num  %}" class = "rnum">R Group {{ r_num }}</a>     
+                {% endfor %}
+        </div>
+        </div>
+    </div>
+    <!-- links to the mass turtle archive page -->
+    <a href="{% url 'massarchive'  %}" id = archive>Archive Turtles</a>
+    {% endif %}
+    
+{% endblock %}
+

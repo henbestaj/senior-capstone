@@ -1,0 +1,103 @@
+/*******************************************************************************************************************************
+   File Name: delete_style.css
+   Purpose:
+     * Styles the MeasurementDelete.html and TurtleDelete.html pages
+     * Formats text, sliders, and buttons on the page
+     * Establishes color, alignment, and position of page elements
+*******************************************************************************************************************************/
+
+.center-box{
+    width: 60%;
+    height: 40%;
+    margin: 40px auto 30px;
+    padding: 50px;
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/*centers the heading inside of the centered box*/
+.formheading{
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+#goBack, #delete{
+    background-color: rgb(26,82,94);
+    color: white;
+    padding: 15px 10%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin:auto auto 10px;
+    display: inline-block;
+    width: 32.5%;
+    margin: 0px 15px;
+
+}
+
+
+#nav_buttons{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width:100%;
+}
+
+form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* formats form boxes */
+p:has(input){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+label{
+    padding-bottom:10px;
+}
+/* formats checkbox and creates slider */
+input[type="checkbox"] {
+    width: 80px;
+    height: 40px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: gray;
+    border-radius: 20px;
+    position: relative;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  input[type="checkbox"]:checked {
+    background-color: red;
+  }
+  
+  input[type="checkbox"]::before {
+    content: "";
+    width: 36px;
+    height: 36px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.3s ease;
+  }
+  
+  input[type="checkbox"]:checked::before {
+    left: 42px;
+  }
