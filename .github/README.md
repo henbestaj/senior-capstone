@@ -41,7 +41,7 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Usage
-> A demo video for this project can be found at the following link: https://youtu.be/l0yu8ONMzVQ
+> A demo video for this project can be found at the following link: https://youtu.be/l0yu8ONMzVQ.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Roadmap
