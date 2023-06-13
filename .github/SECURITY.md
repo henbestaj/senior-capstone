@@ -1,5 +1,7 @@
-<h1 id="security-policy">Security Policy</h1>
+Security Policy
+===============
 
-<h2 id="reporting-a-vulnerability">Reporting a Vulnerability</h2>
+Reporting a Vulnerability
+-------------------------
 
-<p>To report a security issue, please email <a href="mailto:terrapintrackercontact@gmail.com">terrapintrackercontact@gmail.com</a> with a description of the issue, the steps you took to create the issue, affected versions, and, if known, mitigations for the issue. This project follows a 90 day disclosure timeline.</p>
+To report a security issue, please email [terrapintrackercontact@gmail.com](mailto:terrapintrackercontact@gmail.com) with a description of the issue, the steps you took to create the issue, affected versions, and, if known, mitigations for the issue. This project follows a 90 day disclosure timeline.
