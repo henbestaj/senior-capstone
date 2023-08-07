@@ -33,7 +33,6 @@
 >  - [![HTML5](https://img.shields.io/badge/html5-e54d26?style=for-the-badge&logo=html5&logoColor=white)](https://www.w3.org/html/)
 >  - [![CSS3](https://img.shields.io/badge/css3-2a65f1?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/)
 >  - [![MySQL](https://img.shields.io/badge/mysql-00618b?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
->  - [![AWS](https://img.shields.io/badge/AWS-ff9901?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Prerequisites
